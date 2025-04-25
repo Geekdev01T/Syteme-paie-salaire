@@ -15,7 +15,7 @@ StaffPay est une application web conçue pour gérer efficacement les salaires d
 ## Installation
 1. Clonez le dépôt :
    ```bash
-   git clone <url-du-repo>
+   git clone "https://github.com/Geekdev01T/Syteme-paie-salaire.git"
    cd projet-licence
 
 2. Installez les dépendances PHP avec Composer :
