@@ -29,8 +29,4 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
-    public function dashboard()
-    {
-        return view('dashboard');
-    }
 }
