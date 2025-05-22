@@ -3558,7 +3558,7 @@ fieldset:disabled .btn {
   --bs-btn-padding-y: 0.5rem;
   --bs-btn-padding-x: 1rem;
   --bs-btn-font-size: 1.25rem;
-  --bs-btn-border-radius: 0.5rem
+  --bs-btn-border-radius: 0.3rem
 }
 
 .btn-sm,
@@ -3566,7 +3566,7 @@ fieldset:disabled .btn {
   --bs-btn-padding-y: 0.25rem;
   --bs-btn-padding-x: 0.5rem;
   --bs-btn-font-size: 0.875rem;
-  --bs-btn-border-radius: 0.25rem
+  --bs-btn-border-radius: 0.2rem
 }
 
 .fade {
@@ -3621,12 +3621,14 @@ fieldset:disabled .btn {
 }
 
 .dropdown-toggle {
-  white-space: nowrap
+  white-space: nowrap;
 }
 
 .dropdown-toggle::after {
+position:absolute;
   display: inline-block;
-  margin-left: .255em;
+  left: 2.5em;
+  bottom: .5em;
   vertical-align: .255em;
   content: "";
   border-top: .3em solid;
@@ -4098,7 +4100,9 @@ fieldset:disabled .btn {
 }
 
 .nav-link {
-  display: block;
+  display: flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
   padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
   font-size: var(--bs-nav-link-font-size);
   font-weight: var(--bs-nav-link-font-weight);
@@ -12556,7 +12560,7 @@ fieldset:disabled .btn {
   }
 }
 
-/*!  
+/*!
  * Portal - Bootstrap 5 Admin Dashboard Template for Developers
  * Version: 2.1
  * Author: Xiaoying Riley
@@ -12682,8 +12686,8 @@ button.close:focus {
 
 .btn {
   font-weight: 600;
-  padding: .5rem 1rem;
-  font-size: .875rem;
+  padding: .6rem 2rem;
+  font-size: 1rem;
   border: none
 }
 
@@ -12803,28 +12807,30 @@ button.close:focus {
 
 .app-search-form {
   position: relative;
-  max-width: 600px
+  max-width: 600px;
+  display:flex;
 }
 
 .app-search-form .search-input {
   font-size: .875rem;
   border-radius: .25rem;
-  padding-right: 3rem;
-  padding-left: 1rem
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-bottom:1em;
 }
 
 .app-search-form .search-input:focus {
-  border-color: #e7e9ed
+  border-color: #e7e9ed;
 }
 
 .app-search-form .search-btn {
-  color: #828d9f;
+  color: #5d6778;
   background: none;
   border: none;
   position: absolute;
   right: 0;
   top: 0;
-  margin-right: 0;
+  margin-top: .4em;
   padding: .5rem 1rem
 }
 
@@ -12838,7 +12844,8 @@ button.close:focus {
 
 .app-utility-item {
   display: inline-block;
-  margin-right: 1.25rem
+  margin-right: 1.25rem;
+  margin-bottom:2em;
 }
 
 .app-utility-item:last-child {
@@ -12972,7 +12979,9 @@ button.close:focus {
 }
 
 .app-user-dropdown {
-  display: inline-block
+  display: inline-block;
+  margin-bottom:.5em;
+  margin-right: .5rem !important;
 }
 
 .app-user-dropdown img {
@@ -12997,7 +13006,10 @@ button.close:focus {
     cursor: pointer;
     -webkit-opacity: .8;
     -moz-opacity: .8;
-    opacity: .8
+    opacity: .8;
+    margin-bottom:1em;
+    width:1.8em;
+    height:1.8em;
   }
 
   .search-mobile-trigger:hover {
@@ -13033,7 +13045,7 @@ button.close:focus {
   }
 
   .app-search-box .app-search-form .search-btn {
-    top: 7px
+    top: 7px;
   }
 }
 
@@ -13082,6 +13094,10 @@ button.close:focus {
 
 .app-sidepanel.sidepanel-visible {
   left: 0
+}
+
+.toggle-menu{
+    margin-bottom:1.8em;
 }
 
 .app-sidepanel .app-nav-main {
@@ -13165,7 +13181,6 @@ button.close:focus {
 .app-nav .nav-icon {
   position: absolute;
   left: 1rem;
-  top: .7rem
 }
 
 .app-nav .nav-icon .bi {
@@ -13176,7 +13191,6 @@ button.close:focus {
 .app-nav .submenu-arrow {
   position: absolute;
   right: 1rem;
-  top: .7rem;
   color: #828d9f
 }
 
@@ -13305,7 +13319,7 @@ button.close:focus {
   min-height: 100vh;
   height: 100%;
   width: 100%;
-  background: #f5f6fe;
+  background: #f7faf9;
   padding-top: 56px;
   overflow-x: hidden
 }

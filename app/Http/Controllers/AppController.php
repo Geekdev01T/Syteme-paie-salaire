@@ -12,6 +12,9 @@ class AppController extends Controller
 
     public function dashboard()
     {
+        //Title of the page
+        $title = 'Dashboard';
+
         // Total number of departments
         // Assuming you have a Department model and it is already imported
 
@@ -27,7 +30,7 @@ class AppController extends Controller
 
         return view(
             'dashboard',
-            compact('TotalDepartments', 'TotalEmployes', 'TotalAdmins')
+            compact('title','TotalDepartments', 'TotalEmployes', 'TotalAdmins')
         );
     }
 }

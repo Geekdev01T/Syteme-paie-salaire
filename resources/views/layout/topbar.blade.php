@@ -4,7 +4,7 @@
                     <div class="row justify-content-between align-items-center">
 
                         <div class="col-auto">
-                            <a id="sidepanel-toggler" class="sidepanel-toggler d-inline-block d-xl-none" href="#">
+                            <a id="sidepanel-toggler" class="sidepanel-toggler toggle-menu d-inline-block d-xl-none" href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                     viewBox="0 0 30 30" role="img">
                                     <title>Menu</title>
@@ -146,7 +146,7 @@
                             <div class="app-utility-item app-user-dropdown dropdown">
                                 <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown"
                                     href="#" role="button" aria-expanded="false"><img
-                                        src="assets/images/user.png" alt="user profile"></a>
+                                        src="{{asset('assets/images/user.png')}}" alt="user profile"></a>
                                 <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
                                     <li><a class="dropdown-item" href="account.html">Account</a></li>
                                     <li><a class="dropdown-item" href="settings.html">Settings</a></li>
