@@ -140,6 +140,11 @@ h2,
   font-size: calc(1.325rem + 0.9vw)
 }
 
+.textarea{
+    resize:none;
+    height:8em !important;
+}
+
 @media(min-width: 1200px) {
 
   h2,

@@ -8,32 +8,31 @@
 <body>
     @section('content')
         <div class="container-xl">
-            <h1 class="app-page-title">Employers</h1>
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            <h1 class="app-page-title">Employees</h1>
             <hr class="mb-4">
             <div class="row g-4 settings-section">
                 <div class="col-12 col-md-2">
-                    <h3 class="section-title">Add</h3>
-                    <div class="section-intro">add a new employer here</div>
+                    <h3 class="section-title">Edit</h3>
+                    <div class="section-intro">Edit employee here</div>
                 </div>
                 <div class="col-12 col-md-10">
                     <div class="app-card app-card-settings shadow-sm p-4">
 
                         <div class="app-card-body">
-                            <form class="settings-form" method="POST">
+                            <form class="settings-form" action="{{ route('employer.update', $employer->id) }}" method="POST">
+                                @method('PUT')
                                 @csrf
-                                <div class="mb-3">
-                                    <label for="id_departement" class="form-label">Department *</label>
-                                    <select class="form-select" id="id_departement" name="id_departement" required>
-                                        <option value="">Select a department</option>
-                                    </select>
-                                    @error('id_departement')
-                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                    @enderror
-                                </div>
 
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Name *<span class="ms-2" data-container="body"
-                                            data-bs-toggle="popover" data-trigger="hover" data-placement="top"
+                                    <label for="name" class="form-label">Name *<span class="ms-2"
+                                            data-container="body" data-bs-toggle="popover" data-trigger="hover"
+                                            data-placement="top"
                                             data-content="This is a Bootstrap popover example. You can use popover to provide extra info."><svg
                                                 width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle"
                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -46,41 +45,53 @@
                                                 <circle cx="8" cy="4.5" r="1"></circle>
                                             </svg></span></label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="enter the employer's name" value="{{ old('name') }}" required>
+                                        placeholder="enter the employee's name" value="{{ $employer->name }}">
                                     @error('name')
-                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        <div class="text text-danger mt-2">{{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="first_name" class="form-label">First Name *</label>
                                     <input type="text" class="form-control" id="first_name" name="first_name"
-                                        placeholder="enter the employer's first name" value="{{ old('first_name') }}"
-                                        required>
+                                        placeholder="enter the employee's first name" value="{{ $employer->first_name }}">
                                     @error('first_name')
-                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email *</label>
                                     <input type="email" class="form-control" id="email" name="email"
-                                        placeholder="enter the employer's email" value="{{ old('email') }}" required>
+                                        placeholder="enter the employee's email" value="{{ $employer->email }}">
                                     @error('email')
-                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="contact" class="form-label">Contact *</label>
                                     <input type="tel" class="form-control" id="contact" name="contact"
-                                        placeholder="enter the employer's contact" value="{{ old('contact') }}" required>
+                                        placeholder="enter the employee's contact" value="{{ $employer->contact }}">
                                     @error('contact')
-                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                        <p class="text text-danger mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="status" class="form-label">Status *</label>
+                                    <select class="form-control" name="status" id="status">
+                                        <option value="intermittent"
+                                            {{ $employer->status == 'intermittent' ? 'selected' : '' }}>Intermittent
+                                        </option>
+                                        <option value="permanent" {{ $employer->status == 'permanent' ? 'selected' : '' }}>
+                                            Permanent</option>
+                                    </select>
+                                    @error('status')
+                                        <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
 
-                                <button type="submit" class="btn app-btn-primary">Save</button>
+                                <button type="submit" class="btn app-btn-primary">Update</button>
                             </form>
                         </div><!--//app-card-body-->
 

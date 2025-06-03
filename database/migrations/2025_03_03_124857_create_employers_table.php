@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
             $table->string('name',255);
-            $table->string('surname', 255);
+            $table->string('first_name', 255);
             $table->string('email', 255);
             $table->string('contact', 255);
-            $table->string('adress', 255);
-            $table->unsignedBigInteger('departement_id');
-            $table->foreign('departement_id')->references('id')->on('departements');
+            $table->enum('status', ['permanent', 'intermittent'])->default('intermittent');
             $table->integer('daily_amount')->nullable();
             $table->timestamps();
         });

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -24,11 +25,26 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/dashboard', [AppController::class, 'dashboard'])->name('dashboard');
 
-    //Groupes de routes pour les employeurs
-    Route::prefix('employer')->group(function () {
+    //Groupes de routes pour les employes
+    Route::prefix('employers')->group(function () {
         Route::get('/', [EmployerController::class, 'index'])->name('employer.index');
         Route::get('/create', [EmployerController::class, 'create'])->name('employer.create');
+        Route::post('/create', [EmployerController::class, 'store'])->name('employer.store');
+        Route::delete('/{employer}', [EmployerController::class, 'delete'])->name('employer.delete');
+        Route::get('/show/{employer}', [EmployerController::class, 'show'])->name('employer.show');
         Route::get('/edit/{employer}', [EmployerController::class, 'edit'])->name('employer.edit');
+        Route::put('/update/{employer}', [EmployerController::class, 'update'])->name('employer.update');
+    });
+
+    //Groupes de routes pour les departements
+    Route::prefix('departments')->group(function () {
+        Route::get('/', [DepartmentController::class, 'index'])->name('department.index');
+        Route::get('/create', [DepartmentController::class, 'create'])->name('department.create');
+        Route::post('/create', [DepartmentController::class, 'store'])->name('department.store');
+        Route::delete('/{department}', [DepartmentController::class, 'delete'])->name('department.delete');
+        Route::get('/show/{department}', [DepartmentController::class, 'show'])->name('department.show');
+        Route::get('/edit/{department}', [DepartmentController::class, 'edit'])->name('department.edit');
+        Route::put('/update/{department}', [DepartmentController::class, 'update'])->name('department.update');
     });
 });
 

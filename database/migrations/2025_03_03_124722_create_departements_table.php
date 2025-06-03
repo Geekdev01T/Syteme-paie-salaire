@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('departements', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
-            $table->string('code', 255)->after('name');
-            $table->string('sexion', 255)->nullable()->after('code');
+            $table->string('name', 255)->unique();
+            $table->string('code', 255)->unique();
+            $table->enum('section', ['french','english'])->default('french');
+            $table->text('description');
             $table->timestamps();
         });
     }

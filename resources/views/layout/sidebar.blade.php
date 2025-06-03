@@ -45,10 +45,72 @@
                         <span class="nav-link-text">Orders</span>
                     </a><!--//nav-link-->
                 </li><!--//nav-item-->
+
                 <li class="nav-item has-submenu">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link submenu-toggle {{ str_contains($title, 'Employer') ? 'active' : '' }}" href="#" data-bs-toggle="collapse"
-                        data-bs-target="#submenu-1" aria-expanded="false" aria-controls="submenu-1">
+                    <a class="nav-link submenu-toggle {{ str_contains($title, 'Department') ? 'active' : '' }}"
+                        href="#" data-bs-toggle="collapse" data-bs-target="#submenu-2" aria-expanded="false"
+                        aria-controls="submenu-2">
+                        <span class="nav-icon">
+                            <!--//Hero Icons: https://heroicons.com -->
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4z">
+                                </path>
+                                <path
+                                    d="M6 0h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1H4a2 2 0 0 1 2-2z">
+                                </path>
+                            </svg>
+                            {{-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z">
+                                </path>
+                                <path fill-rule="evenodd"
+                                    d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z">
+                                </path>
+                            </svg> --}}
+                            {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="bi">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 4v4m0 8v4m0-4h4.5A2.5 2.5 0 0 0 19 13.5V12a2 2 0 0 0-2-2h-2m-3 4H5.5A2.5 2.5 0 0 1 3 13.5V12a2 2 0 0 1 2-2h2m5-2a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm6 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm-10 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
+                            </svg> --}}
+                            {{-- <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+                                <path d="M6.5 15V1.5a.5.5 0 0 1 1 0V15h1v-2.5a.5.5 0 0 1 1 0V15h1v-3.5a.5.5 0 0 1 1 0V15h1v-5.5a.5.5 0 0 1 1 0V15h.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H2V2.5a.5.5 0 0 1 1 0V15h1v-4.5a.5.5 0 0 1 1 0V15h1v-7.5a.5.5 0 0 1 1 0V15h1z"/>
+                            </svg> --}}
+                        </span>
+                        <span class="nav-link-text">Departments</span>
+                        <span class="submenu-arrow">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </span><!--//submenu-arrow-->
+                    </a><!--//nav-link-->
+
+                    <div id="submenu-2" class="collapse submenu submenu-2" data-bs-parent="#menu-accordion">
+                        <ul class="submenu-list list-unstyled">
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ $title == 'Departments' ? 'active' : '' }}"
+                                    href="{{ route('department.index') }}">List
+                                    Departments</a>
+                            </li>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ $title == 'Create Department' ? 'active' : '' }}"
+                                    href="{{ route('department.create') }}">Add
+                                    Department </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item has-submenu">
+                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                    <a class="nav-link submenu-toggle {{ str_contains($title, 'Employer') ? 'active' : '' }}"
+                        href="#" data-bs-toggle="collapse" data-bs-target="#submenu-1" aria-expanded="false"
+                        aria-controls="submenu-1">
                         <span class="nav-icon">
                             <!--//Hero Icons: https://heroicons.com -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -56,7 +118,6 @@
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                             </svg>
-
 
                         </span>
                         <span class="nav-link-text">Employes</span>
@@ -71,11 +132,15 @@
 
                     <div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
-                            <li class="submenu-item"><a class="submenu-link {{ $title == 'List Employer' ? 'active' : '' }}" href="{{ route('employer.index') }}">List
-                                    Employers</a>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ $title == 'List Employer' ? 'active' : '' }}"
+                                    href="{{ route('employer.index') }}">List
+                                    Employees</a>
                             </li>
-                            <li class="submenu-item"><a class="submenu-link {{ $title == 'Create Employer' ? 'active' : '' }}" href="{{ route('employer.create') }}">Add
-                                    Employer </a>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ $title == 'Create Employer' ? 'active' : '' }}"
+                                    href="{{ route('employer.create') }}">Add
+                                    Employee </a>
                             </li>
                         </ul>
                     </div>
