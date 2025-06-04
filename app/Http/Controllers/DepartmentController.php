@@ -63,12 +63,11 @@ class DepartmentController extends Controller
 
         //Recuperer les employers appartenant a ce departement
         // $employers = Employer::all()->where('departement_id', $department->id)->sortBy('name');
-        // dd($employers);
-        // $employers = $department->employers()->orderBy('name', 'asc')->get();
-        // $count = $department->employers()->count();
-        // dd($count);
+        $employes = $department->employes()->orderBy('name', 'asc')->get();
+        $count = $department->employes()->count();
 
-        return view('departments.show', compact('title', 'department',));
+
+        return view('departments.show', compact('title', 'department', 'count', 'employes'));
     }
 
     // Fonction pour afficher le formulaire de modification d'un département

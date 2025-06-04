@@ -9,7 +9,18 @@
     @section('content')
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
-
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <h1 class="app-page-title">Employer name : {{ $employer->name }}</h1>
                 <div class="row gy-4">
                     <div class="col-12 col-lg-6">
@@ -53,15 +64,14 @@
                                         <div class="col-auto">
                                             <div class="item-label"><strong>number departments</strong></div>
                                             <div class="item-data">
-                                                {{-- {{ str_pad($count, 2, '0', STR_PAD_LEFT) }} --}}
+                                                {{ str_pad($count, 2, '0', STR_PAD_LEFT) }}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="app-card-footer p-4 mt-auto">
-                                <a class="btn app-btn-secondary"
-                                    href="{{ route('employer.edit', $employer->id) }}">Edit</a>
+                                <a class="btn app-btn-secondary" href="{{ route('employer.edit', $employer->id) }}">Edit</a>
                                 <form action="{{ route('employer.delete', $employer->id) }}" method="POST"
                                     class="d-inline">
                                     @csrf
@@ -84,22 +94,31 @@
                             </div>
                             <div class="app-card-body px-4 w-100">
 
-                                {{-- @forelse ($employers as $employer)
+                                @forelse ($departements_lies as $departement_lie)
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Employer</strong></div>
+                                                <div class="item-label"><strong>Department</strong></div>
                                                 <div class="item-data">
-                                                    <a href="#">
-                                                        {{ $employer->name }}
+                                                    <a href="{{route('department.show', $departement_lie->id)}}">
+                                                        {{ $departement_lie->name }}
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Contact</strong></div>
+                                                <div class="item-label"><strong>Code</strong></div>
                                                 <div class="item-data">
-                                                    {{ $employer->contact }}
+                                                    {{ $departement_lie->code }}
                                                 </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <form action="{{route('employer.deletedep', $employer->id)}}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <input type="hidden" name="departement_id" value="{{$departement_lie->id}}">
+                                                    <button class="btn-sm app-btn-secondary" onclick="return confirm('do you really want to delete')">delete</button>
+                                                </form>
+
                                             </div>
                                         </div>
                                     </div>
@@ -108,12 +127,34 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>No members found</strong></div>
-                                                <div class="item-data">This department has no members yet.</div>
+                                                <div class="item-label"><strong>No department found</strong></div>
+                                                <div class="item-data">This employee does not belong to any department yet.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                @endforelse --}}
+                                @endforelse
+
+                                <form class="col-auto" style="margin-top: 1em;"
+                                    action="{{ route('employer.storedep', $employer->id) }}" method="post">
+                                    @csrf
+                                    <div class="col-auto mb-3">
+                                        <label for="department_name" class="form-label">Department Name</label>
+                                        <select style="padding:0 .5em;" class="form-control" name="departement_id"
+                                            id="department_name">
+                                            @forelse ($departments as $department)
+                                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                            @empty
+                                                <option value="">No departments available</option>
+                                            @endforelse
+                                        </select>
+                                        @error('departement_id')
+                                            <p class="text text-danger">{{$message}}</p>
+                                        @enderror
+
+                                        <button type="submit" style="margin-top: .5em"
+                                            class="btn app-btn-primary">Save</button>
+                                </form>
                             </div>
                         </div>
                     </div>

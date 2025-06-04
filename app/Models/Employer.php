@@ -15,7 +15,7 @@ class Employer extends Model
     /**
      * Les departements qui appartiennent a l"employe.
      */
-    public function employers(): BelongsToMany
+    public function departements(): BelongsToMany
     {
         return $this->belongsToMany(Departement::class);
     }

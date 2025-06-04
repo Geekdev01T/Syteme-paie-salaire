@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/', [EmployerController::class, 'index'])->name('employer.index');
         Route::get('/create', [EmployerController::class, 'create'])->name('employer.create');
         Route::post('/create', [EmployerController::class, 'store'])->name('employer.store');
+        Route::post('/store-depart/{employer}', [EmployerController::class, 'storedep'])->name('employer.storedep');
+        Route::delete('/delete-depart/{employer}', [EmployerController::class, 'deletedep'])->name('employer.deletedep');
         Route::delete('/{employer}', [EmployerController::class, 'delete'])->name('employer.delete');
         Route::get('/show/{employer}', [EmployerController::class, 'show'])->name('employer.show');
         Route::get('/edit/{employer}', [EmployerController::class, 'edit'])->name('employer.edit');

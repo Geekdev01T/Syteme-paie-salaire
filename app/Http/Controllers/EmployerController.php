@@ -60,13 +60,59 @@ class EmployerController extends Controller
         return redirect()->route('employer.index')->with('success', 'Employer successfully created.');
     }
 
+    // Fonction pour stocker un département pour un employé
+    public function storedep(Employer $employer, Request $request)
+    {
+        // Validation des données
+        // $request->validate([
+        //     'employer_id' => 'required|exists:employers,id|unique:departement_employer,employer_id',
+        //     'departement_id' => 'required|exists:departements,id|unique:departement_employer,departement_id',
+        // ]);
+
+        // Récupérer l'employé et le département
+        // $employer = Employer::findOrFail($request->employer_id);
+        $department = Departement::findOrFail($request->departement_id);
+
+        // Vérifie si la relation existe déjà
+        if ($employer->departements()->where('departement_id', $request->departement_id)->exists()) {
+            return redirect()->back()->with('error', 'This employee is already linked to this department.');
+        }
+
+        // Attacher le département à l'employé
+        // $employer->departements()->attach($department);
+        $employer->departements()->syncWithoutDetaching([$department->id]);
+
+        // Rediriger vers la liste avec un message de succès
+        return redirect()->back()->with('success', 'Department successfully added to employer.');
+    }
+
+    // Fonction pour detacher un departement a un employer
+    public function deletedep(Employer $employer, Request $request)
+    {
+        // $request->departement_id doit contenir l'ID du département à détacher
+        $employer->departements()->detach($request->departement_id);
+
+        return redirect()->back()->with('success', 'Department successfully detached employee.');
+    }
+
+
     // Fonction pour afficher un employer
     public function show(Employer $employer)
     {
         // Titre de la page
         $title = 'Show Employer';
 
-        return view('employers.show', compact('title', 'employer'));
+        // Récupérer les départements depuis la base de données
+        // Utilisation de la pagination pour limiter le nombre d'enregistrements affichés par page (10 par exemple)
+        // Remarque : la méthode orderBy doit être appelée avant paginate
+        $departments = Departement::orderBy('id', 'asc')->paginate(10);
+
+        // Récupère tous les départements liés à cet employé
+        $departements_lies = $employer->departements;
+
+        $count = $employer->departements()->count();
+
+        return view('employers.show', compact('title', 'employer', 'departments', 'count', 'departements_lies'));
     }
 
 
@@ -102,6 +148,6 @@ class EmployerController extends Controller
         $employer->delete();
 
         // Rediriger vers la liste avec un message de succès
-        return redirect()->back()->with('success', 'the department has been successfully deleted.');
+        return redirect()->route('employer.index')->with('success', 'the department has been successfully deleted.');
     }
 }

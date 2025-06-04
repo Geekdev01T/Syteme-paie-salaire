@@ -53,7 +53,7 @@
                                         <div class="col-auto">
                                             <div class="item-label"><strong>workforce</strong></div>
                                             <div class="item-data">
-                                                {{-- {{ str_pad($count, 2, '0', STR_PAD_LEFT) }} --}}
+                                                {{ str_pad($count, 2, '0', STR_PAD_LEFT) }}
                                             </div>
                                         </div>
                                     </div>
@@ -83,21 +83,21 @@
                             </div>
                             <div class="app-card-body px-4 w-100">
 
-                                {{-- @forelse ($employers as $employer)
+                                @forelse ($employes as $employe)
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Employer</strong></div>
                                                 <div class="item-data">
-                                                    <a href="#">
-                                                        {{ $employer->name }}
+                                                    <a href="{{route('employer.show', $employe->id)}}">
+                                                        {{ $employe->name }}
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Contact</strong></div>
                                                 <div class="item-data">
-                                                    {{ $employer->contact }}
+                                                    {{ $employe->contact }}
                                                 </div>
                                             </div>
                                         </div>
@@ -112,7 +112,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforelse --}}
+                                @endforelse
                             </div>
                         </div>
                     </div>
