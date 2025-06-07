@@ -90,6 +90,14 @@
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
+                                <div class="mb-3">
+                                    <label for="honorary" class="form-label">Honorary *</label>
+                                    <input type="number" class="form-control" id="honorary" name="honorary"
+                                        placeholder="enter the employee's honorary" value="{{ $employer->daily_amount }}">
+                                    @error('honorary')
+                                        <p class="text text-danger mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
 
                                 <button type="submit" class="btn app-btn-primary">Update</button>
                             </form>

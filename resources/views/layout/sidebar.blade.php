@@ -49,8 +49,8 @@
                 <li class="nav-item has-submenu">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                     <a class="nav-link submenu-toggle {{ str_contains($title, 'Department') ? 'active' : '' }}"
-                        href="#" data-bs-toggle="collapse" data-bs-target="#submenu-2" aria-expanded="false"
-                        aria-controls="submenu-2">
+                        href="#" data-bs-toggle="collapse" data-bs-target="#submenu-1" aria-expanded="false"
+                        aria-controls="submenu-1">
                         <span class="nav-icon">
                             <!--//Hero Icons: https://heroicons.com -->
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files"
@@ -90,7 +90,7 @@
                         </span><!--//submenu-arrow-->
                     </a><!--//nav-link-->
 
-                    <div id="submenu-2" class="collapse submenu submenu-2" data-bs-parent="#menu-accordion">
+                    <div id="submenu-1" class="collapse submenu submenu-2" data-bs-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
                             <li class="submenu-item"><a
                                     class="submenu-link {{ $title == 'Departments' ? 'active' : '' }}"
@@ -109,8 +109,8 @@
                 <li class="nav-item has-submenu">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                     <a class="nav-link submenu-toggle {{ str_contains($title, 'Employer') ? 'active' : '' }}"
-                        href="#" data-bs-toggle="collapse" data-bs-target="#submenu-1" aria-expanded="false"
-                        aria-controls="submenu-1">
+                        href="#" data-bs-toggle="collapse" data-bs-target="#submenu-2" aria-expanded="false"
+                        aria-controls="submenu-2">
                         <span class="nav-icon">
                             <!--//Hero Icons: https://heroicons.com -->
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -130,7 +130,7 @@
                         </span><!--//submenu-arrow-->
                     </a><!--//nav-link-->
 
-                    <div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
+                    <div id="submenu-2" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
                             <li class="submenu-item"><a
                                     class="submenu-link {{ $title == 'List Employer' ? 'active' : '' }}"
@@ -142,6 +142,53 @@
                                     href="{{ route('employer.create') }}">Add
                                     Employee </a>
                             </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item has-submenu">
+                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                    <a class="nav-link submenu-toggle {{ str_contains($title, 'State') ? 'active' : '' }}"
+                        href="#" data-bs-toggle="collapse" data-bs-target="#submenu-3" aria-expanded="false"
+                        aria-controls="submenu-3">
+                        <span class="nav-icon">
+                            <!--//Hero Icons: https://heroicons.com -->
+                            {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="bi size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+                            </svg> --}}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="bi size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                            </svg>
+
+                        </span>
+                        <span class="nav-link-text">State</span>
+                        <span class="submenu-arrow">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </span><!--//submenu-arrow-->
+                    </a><!--//nav-link-->
+
+                    <div id="submenu-3" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
+                        <ul class="submenu-list list-unstyled">
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ $title == 'Attendance State' ? 'active' : '' }}"
+                                    href="{{ route('state.index') }}">Attendance State</a>
+                            </li>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ $title == 'Late State' ? 'active' : '' }}"
+                                    href="{{ route('employer.create') }}">Late State</a>
+                            </li>
+                            <li class="submenu-item"><a
+                                class="submenu-link {{ $title == 'Sheet State' ? 'active' : '' }}"
+                                href="{{ route('employer.create') }}">Sheet State</a>
+                        </li>
                         </ul>
                     </div>
                 </li>

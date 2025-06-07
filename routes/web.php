@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\EtatController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,12 @@ Route::middleware('auth')->group(function(){
         Route::get('/show/{department}', [DepartmentController::class, 'show'])->name('department.show');
         Route::get('/edit/{department}', [DepartmentController::class, 'edit'])->name('department.edit');
         Route::put('/update/{department}', [DepartmentController::class, 'update'])->name('department.update');
+    });
+
+    //Groupes de routes pour les "etat" (status)
+    Route::prefix('state')->group(function () {
+        Route::get('/', [EtatController::class, 'index'])->name('state.index');
+        Route::get('/edit/{employe}', [EtatController::class, 'edit'])->name('state.edit');
     });
 });
 

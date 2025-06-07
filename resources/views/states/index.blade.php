@@ -2,7 +2,7 @@
 @extends('layout.template')
 
 @section('title-content')
-    <title> List - Employes | StaffPay</title>
+    <title> State | StaffPay</title>
 @endsection
 
 <body>
@@ -10,28 +10,23 @@
         <div class="container-xl">
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
-                @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Employes List</h1>
+                    <h1 class="app-page-title mb-0">Attendance State</h1>
                 </div>
                 <div class="col-auto">
                     <div class="page-utilities">
                         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
                             <div class="col-auto">
-                                <a class="btn app-btn-secondary" href="{{ route('employer.create') }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                                <a class="btn app-btn-secondary" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="bi size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                                     </svg>
 
-                                    New Employee
+
+                                    Reset All
                                 </a>
                             </div>
                         </div>
@@ -69,29 +64,20 @@
                                     <tbody>
                                         @forelse ($employes as $index => $employe)
                                             <tr>
-                                                <td class="cell">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</td>
+
+                                                <td class="cell">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                                                </td>
                                                 <td class="cell">
                                                     <span class="truncate">{{ $employe->name }}</span>
                                                 </td>
-                                                <td class="cell">{{ $employe->email }}</td>
+                                                <td class="cell"> <a href=""></a>{{ $employe->email }}</td>
                                                 <td class="cell"><span class="truncate">{{ $employe->contact }}</span>
                                                 </td>
-                                                <td class="cell">
+                                                <td>
                                                     <a class="btn-sm app-btn-secondary"
-                                                        href="{{ route('employer.show', $employe->id) }}">Show</a>
-                                                    <a class="btn-sm app-btn-secondary"
-                                                        href="{{ route('employer.edit', $employe->id) }}">Edit</a>
-                                                    <form action="{{ route('employer.delete', $employe->id) }}"
-                                                        method="POST" class="d-inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            onclick="return confirm('do you really want to delete')"
-                                                            class="btn-sm app-btn-secondary">Delete</button>
-                                                    </form>
+                                                        href="{{ route('state.edit', $employe->id) }}">Edit</a>
                                                 </td>
                                             </tr>
-
                                         @empty
                                             <tr>
                                                 <td colspan="6" class="text-center">No Employee found.</td>
@@ -128,28 +114,19 @@
                                         @forelse ($employes as $employe)
                                             @if ($employe->status == 'intermittent')
                                                 <tr>
-                                                    <td class="cell">{{ str_pad(++$empint, 2, '0', STR_PAD_LEFT) }}</td>
+
+                                                    <td class="cell">
+                                                        {{ str_pad(++$empint, 2, '0', STR_PAD_LEFT) }}
+                                                    </td>
                                                     <td class="cell">
                                                         <span class="truncate">{{ $employe->name }}</span>
                                                     </td>
                                                     <td class="cell">{{ $employe->email }}</td>
-                                                    <td class="cell"><span
-                                                            class="truncate">{{ $employe->contact }}</span>
+                                                    <td class="cell"><span class="truncate">{{ $employe->contact }}</span>
                                                     </td>
-
-                                                    <td class="cell">
+                                                    <td>
                                                         <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('employer.show', $employe->id) }}">Show</a>
-                                                        <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('employer.edit', $employe->id) }}">Edit</a>
-                                                        <form action="{{ route('employer.delete', $employe->id) }}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                onclick="return confirm('do you really want to delete')"
-                                                                class="btn-sm app-btn-secondary">Delete</button>
-                                                        </form>
+                                                            href="{{ route('state.edit', $employe->id) }}">Edit</a>
                                                     </td>
                                                 </tr>
                                             @endif
@@ -167,8 +144,6 @@
                                                 </td>
                                             </tr>
                                         @endif
-
-
                                     </tbody>
                                 </table>
                             </div>
@@ -194,7 +169,10 @@
                                         @forelse ($employes as $employe)
                                             @if ($employe->status == 'permanent')
                                                 <tr>
-                                                    <td class="cell">{{ str_pad(++$empper, 2, '0', STR_PAD_LEFT) }}</td>
+
+                                                    <td class="cell">
+                                                        {{ str_pad(++$empper, 2, '0', STR_PAD_LEFT) }}
+                                                    </td>
                                                     <td class="cell">
                                                         <span class="truncate">{{ $employe->name }}</span>
                                                     </td>
@@ -202,32 +180,25 @@
                                                     <td class="cell"><span
                                                             class="truncate">{{ $employe->contact }}</span>
                                                     </td>
-                                                    <td class="cell">
+                                                    <td>
                                                         <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('employer.show', $employe->id) }}">Show</a>
-                                                        <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('employer.edit', $employe->id) }}">Edit</a>
-                                                        <form action="{{ route('employer.delete', $employe->id) }}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                onclick="return confirm('do you really want to delete')"
-                                                                class="btn-sm app-btn-secondary">Delete</button>
-                                                        </form>
+                                                            href="{{ route('state.edit', $employe->id) }}">Edit</a>
                                                     </td>
+
                                                 </tr>
                                             @endif
 
 
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center">No permanent employee found.</td>
+                                                <td colspan="6" class="text-center">No permanent employee found.
+                                                </td>
                                             </tr>
                                         @endforelse
                                         @if ($empper == 0)
                                             <tr>
-                                                <td colspan="6" class="text-center">No permanent employee found.</td>
+                                                <td colspan="6" class="text-center">No permanent employee found.
+                                                </td>
                                             </tr>
                                         @endif
 
@@ -243,10 +214,10 @@
 
             </div>
 
-            <div class="d-flex justify-content-center mt-4">
-                {{ $employes->links() }}
-            </div>
+        </div>
 
+        <div class="d-flex justify-content-center mt-4">
+            {{ $employes->links() }}
         </div>
     @endsection
 </body>

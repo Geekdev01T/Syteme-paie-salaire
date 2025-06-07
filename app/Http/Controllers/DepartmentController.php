@@ -80,8 +80,16 @@ class DepartmentController extends Controller
     }
 
     // Fonction pour mettre a   jour un département
-    public function update(Departement $department, DepartmentRequest $request)
+    public function update(Departement $department,Request $request)
     {
+        // Validation des données
+        $request->validate([
+            'name' => 'required|string|min:4',
+            'code' => 'required|string|min:2',
+            'description' => 'required|string|max:1000',
+            'section' => 'required',
+        ]);
+
         //Mise a jour du departement
         $department->name = $request->name;
         $department->code = $request->code;

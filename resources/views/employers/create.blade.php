@@ -95,11 +95,32 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Status *</label>
-                                    <select class="form-control" name="status" id="status">
-                                        <option value="intermittent">Intermittent</option>
-                                        <option value="permanent">Permanent</option>
+                                    <select class="form-control" name="status" id="status"
+                                        onchange="toggleSalaryFields()">
+                                        <option value="intermittent"
+                                            {{ old('status') == 'intermittent' ? 'selected' : '' }}>Intermittent</option>
+                                        <option value="permanent" {{ old('status') == 'permanent' ? 'selected' : '' }}>
+                                            Permanent</option>
                                     </select>
                                     @error('status')
+                                        <p class="text text-danger mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3" id="honorary-field" style="display: none;">
+                                    <label for="honorary" class="form-label">Honorary *</label>
+                                    <input type="number" class="form-control" id="honorary" name="honorary"
+                                        placeholder="enter the employee's honorary" value="{{ old('honorary') }}">
+                                    @error('honorary')
+                                        <p class="text text-danger mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3" id="basic-salary-field" style="display: none;">
+                                    <label for="basic_salary" class="form-label">Basic Salary *</label>
+                                    <input type="number" class="form-control" id="basic_salary" name="basic_salary"
+                                        placeholder="enter the employee's basic salary"
+                                        value="{{ old('basic_salary') }}">
+                                    @error('basic_salary')
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -115,4 +136,21 @@
             <hr class="my-4">
         </div>
     @endsection
+
+    <script>
+        function toggleSalaryFields() {
+            var status = document.getElementById('status').value;
+            var honoraryField = document.getElementById('honorary-field');
+            var basicSalaryField = document.getElementById('basic-salary-field');
+            if (status === 'permanent') {
+                basicSalaryField.style.display = 'block';
+                honoraryField.style.display = 'none';
+            } else {
+                honoraryField.style.display = 'block';
+                basicSalaryField.style.display = 'none';
+            }
+        }
+        // Appel au chargement pour gérer le cas du old('status')
+        document.addEventListener('DOMContentLoaded', toggleSalaryFields);
+    </script>
 </body>

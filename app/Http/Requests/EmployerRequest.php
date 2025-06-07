@@ -25,8 +25,9 @@ class EmployerRequest extends FormRequest
             'name' => 'required|string|min:4',
             'first_name'=> 'required|string|min:4',
             'email' => 'required|email|unique:employers,email',
-            'contact' => 'required|string|max:15',
+            'contact' => 'required|string|max:15|unique:employers,contact',
             'status' => 'required|in:permanent,intermittent',
+            'honorary' => 'nullable|numeric|min:500',
             // Ajoutez d'autres règles de validation si nécessaire
         ];
     }
@@ -46,10 +47,13 @@ class EmployerRequest extends FormRequest
             'email.unique' => 'This email is already in use.',
             'contact.string' => 'The contact number must be a string.',
             'contact.max' => 'The contact number may not be greater than 15 characters.',
+            'contact.unique' => 'This contact is already in use.',
             // 'departement_id.required' => 'The department is required.',
             // 'departement_id.exists' => 'The selected department does not exist.',
             'status.required' => 'The status is required.',
             'status.in' => 'The status must be either permanent or intermittent.',
+            'honorary.numeric' => 'The honorary must be a number.',
+            'honorary.min' => 'The honorary must be at least 500.',
 
         ];
     }

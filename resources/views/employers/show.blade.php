@@ -69,6 +69,43 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="item border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            <div class="item-label"><strong>Status</strong></div>
+                                            <div class="item-data" style="margin-top: 0.5em">
+                                                @if ($employer->status == 'intermittent')
+                                                    <span class="badge bg-warning text-dark">Intermittent</span>
+                                                @else
+                                                    <span class="badge bg-success">Permanent</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            @if ($employer->status == 'permanent')
+                                                <div class="item-label"><strong>Basic Salary</strong></div>
+                                                <div class="item-data" style="margin-top: 0.5em">
+                                                    @if ($employer->daily_amount)
+                                                        {{ $employer->daily_amount }} FCFA
+                                                    @else
+                                                        <span class="badge bg-secondary">Not set</span>
+                                                    @endif
+                                                </div>
+                                            @else
+                                                <div class="item-label"><strong>Honorary</strong></div>
+                                                <div class="item-data" style="margin-top: 0.5em">
+                                                    @if ($employer->daily_amount)
+                                                        {{ $employer->daily_amount }} FCFA
+                                                    @else
+                                                        <span class="badge bg-secondary">Not set</span>
+                                                    @endif
+
+                                                </div>
+                                            @endif
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="app-card-footer p-4 mt-auto">
                                 <a class="btn app-btn-secondary" href="{{ route('employer.edit', $employer->id) }}">Edit</a>
@@ -100,7 +137,7 @@
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Department</strong></div>
                                                 <div class="item-data">
-                                                    <a href="{{route('department.show', $departement_lie->id)}}">
+                                                    <a href="{{ route('department.show', $departement_lie->id) }}">
                                                         {{ $departement_lie->name }}
                                                     </a>
                                                 </div>
@@ -112,11 +149,14 @@
                                                 </div>
                                             </div>
                                             <div class="col-auto">
-                                                <form action="{{route('employer.deletedep', $employer->id)}}" method="post">
+                                                <form action="{{ route('employer.deletedep', $employer->id) }}"
+                                                    method="post">
                                                     @csrf
                                                     @method('delete')
-                                                    <input type="hidden" name="departement_id" value="{{$departement_lie->id}}">
-                                                    <button class="btn-sm app-btn-secondary" onclick="return confirm('do you really want to delete')">delete</button>
+                                                    <input type="hidden" name="departement_id"
+                                                        value="{{ $departement_lie->id }}">
+                                                    <button class="btn-sm app-btn-secondary"
+                                                        onclick="return confirm('do you really want to delete')">delete</button>
                                                 </form>
 
                                             </div>
@@ -149,7 +189,7 @@
                                             @endforelse
                                         </select>
                                         @error('departement_id')
-                                            <p class="text text-danger">{{$message}}</p>
+                                            <p class="text text-danger">{{ $message }}</p>
                                         @enderror
 
                                         <button type="submit" style="margin-top: .5em"

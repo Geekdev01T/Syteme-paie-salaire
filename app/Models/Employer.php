@@ -26,6 +26,7 @@ class Employer extends Model
         'first_name',
         'email',
         'contact',
-        'status'
+        'status',
+        'daily_amount',
     ];
 }

@@ -54,6 +54,7 @@ class EmployerController extends Controller
             'email' => $request->email,
             'contact' => $request->contact,
             'status' => $request->status,
+            'daily_amount' => $request->honorary,
         ]);
 
         // Rediriger vers la liste avec un message de succès
@@ -126,15 +127,27 @@ class EmployerController extends Controller
     }
 
     // Fonction pour mettre a jour un employer
-    public function update(Employer $employer, EmployerRequest $request)
+    public function update(Employer $employer, Request $request)
     {
+        // Validation des données
+        $request->validate([
+            'name' => 'required|string|min:4',
+            'first_name' => 'required|string|min:2',
+            'email' => 'required|email',
+            'contact' => 'required|string|min:9',
+            'status' => 'required',
+            'honorary' => 'required|integer|min:500',
+        ]);
+
         //Mise a jour de employer
         $employer->name = $request->name;
         $employer->first_name = $request->first_name;
         $employer->email = $request->email;
         $employer->contact = $request->contact;
         $employer->status = $request->status;
+        $employer->daily_amount = $request->honorary;
 
+        // Enregistrer les modifications
         $employer->save();
 
         // Rediriger vers la liste avec un message de succès
