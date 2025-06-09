@@ -182,7 +182,7 @@
                                     href="{{ route('state.index') }}">Attendance State</a>
                             </li>
                             <li class="submenu-item"><a
-                                    class="submenu-link {{ $title == 'Delay State ? 'active' : '' }}"
+                                    class="submenu-link {{ $title == 'Delay State' ? 'active' : '' }}"
                                     href="{{ route('employer.create') }}">Delay State</a>
                             </li>
                             <li class="submenu-item"><a
