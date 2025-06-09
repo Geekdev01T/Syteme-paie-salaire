@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Employer extends Model
 {
@@ -18,6 +19,14 @@ class Employer extends Model
     public function departements(): BelongsToMany
     {
         return $this->belongsToMany(Departement::class);
+    }
+
+    /**
+     * Les etats qui appartiennent a l'employe.
+     */
+    public function etats(): HasMany
+    {
+        return $this->hasMany(Etat::class);
     }
 
     //champs acceptés pour la création et la mise à jour

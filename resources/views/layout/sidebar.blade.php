@@ -182,8 +182,8 @@
                                     href="{{ route('state.index') }}">Attendance State</a>
                             </li>
                             <li class="submenu-item"><a
-                                    class="submenu-link {{ $title == 'Late State' ? 'active' : '' }}"
-                                    href="{{ route('employer.create') }}">Late State</a>
+                                    class="submenu-link {{ $title == 'Delay State ? 'active' : '' }}"
+                                    href="{{ route('employer.create') }}">Delay State</a>
                             </li>
                             <li class="submenu-item"><a
                                 class="submenu-link {{ $title == 'Sheet State' ? 'active' : '' }}"

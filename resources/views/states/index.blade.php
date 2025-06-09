@@ -75,7 +75,7 @@
                                                 </td>
                                                 <td>
                                                     <a class="btn-sm app-btn-secondary"
-                                                        href="{{ route('state.edit', $employe->id) }}">Edit</a>
+                                                        href="{{ route('state.create', $employe->id) }}">Store</a>
                                                 </td>
                                             </tr>
                                         @empty
@@ -126,7 +126,7 @@
                                                     </td>
                                                     <td>
                                                         <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('state.edit', $employe->id) }}">Edit</a>
+                                                            href="{{ route('state.create', $employe->id) }}">Store</a>
                                                     </td>
                                                 </tr>
                                             @endif
@@ -182,7 +182,7 @@
                                                     </td>
                                                     <td>
                                                         <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('state.edit', $employe->id) }}">Edit</a>
+                                                            href="{{ route('state.create', $employe->id) }}">Store</a>
                                                     </td>
 
                                                 </tr>
@@ -219,5 +219,45 @@
         <div class="d-flex justify-content-center mt-4">
             {{ $employes->links() }}
         </div>
+
+        <script>
+            // Sauvegarde l'onglet actif dans le localStorage lors du clic
+            document.querySelectorAll('.nav-link').forEach(function(tab) {
+                tab.addEventListener('click', function(e) {
+                    localStorage.setItem('activeStateTab', this.getAttribute('href'));
+                });
+            });
+
+            // Au chargement, active l'onglet sauvegardé ou le premier par défaut
+            document.addEventListener('DOMContentLoaded', function() {
+                let activeTab = localStorage.getItem('activeStateTab');
+                if (!(activeTab == "#departments-all" || activeTab == "#departments-french" || activeTab == "#departments-english")) {
+                    // Si l'onglet actif n'est pas sauvegardé ou n'est pas valide, on le remet à null
+                    // Si rien dans le localStorage, active le premier onglet et panel
+                    let firstTab = document.querySelector('.nav-link');
+                    let firstPane = document.querySelector('.tab-pane');
+                    if (firstTab && firstPane) {
+                        firstTab.classList.add('active');
+                        firstPane.classList.add('show', 'active');
+                    }
+                } else {
+                    // Désactive tous les onglets et panels
+                    document.querySelectorAll('.nav-link').forEach(function(tab) {
+                        tab.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-pane').forEach(function(pane) {
+                        pane.classList.remove('show', 'active');
+                    });
+
+                    // Active l'onglet et le panel sauvegardés
+                    let tabToActivate = document.querySelector('.nav-link[href="' + activeTab + '"]');
+                    let paneToActivate = document.querySelector(activeTab);
+                    if (tabToActivate && paneToActivate) {
+                        tabToActivate.classList.add('active');
+                        paneToActivate.classList.add('show', 'active');
+                    }
+                }
+            });
+        </script>
     @endsection
 </body>

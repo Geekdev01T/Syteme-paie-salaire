@@ -10,334 +10,73 @@
         <div class="container-xl">
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
+
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Edit Attendance State</h1>
+                    <h1 class="app-page-title mb-0">Attendance State of <strong>{{ $employe->name }}</strong></h1>
                 </div>
-                <div class="col-auto">
-                    <div class="page-utilities">
-                        <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-
-                            <div class="col-auto">
-                                <a class="btn app-btn-secondary" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="bi size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                    </svg>
-
-                                    Sheet sate
-                                </a>
-                            </div>
-
-                        </div>
+                <hr class="my-4">
+                <div class="row g-4 settings-section">
+                    <div class="col-12 col-md-4">
+                        <h3 class="section-title" id="state-title">Edit</h3>
+                        <div class="section-intro" id="state-intro">Edit a attendance state here.</div>
                     </div>
-                </div>
-            </div>
+                    <div class="col-12 col-md-8">
+                        <div class="app-card app-card-settings shadow-sm p-4">
 
-            <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4"
-                role="tablist">
-                <a class="flex-sm-fill text-sm-center nav-link active" id="study-state-tab" data-bs-toggle="tab"
-                    href="#study-state">Study State </a>
-                <a class="flex-sm-fill text-sm-center nav-link" id="supervised-state-tab" href="#supervised-state"
-                    data-bs-toggle="tab">Supervised Work State</a>
-                <a class="flex-sm-fill text-sm-center nav-link" id="departments-english-tab" data-bs-toggle="tab"
-                    href="#monitoring-state">Monitoring State</a>
-            </nav>
+                            <div class="app-card-body">
+                                <form class="settings-form" action="{{ route('state.update', $state->id) }}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="mb-3">
+                                        <label for="state" class="form-label">State</label>
+                                        <select name="state" class="form-control" id="state" style="padding: 0.5rem;">
+                                            <option value="{{ $state->state }}" {{ $state->state ? 'selected' : '' }}>
+                                                Select a state</option>
+                                            <option value="study" {{ $state->state == 'study' ? 'selected' : '' }}>
+                                                Study</option>
+                                            <option value="supervised-work"
+                                                {{ $state->state == 'supervised-work' ? 'selected' : '' }}>
+                                                Supervised Work</option>
+                                            <option value="monitoring"
+                                                {{ $state->state == 'monitoring' ? 'selected' : '' }}>
+                                                Monitoring</option>
+                                        </select>
+                                        @error('state')
+                                            <div class="text text-danger mt-2">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3" id="date-state-field">
+                                        <label for="date-state" class="form-label" style="width: 100%">Date</label>
+                                        <input type="date" class="form-control" id="date-state" name="date"
+                                            value="{{ $state->date ? $state->date : old('date') }}">
+                                        @error('date')
+                                            <div class="text text-danger mt-2">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3" id="hour-state-field">
+                                        <label for="hours" class="form-label">Hours</label>
+                                        <input type="number" class="form-control" id="hours" name="hour"
+                                            placeholder="Enter the numbers of hour"
+                                            value="{{ $state->hour ? $state->hour : old('hour') }}">
+                                        @error('hour')
+                                            <div class="text text-danger mt-2">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3" id="hour-state-field">
+                                        <input type="hidden" class="form-control" name="employer_id"
+                                            value="{{ $employe->id }}">
+                                        @error('employer_id')
+                                            <div class="text text-danger mt-2">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <button type="submit" class="btn app-btn-primary">Update</button>
+                                </form>
+                            </div><!--//app-card-body-->
 
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="study-state" role="tabpanel">
-                    <div class="row g-4 settings-section">
-                        <div class="col-12 col-md-4">
-                            <h3 class="section-title">Study State</h3>
-                            <div class="section-intro">Add a new study state here.</div>
-                        </div>
-                        <div class="col-12 col-md-8">
-                            <div class="app-card app-card-settings shadow-sm p-4">
-
-                                <div class="app-card-body">
-                                    <form class="settings-form">
-                                        <div class="mb-3">
-                                            <label for="day-state" class="form-label" style="width: 100%">Day
-                                                <input type="date" class="form-control" id="day-state">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="hours" class="form-label">Hours</label>
-                                            <input type="number" class="form-control" id="hours"
-                                                placeholder="Enter the numbers of hours">
-                                        </div>
-                                        <button type="submit" class="btn app-btn-primary">Save</button>
-                                    </form>
-                                </div><!--//app-card-body-->
-
-                            </div><!--//app-card-->
-                        </div>
-                    </div><!--//row-->
+                        </div><!--//app-card-->
+                    </div>
                     <hr class="my-4">
-
-                    <div class="app-card shadow-sm d-flex flex-column align-items-start">
-                        <div class="app-card-header p-3 border-bottom-0">
-                            <div class="row align-items-center gx-3">
-                                <div class="col-auto">
-                                    <h4 class="app-card-title">Study States</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="app-card-body px-4 w-100">
-
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>Day</strong></div>
-                                        <div class="item-data">
-                                            <a href="#">
-                                                Amy Walter--
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>Hours</strong></div>
-                                        <div class="item-data">
-                                            17786454
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <button href="#" class="btn-sm app-btn-secondary">update</button>
-                                        <form action="#" method="post" style="margin-top:.5em">
-                                            <input type="hidden" name="" value="">
-                                            <button class="btn-sm app-btn-secondary"
-                                                onclick="return confirm('do you really want to delete')">delete</button>
-                                        </form>
-
-                                    </div>
-                                </div>
-                                <hr class="my-4">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>Day</strong></div>
-                                        <div class="item-data">
-                                            <a href="#">
-                                                Amy Walter--
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>Hours</strong></div>
-                                        <div class="item-data">
-                                            17786454
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <button href="#" class="btn-sm app-btn-secondary">update</button>
-                                        <form action="#" method="post" style="margin-top:.5em">
-                                            <input type="hidden" name="" value="">
-                                            <button class="btn-sm app-btn-secondary"
-                                                onclick="return confirm('do you really want to delete')">delete</button>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <hr class="my-4">
-                </div>
-            </div>
-
-            <div class="tab-content" id="orders-table-tab-content">
-                <div class="tab-pane fade" id="supervised-state" role="tabpanel">
-                    <div class="tab-pane fade show active" id="study-state" role="tabpanel">
-                        <div class="row g-4 settings-section">
-                            <div class="col-12 col-md-4">
-                                <h3 class="section-title">Supervised Work State</h3>
-                                <div class="section-intro">Add a new supervised work state here.</div>
-                            </div>
-                            <div class="col-12 col-md-8">
-                                <div class="app-card app-card-settings shadow-sm p-4">
-
-                                    <div class="app-card-body">
-                                        <form class="settings-form">
-                                            <div class="mb-3">
-                                                <label for="week-state" class="form-label" style="width: 100%">Day
-                                                    <input type="date" class="form-control" id="week-state">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="hours" class="form-label">Hours</label>
-                                                <input type="number" class="form-control" id="hours"
-                                                    placeholder="Enter the numbers of hours">
-                                            </div>
-                                            <button type="submit" class="btn app-btn-primary">Save</button>
-                                        </form>
-                                    </div><!--//app-card-body-->
-
-                                </div><!--//app-card-->
-                            </div>
-                        </div><!--//row-->
-                        <hr class="my-4">
-
-                        <div class="app-card shadow-sm d-flex flex-column align-items-start">
-                            <div class="app-card-header p-3 border-bottom-0">
-                                <div class="row align-items-center gx-3">
-                                    <div class="col-auto">
-                                        <h4 class="app-card-title">Supervised Work State</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="app-card-body px-4 w-100">
-
-                                <div class="item border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Day</strong></div>
-                                            <div class="item-data">
-                                                <a href="#">
-                                                    Amy Walter--
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Hours</strong></div>
-                                            <div class="item-data">
-                                                17786454
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button href="#" class="btn-sm app-btn-secondary">update</button>
-                                            <form action="#" method="post" style="margin-top:.5em">
-                                                <input type="hidden" name="" value="">
-                                                <button class="btn-sm app-btn-secondary"
-                                                    onclick="return confirm('do you really want to delete')">delete</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                    <hr class="my-4">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Day</strong></div>
-                                            <div class="item-data">
-                                                <a href="#">
-                                                    Amy Walter--
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Hours</strong></div>
-                                            <div class="item-data">
-                                                17786454
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button href="#" class="btn-sm app-btn-secondary">update</button>
-                                            <form action="#" method="post" style="margin-top:.5em">
-                                                <input type="hidden" name="" value="">
-                                                <button class="btn-sm app-btn-secondary"
-                                                    onclick="return confirm('do you really want to delete')">delete</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <hr class="my-4">
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-content" id="orders-table-tab-content">
-                <div class="tab-pane fade" id="monitoring-state" role="tabpanel">
-                    <div class="tab-pane fade show active" id="study-state" role="tabpanel">
-                        <div class="row g-4 settings-section">
-                            <div class="col-12 col-md-4">
-                                <h3 class="section-title">Monitoring State</h3>
-                                <div class="section-intro">Add a new monitoring state here.</div>
-                            </div>
-                            <div class="col-12 col-md-8">
-                                <div class="app-card app-card-settings shadow-sm p-4">
-
-                                    <div class="app-card-body">
-                                        <form class="settings-form">
-                                            <div class="mb-3">
-                                                <label for="week-state" class="form-label" style="width: 100%">Day
-                                                    <input type="date" class="form-control" id="week-state">
-                                            </div>
-                                            <button type="submit" class="btn app-btn-primary">Save</button>
-                                        </form>
-                                    </div><!--//app-card-body-->
-
-                                </div><!--//app-card-->
-                            </div>
-                        </div><!--//row-->
-                        <hr class="my-4">
-
-                        <div class="app-card shadow-sm d-flex flex-column align-items-start">
-                            <div class="app-card-header p-3 border-bottom-0">
-                                <div class="row align-items-center gx-3">
-                                    <div class="col-auto">
-                                        <h4 class="app-card-title">Monitoring State</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="app-card-body px-4 w-100">
-
-                                <div class="item border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Day</strong></div>
-                                            <div class="item-data">
-                                                <a href="#">
-                                                    Amy Walter--
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button href="#" class="btn-sm app-btn-secondary">update</button>
-                                        </div>
-                                        <div class="col-auto">
-                                            <form action="#" method="post">
-                                                <input type="hidden" name="" value="">
-                                                <button class="btn-sm app-btn-secondary"
-                                                    onclick="return confirm('do you really want to delete')">delete</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                    <hr class="my-4">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Day</strong></div>
-                                            <div class="item-data">
-                                                <a href="#">
-                                                    Amy Walter--
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button href="#" class="btn-sm app-btn-secondary">update</button>
-                                        </div>
-                                        <div class="col-auto">
-                                            <form action="#" method="post">
-                                                <input type="hidden" name="" value="">
-                                                <button class="btn-sm app-btn-secondary"
-                                                    onclick="return confirm('do you really want to delete')">delete</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <hr class="my-4">
-                    </div>
-                </div>
+                </div><!--//row-->
             </div>
 
 
@@ -346,5 +85,46 @@
         {{-- <div class="d-flex justify-content-center mt-4">
             {{ $employes->links() }}
         </div> --}}
+
+
+        <script>
+            // Gestion de l'affichage des champs en fonction de l'état sélectionné
+            document.getElementById('state').addEventListener('change', toggleStateFields);
+
+            function toggleStateFields() {
+                let state = document.getElementById('state').value;
+                let dateField = document.getElementById('date-state-field');
+                let hourField = document.getElementById('hour-state-field');
+                let title = document.getElementById('state-title');
+                let intro = document.getElementById('state-intro');
+                // Mise à jour du titre et de l'introduction en fonction de l'état sélectionné
+                if (state === 'study') {
+                    title.textContent = 'Edit Study State';
+                    intro.textContent = 'Edit a study state here.';
+                    dateField.style.display = 'block';
+                    hourField.style.display = 'block';
+                } else if (state === 'supervised-work') {
+                    title.textContent = 'Edit Supervised Work State';
+                    intro.textContent = 'Edit a supervised work state here.';
+                    dateField.style.display = 'block';
+                    hourField.style.display = 'block';
+                } else if (state === 'monitoring') {
+                    title.textContent = 'Edit Monitoring State';
+                    intro.textContent = 'Edit a monitoring state here.';
+                    dateField.style.display = 'block';
+                    hourField.style.display = 'none'; // Pas d'heures pour le monitoring
+                } else {
+                    title.textContent = 'Edit';
+                    intro.textContent = 'Edit a attendance state here.';
+                    dateField.style.display = 'none';
+                    hourField.style.display = 'none';
+                }
+
+            }
+            // Appel au chargement pour gérer le cas du old('state')
+            document.addEventListener('DOMContentLoaded', toggleStateFields);
+        </script>
     @endsection
+
+
 </body>

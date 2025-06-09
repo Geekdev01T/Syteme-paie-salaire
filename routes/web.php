@@ -53,7 +53,11 @@ Route::middleware('auth')->group(function(){
     //Groupes de routes pour les "etat" (status)
     Route::prefix('state')->group(function () {
         Route::get('/', [EtatController::class, 'index'])->name('state.index');
-        Route::get('/edit/{employe}', [EtatController::class, 'edit'])->name('state.edit');
+        Route::get('/create/{employe}', [EtatController::class, 'create'])->name('state.create');
+        Route::post('/store', [EtatController::class, 'store'])->name('state.store');
+        Route::get('/edit/{state}', [EtatController::class, 'edit'])->name('state.edit');
+        Route::put('/update/{state}', [EtatController::class, 'update'])->name('state.update');
+        Route::delete('/create/{state}', [EtatController::class, 'delete'])->name('state.delete');
     });
 });
 
