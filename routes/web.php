@@ -3,8 +3,9 @@
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployerController;
-use App\Http\Controllers\EtatController;
+use App\Http\Controllers\StateController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\StateDelayController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -50,14 +51,24 @@ Route::middleware('auth')->group(function(){
         Route::put('/update/{department}', [DepartmentController::class, 'update'])->name('department.update');
     });
 
-    //Groupes de routes pour les "etat" (status)
+    //Groupes de routes pour les "etat" de presence
     Route::prefix('state')->group(function () {
-        Route::get('/', [EtatController::class, 'index'])->name('state.index');
-        Route::get('/create/{employe}', [EtatController::class, 'create'])->name('state.create');
-        Route::post('/store', [EtatController::class, 'store'])->name('state.store');
-        Route::get('/edit/{state}', [EtatController::class, 'edit'])->name('state.edit');
-        Route::put('/update/{state}', [EtatController::class, 'update'])->name('state.update');
-        Route::delete('/create/{state}', [EtatController::class, 'delete'])->name('state.delete');
+        Route::get('/', [StateController::class, 'index'])->name('state.index');
+        Route::get('/create/{employe}', [StateController::class, 'create'])->name('state.create');
+        Route::post('/store', [StateController::class, 'store'])->name('state.store');
+        Route::get('/edit/{state}', [StateController::class, 'edit'])->name('state.edit');
+        Route::put('/update/{state}', [StateController::class, 'update'])->name('state.update');
+        Route::delete('/create/{state}', [StateController::class, 'delete'])->name('state.delete');
+    });
+
+    //Groupes de routes pour les "etat" de retard
+    Route::prefix('state-delay')->group(function () {
+        Route::get('/', [StateDelayController::class, 'index'])->name('state_delay.index');
+        Route::get('/create/{employe}', [StateDelayController::class, 'create'])->name('state_delay.create');
+        Route::post('/store', [StateDelayController::class, 'store'])->name('state_delay.store');
+        Route::get('/edit/{state_delay}', [StateDelayController::class, 'edit'])->name('state_delay.edit');
+        Route::put('/update/{state_delay}', [StateDelayController::class, 'update'])->name('state_delay.update');
+        Route::delete('/create/{state_delay}', [StateDelayController::class, 'delete'])->name('state_delay.delete');
     });
 });
 

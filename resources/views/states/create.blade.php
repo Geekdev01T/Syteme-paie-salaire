@@ -18,7 +18,7 @@
                 @endif
 
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Attendance State of <strong>{{ $employe->name }}</strong></h1>
+                    <h1 class="app-page-title mb-0">Delay State of <strong>{{ $employe->name }}</strong></h1>
                 </div>
                 <div class="col-auto">
                     <div class="page-utilities">
@@ -31,7 +31,7 @@
                                         <path fill-rule="evenodd"
                                             d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
                                     </svg>
-                                    Create sate
+                                    Create state
                                 </a>
                             </div>
 
@@ -82,7 +82,7 @@
                                             <div class="text text-danger mt-2">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="mb-3" id="hour-state-field">
+                                    <div class="mb-3">
                                         <input type="hidden" class="form-control" name="employer_id"
                                             value="{{ $employe->id }}">
                                         @error('employer_id')
@@ -398,7 +398,6 @@
             document.addEventListener('DOMContentLoaded', function() {
                 let activeTab = localStorage.getItem('activeStateTab');
                 if (!(activeTab == "#study-state" || activeTab == "#supervised-state" || activeTab == "#monitoring-state")) {
-                    // Si l'onglet actif n'est pas sauvegardé ou n'est pas valide, on le remet à null
                     // Si rien dans le localStorage, active le premier onglet et panel
                     let firstTab = document.querySelector('.nav-link');
                     let firstPane = document.querySelector('.tab-pane');

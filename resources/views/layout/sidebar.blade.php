@@ -183,7 +183,7 @@
                             </li>
                             <li class="submenu-item"><a
                                     class="submenu-link {{ $title == 'Delay State' ? 'active' : '' }}"
-                                    href="{{ route('employer.create') }}">Delay State</a>
+                                    href="{{ route('state_delay.index') }}">Delay State</a>
                             </li>
                             <li class="submenu-item"><a
                                 class="submenu-link {{ $title == 'Sheet State' ? 'active' : '' }}"

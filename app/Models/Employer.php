@@ -29,6 +29,14 @@ class Employer extends Model
         return $this->hasMany(Etat::class);
     }
 
+    /**
+     * Les retards qui appartiennent a l'employe.
+     */
+    public function etatsRetard(): HasMany
+    {
+        return $this->hasMany(EtatRetard::class);
+    }
+
     //champs acceptés pour la création et la mise à jour
     protected $fillable = [
         'name',

@@ -7,7 +7,7 @@ use App\Models\Employer;
 use App\Models\Etat;
 use Illuminate\Http\Request;
 
-class EtatController extends Controller
+class StateController extends Controller
 {
     // Fonction pour afficher les états
     public function index()
@@ -97,5 +97,4 @@ class EtatController extends Controller
         // Redirection vers la liste des états avec un message de succès
         return redirect()->back()->with('success', 'State deleted successfully.');
     }
-
 }
