@@ -2,7 +2,7 @@
 @extends('layout.template')
 
 @section('title-content')
-    <title> State | StaffPay</title>
+    <title> Sheet State | StaffPay</title>
 @endsection
 
 <body>
@@ -11,7 +11,7 @@
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Attendance State</h1>
+                    <h1 class="app-page-title mb-0">Sheet State</h1>
                 </div>
                 <div class="col-auto">
                     <div class="page-utilities">
@@ -19,14 +19,20 @@
 
                             <div class="col-auto">
                                 <a class="btn app-btn-secondary" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                        <path
+                                            d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                                    </svg>
+                                    Send All
+                                </a>
+                                <a class="btn app-btn-secondary" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16"
                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="bi size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                     </svg>
-
-
-                                    Reset All
+                                    Download All
                                 </a>
                             </div>
                         </div>
@@ -47,7 +53,7 @@
 
 
             <div class="tab-content" id="orders-table-tab-content">
-                <div class="tab-pane fade show active" id="employes-all" role="tabpanel">
+                <div class="tab-pane fade" id="employes-all" role="tabpanel">
                     <div class="app-card app-card-orders-table shadow-sm mb-5">
                         <div class="app-card-body">
                             <div class="table-responsive">
@@ -75,7 +81,7 @@
                                                 </td>
                                                 <td>
                                                     <a class="btn-sm app-btn-secondary"
-                                                        href="{{ route('state.create', $employe->id) }}">Store</a>
+                                                        href="{{ route('state_sheet.show', $employe->id) }}">Show</a>
                                                 </td>
                                             </tr>
                                         @empty
@@ -126,7 +132,7 @@
                                                     </td>
                                                     <td>
                                                         <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('state.create', $employe->id) }}">Store</a>
+                                                            href="{{ route('state_sheet.show', $employe->id) }}">Show</a>
                                                     </td>
                                                 </tr>
                                             @endif
@@ -182,7 +188,7 @@
                                                     </td>
                                                     <td>
                                                         <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('state.create', $employe->id) }}">Store</a>
+                                                            href="{{ route('state_sheet.show', $employe->id) }}">Show</a>
                                                     </td>
 
                                                 </tr>
@@ -209,8 +215,6 @@
                         </div>
                     </div>
                 </div>
-
-
 
             </div>
 

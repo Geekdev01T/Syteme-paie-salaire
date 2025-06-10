@@ -24,13 +24,15 @@ class AppController extends Controller
         // Assuming you have a Department model and it is already imported
         $TotalEmployes = Employer::all()->count();
 
+        $TotalEmployesPermanent = Employer::where('status', 'permanent')->count();
+
         // Total number of departments
         // Assuming you have a Department model and it is already imported
         $TotalAdmins = User::all()->count();
 
         return view(
             'dashboard',
-            compact('title','TotalDepartments', 'TotalEmployes', 'TotalAdmins')
+            compact('title','TotalDepartments', 'TotalEmployes', 'TotalAdmins', 'TotalEmployesPermanent')
         );
     }
 }

@@ -25,7 +25,17 @@
                         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
                             <div class="col-auto">
-                                <a class="btn app-btn-secondary" href="#" id="create-state-btn">
+                                <a class="btn app-btn-secondary btn-item" href="{{route('state_sheet.show', $employe->id)}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="bi size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    </svg>
+                                    Sheet state
+                                </a>
+                                <a class="btn app-btn-secondary btn-item" href="#" id="create-state-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
@@ -101,7 +111,7 @@
 
             <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4"
                 role="tablist">
-                <a class="flex-sm-fill text-sm-center nav-link active" id="study-state-tab" data-bs-toggle="tab"
+                <a class="flex-sm-fill text-sm-center nav-link" id="study-state-tab" data-bs-toggle="tab"
                     href="#study-state">Study State </a>
                 <a class="flex-sm-fill text-sm-center nav-link" id="supervised-state-tab" data-bs-toggle="tab"
                     href="#supervised-state">Supervised Work State</a>
@@ -109,8 +119,8 @@
                     href="#monitoring-state">Monitoring State</a>
             </nav>
 
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="study-state" role="tabpanel">
+            <div class="tab-content" id="orders-table-tab-content">
+                <div class="tab-pane fade" id="study-state" role="tabpanel">
                     <div class="app-card shadow-sm d-flex flex-column align-items-start">
                         <div class="app-card-header p-3 border-bottom-0">
                             <div class="row align-items-center gx-3">
@@ -179,9 +189,7 @@
 
                     <hr class="my-4">
                 </div>
-            </div>
 
-            <div class="tab-content">
                 <div class="tab-pane fade" id="supervised-state" role="tabpanel">
                     <div class="app-card shadow-sm d-flex flex-column align-items-start">
                         <div class="app-card-header p-3 border-bottom-0">
@@ -250,9 +258,7 @@
 
                     <hr class="my-4">
                 </div>
-            </div>
 
-            <div class="tab-content">
                 <div class="tab-pane fade" id="monitoring-state" role="tabpanel">
                     <div class="app-card shadow-sm d-flex flex-column align-items-start">
                         <div class="app-card-header p-3 border-bottom-0">
@@ -386,43 +392,84 @@
             document.addEventListener('DOMContentLoaded', toggleStateFields);
 
 
+            // Cible uniquement les onglets du bloc employés
+            const tabNav = document.getElementById('orders-table-tab');
+            const tabContent = document.getElementById('orders-table-tab-content');
 
-            // Sauvegarde l'onglet actif dans le localStorage lors du clic
-            document.querySelectorAll('.nav-link').forEach(function(tab) {
-                tab.addEventListener('click', function(e) {
-                    localStorage.setItem('activeStateTab', this.getAttribute('href'));
+
+            if (tabNav && tabContent) {
+                tabNav.querySelectorAll('.nav-link').forEach(function(tab) {
+                    tab.addEventListener('click', function(e) {
+                        localStorage.setItem('activeStateTab', this.getAttribute('href'));
+                    });
                 });
-            });
 
-            // Au chargement, active l'onglet sauvegardé ou le premier par défaut
-            document.addEventListener('DOMContentLoaded', function() {
-                let activeTab = localStorage.getItem('activeStateTab');
-                if (!(activeTab == "#study-state" || activeTab == "#supervised-state" || activeTab == "#monitoring-state")) {
-                    // Si rien dans le localStorage, active le premier onglet et panel
-                    let firstTab = document.querySelector('.nav-link');
-                    let firstPane = document.querySelector('.tab-pane');
-                    if (firstTab && firstPane) {
-                        firstTab.classList.add('active');
-                        firstPane.classList.add('show', 'active');
-                    }
-                } else {
-                    // Désactive tous les onglets et panels
-                    document.querySelectorAll('.nav-link').forEach(function(tab) {
-                        tab.classList.remove('active');
-                    });
-                    document.querySelectorAll('.tab-pane').forEach(function(pane) {
-                        pane.classList.remove('show', 'active');
-                    });
+                document.addEventListener('DOMContentLoaded', function() {
+                    let activeTab = localStorage.getItem('activeStateTab');
+                    const validTabs = ['#study-state', '#supervised-state', '#monitoring-state'];
+                    if (!validTabs.includes(activeTab)) {
+                        // Active le premier onglet et panel si rien n'est sauvegardé ou si la valeur n'est pas valide
+                        let firstTab = tabNav.querySelector('.nav-link');
+                        let firstPane = tabContent.querySelector('.tab-pane');
+                        if (firstTab && firstPane) {
+                            firstTab.classList.add('active');
+                            firstPane.classList.add('show', 'active');
+                        }
+                    } else {
+                        // Désactive tous les onglets et panels de ce bloc seulement
+                        tabNav.querySelectorAll('.nav-link').forEach(function(tab) {
+                            tab.classList.remove('active');
+                        });
+                        tabContent.querySelectorAll('.tab-pane').forEach(function(pane) {
+                            pane.classList.remove('show', 'active');
+                        });
 
-                    // Active l'onglet et le panel sauvegardés
-                    let tabToActivate = document.querySelector('.nav-link[href="' + activeTab + '"]');
-                    let paneToActivate = document.querySelector(activeTab);
-                    if (tabToActivate && paneToActivate) {
-                        tabToActivate.classList.add('active');
-                        paneToActivate.classList.add('show', 'active');
+                        // Active l'onglet et le panel sauvegardés
+                        let tabToActivate = tabNav.querySelector('.nav-link[href="' + activeTab + '"]');
+                        let paneToActivate = tabContent.querySelector(activeTab);
+                        if (tabToActivate && paneToActivate) {
+                            tabToActivate.classList.add('active');
+                            paneToActivate.classList.add('show', 'active');
+                        }
                     }
-                }
-            });
+                });
+            }
+            // // Sauvegarde l'onglet actif dans le localStorage lors du clic
+            // document.querySelectorAll('.nav-link').forEach(function(tab) {
+            //     tab.addEventListener('click', function(e) {
+            //         localStorage.setItem('activeStateTab', this.getAttribute('href'));
+            //     });
+            // });
+
+            // // Au chargement, active l'onglet sauvegardé ou le premier par défaut
+            // document.addEventListener('DOMContentLoaded', function() {
+            //     let activeTab = localStorage.getItem('activeStateTab');
+            //     if (!(activeTab == "#study-state" || activeTab == "#supervised-state" || activeTab == "#monitoring-state")) {
+            //         // Si rien dans le localStorage, active le premier onglet et panel
+            //         let firstTab = document.querySelector('.nav-link');
+            //         let firstPane = document.querySelector('.tab-pane');
+            //         if (firstTab && firstPane) {
+            //             firstTab.classList.add('active');
+            //             firstPane.classList.add('show', 'active');
+            //         }
+            //     } else {
+            //         // Désactive tous les onglets et panels
+            //         document.querySelectorAll('.nav-link').forEach(function(tab) {
+            //             tab.classList.remove('active');
+            //         });
+            //         document.querySelectorAll('.tab-pane').forEach(function(pane) {
+            //             pane.classList.remove('show', 'active');
+            //         });
+
+            //         // Active l'onglet et le panel sauvegardés
+            //         let tabToActivate = document.querySelector('.nav-link[href="' + activeTab + '"]');
+            //         let paneToActivate = document.querySelector(activeTab);
+            //         if (tabToActivate && paneToActivate) {
+            //             tabToActivate.classList.add('active');
+            //             paneToActivate.classList.add('show', 'active');
+            //         }
+            //     }
+            // });
         </script>
     @endsection
 

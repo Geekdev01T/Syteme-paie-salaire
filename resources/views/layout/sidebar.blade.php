@@ -14,7 +14,7 @@
             <ul class="app-menu list-unstyled accordion" id="menu-accordion">
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link {{ $title == 'Dashboard' ? 'active' : '' }}" href="{{ route('dashboard') }}">
+                    <a class="nav-link {{ $title === 'Dashboard' ? 'active' : '' }}" href="{{ route('dashboard') }}">
                         <span class="nav-icon">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door"
                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -186,9 +186,9 @@
                                     href="{{ route('state_delay.index') }}">Delay State</a>
                             </li>
                             <li class="submenu-item"><a
-                                class="submenu-link {{ $title == 'Sheet State' ? 'active' : '' }}"
-                                href="{{ route('employer.create') }}">Sheet State</a>
-                        </li>
+                                    class="submenu-link {{ $title == 'Sheet State' ? 'active' : '' }}"
+                                    href="{{ route('state_sheet.index') }}">Sheet State</a>
+                            </li>
                         </ul>
                     </div>
                 </li>

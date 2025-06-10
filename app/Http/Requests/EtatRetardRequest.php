@@ -22,7 +22,7 @@ class EtatRetardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => 'required|date|before:tomorrow',
+            'date' => 'required|date|before:tomorrow|unique:etat_retards,date,NULL,id,employer_id,' . $this->employer_id,
             'hour'=> 'required|integer|min:1|max:20',
             'comment' => 'nullable|string|max:500',
             'employer_id' => 'required|exists:employers,id',
@@ -40,6 +40,7 @@ class EtatRetardRequest extends FormRequest
             'date.required' => 'The date is required.',
             'date.date' => 'The date must be a valid date.',
             'date.before' => 'The date must be before tomorrow.',
+            'date.unique' => 'This employee already has a record for this date.',
             'hour.required' => 'The hour is required.',
             'hour.integer' => 'The hour must be an integer.',
             'hour.min' => 'The hour must be at least 1.',

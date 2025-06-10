@@ -91,6 +91,15 @@
     color: #fff;
 }
 
+
+.btn-item{
+    padding:.5em 1em !important;
+}
+
+.comment{
+    max-width:10em !important;
+}
+
 *,
 *::before,
 *::after {
@@ -12649,7 +12658,9 @@ hr {
 }
 
 .table thead th {
-    border-color: #e7e9ed
+    border-color: #e7e9ed;
+    /* background:#f7f9fa; */
+    background: #ffffff;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {

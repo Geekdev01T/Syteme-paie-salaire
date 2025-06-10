@@ -42,7 +42,7 @@
 
             <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4"
                 role="tablist">
-                <a class="flex-sm-fill text-sm-center nav-link active" id="employes-all-tab" data-bs-toggle="tab"
+                <a class="flex-sm-fill text-sm-center nav-link" id="employes-all-tab" data-bs-toggle="tab"
                     href="#employes-all">All</a>
                 <a class="flex-sm-fill text-sm-center nav-link" id="employes-intermittent-tab" href="#employes-intermittent"
                     data-bs-toggle="tab">Intermittent Employees</a>
@@ -52,7 +52,7 @@
 
 
             <div class="tab-content" id="orders-table-tab-content">
-                <div class="tab-pane fade show active" id="employes-all" role="tabpanel">
+                <div class="tab-pane fade" id="employes-all" role="tabpanel">
                     <div class="app-card app-card-orders-table shadow-sm mb-5">
                         <div class="app-card-body">
                             <div class="table-responsive">
@@ -250,43 +250,47 @@
         </div>
 
         <script>
-            // Sauvegarde l'onglet actif dans le localStorage lors du clic
-            document.querySelectorAll('.nav-link').forEach(function(tab) {
-                tab.addEventListener('click', function(e) {
-                    localStorage.setItem('activeStateTab', this.getAttribute('href'));
+            // Cible uniquement les onglets du bloc employés
+            const tabNav = document.getElementById('orders-table-tab');
+            const tabContent = document.getElementById('orders-table-tab-content');
+
+            if (tabNav && tabContent) {
+                tabNav.querySelectorAll('.nav-link').forEach(function(tab) {
+                    tab.addEventListener('click', function(e) {
+                        localStorage.setItem('activeEmployeTab', this.getAttribute('href'));
+                    });
                 });
-            });
 
-            // Au chargement, active l'onglet sauvegardé ou le premier par défaut
-            document.addEventListener('DOMContentLoaded', function() {
-                let activeTab = localStorage.getItem('activeStateTab');
-                if (!(activeTab == "#employes-all" || activeTab == "#employes-intermittent" || activeTab == "#employes-permanent")) {
-                    // Si l'onglet actif n'est pas sauvegardé ou n'est pas valide, on le remet à null
-                    // Si rien dans le localStorage, active le premier onglet et panel
-                    let firstTab = document.querySelector('.nav-link');
-                    let firstPane = document.querySelector('.tab-pane');
-                    if (firstTab && firstPane) {
-                        firstTab.classList.add('active');
-                        firstPane.classList.add('show', 'active');
-                    }
-                } else {
-                    // Désactive tous les onglets et panels
-                    document.querySelectorAll('.nav-link').forEach(function(tab) {
-                        tab.classList.remove('active');
-                    });
-                    document.querySelectorAll('.tab-pane').forEach(function(pane) {
-                        pane.classList.remove('show', 'active');
-                    });
+                document.addEventListener('DOMContentLoaded', function() {
+                    let activeTab = localStorage.getItem('activeEmployeTab');
+                    const validTabs = ['#employes-all', '#employes-intermittent', '#employes-permanent'];
+                    if (!validTabs.includes(activeTab)) {
+                        // Active le premier onglet et panel si rien n'est sauvegardé ou si la valeur n'est pas valide
+                        let firstTab = tabNav.querySelector('.nav-link');
+                        let firstPane = tabContent.querySelector('.tab-pane');
+                        if (firstTab && firstPane) {
+                            firstTab.classList.add('active');
+                            firstPane.classList.add('show', 'active');
+                        }
+                    } else {
+                        // Désactive tous les onglets et panels de ce bloc seulement
+                        tabNav.querySelectorAll('.nav-link').forEach(function(tab) {
+                            tab.classList.remove('active');
+                        });
+                        tabContent.querySelectorAll('.tab-pane').forEach(function(pane) {
+                            pane.classList.remove('show', 'active');
+                        });
 
-                    // Active l'onglet et le panel sauvegardés
-                    let tabToActivate = document.querySelector('.nav-link[href="' + activeTab + '"]');
-                    let paneToActivate = document.querySelector(activeTab);
-                    if (tabToActivate && paneToActivate) {
-                        tabToActivate.classList.add('active');
-                        paneToActivate.classList.add('show', 'active');
+                        // Active l'onglet et le panel sauvegardés
+                        let tabToActivate = tabNav.querySelector('.nav-link[href="' + activeTab + '"]');
+                        let paneToActivate = tabContent.querySelector(activeTab);
+                        if (tabToActivate && paneToActivate) {
+                            tabToActivate.classList.add('active');
+                            paneToActivate.classList.add('show', 'active');
+                        }
                     }
-                }
-            });
+                });
+            }
         </script>
     @endsection
 </body>

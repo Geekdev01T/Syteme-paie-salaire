@@ -25,7 +25,18 @@
                         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
                             <div class="col-auto">
-                                <a class="btn app-btn-secondary" href="#" id="create-state-btn">
+                                <a class="btn app-btn-secondary btn-item" href="{{route('state_sheet.show', $employe->id)}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="bi size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    </svg>
+
+                                    Sheet state
+                                </a>
+                                <a class="btn app-btn-secondary btn-item" href="#" id="create-state-btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
@@ -117,7 +128,8 @@
                                             <tbody>
                                                 @forelse ($delay_states as $index => $delay_state)
                                                     <tr>
-                                                        <td class="cell">{{ str_pad(++$index, 2, '0', STR_PAD_LEFT) }}</td>
+                                                        <td class="cell">{{ str_pad(++$index, 2, '0', STR_PAD_LEFT) }}
+                                                        </td>
                                                         <td class="cell"><span
                                                                 class="truncate">{{ \Carbon\Carbon::parse($delay_state->date)->locale('en')->translatedFormat('d F Y') }}</span>
                                                         </td>
@@ -128,22 +140,22 @@
                                                         </td>
                                                         <td class="cell">
                                                             <a class="btn-sm app-btn-secondary"
-                                                            href="{{route('state_delay.edit', $delay_state->id )}}">Edit</a>
-                                                        <form action="{{route('state_delay.delete', $delay_state->id)}}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                onclick="return confirm('do you really want to delete')"
-                                                                class="btn-sm app-btn-secondary">Delete</button>
-                                                        </form>
+                                                                href="{{ route('state_delay.edit', $delay_state->id) }}">Edit</a>
+                                                            <form
+                                                                action="{{ route('state_delay.delete', $delay_state->id) }}"
+                                                                method="POST" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    onclick="return confirm('do you really want to delete')"
+                                                                    class="btn-sm app-btn-secondary">Delete</button>
+                                                            </form>
                                                         </td>
 
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td style="text-align: center;"
-                                                            colspan="5">
+                                                        <td style="text-align: center;" colspan="5">
                                                             No delay states found.
                                                         </td>
                                                     </tr>

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class StateDelayController extends Controller
 {
-    // Fonction pour afficher les états
+    // Fonction pour afficher les employes
     public function index()
     {
         $title = 'Delay State';
@@ -77,7 +77,7 @@ class StateDelayController extends Controller
             'hour' => 'required|integer|min:1|max:20',
             'comment' => 'required|string|max:255',
         ]);
-        
+
         // Mettre à jour l'état avec les nouvelles données
         $state_delay->update([
             'date' => $request->date,

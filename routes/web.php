@@ -6,6 +6,7 @@ use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StateDelayController;
+use App\Http\Controllers\StateSheetController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -69,6 +70,12 @@ Route::middleware('auth')->group(function(){
         Route::get('/edit/{state_delay}', [StateDelayController::class, 'edit'])->name('state_delay.edit');
         Route::put('/update/{state_delay}', [StateDelayController::class, 'update'])->name('state_delay.update');
         Route::delete('/create/{state_delay}', [StateDelayController::class, 'delete'])->name('state_delay.delete');
+    });
+
+    //Groupes de routes pour les fiches d'état
+    Route::prefix('state-sheet')->group(function(){
+        Route::get('/', [StateSheetController::class, 'index'])->name('state_sheet.index');
+        Route::get('/show/{employe}', [StateSheetController::class, 'show'])->name('state_sheet.show');
     });
 });
 

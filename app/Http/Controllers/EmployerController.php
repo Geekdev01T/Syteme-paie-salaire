@@ -15,7 +15,7 @@ class EmployerController extends Controller
     public function index()
     {
         // Titre de la page
-        $title = 'Employers';
+        $title = 'List Employer';
         $empint = 0;
         $empper = 0;
 
