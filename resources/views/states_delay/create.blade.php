@@ -50,6 +50,7 @@
                     </div>
                 </div>
                 <div class="row g-4 settings-section" style="display: none" id="state-section">
+                    <hr class="my-4">
                     <div class="col-12 col-md-4">
                         <h3 class="section-title" id="state-title">Delay State</h3>
                         <div class="section-intro" id="state-intro">Add a new delay state here.</div>

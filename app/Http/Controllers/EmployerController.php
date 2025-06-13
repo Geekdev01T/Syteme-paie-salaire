@@ -54,7 +54,8 @@ class EmployerController extends Controller
             'email' => $request->email,
             'contact' => $request->contact,
             'status' => $request->status,
-            'daily_amount' => $request->honorary,
+            'honorary' => $request->honorary,
+            'fixed_salary' => $request->fixed_salary,
         ]);
 
         // Rediriger vers la liste avec un message de succès
@@ -136,7 +137,8 @@ class EmployerController extends Controller
             'email' => 'required|email',
             'contact' => 'required|string|min:9',
             'status' => 'required',
-            'honorary' => 'required|integer|min:500',
+            'honorary' => 'nullable|integer|min:500',
+            'fixed_salary' => 'nullable|integer|min:10000',
         ]);
 
         //Mise a jour de employer
@@ -145,7 +147,8 @@ class EmployerController extends Controller
         $employer->email = $request->email;
         $employer->contact = $request->contact;
         $employer->status = $request->status;
-        $employer->daily_amount = $request->honorary;
+        $employer->honorary = $request->honorary;
+        $employer->fixed_salary = $request->fixed_salary;
 
         // Enregistrer les modifications
         $employer->save();

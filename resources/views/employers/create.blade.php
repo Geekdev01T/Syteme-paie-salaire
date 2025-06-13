@@ -116,11 +116,11 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3" id="basic-salary-field" style="display: none;">
-                                    <label for="basic_salary" class="form-label">Basic Salary *</label>
-                                    <input type="number" class="form-control" id="basic_salary" name="basic_salary"
-                                        placeholder="enter the employee's basic salary"
-                                        value="{{ old('basic_salary') }}">
-                                    @error('basic_salary')
+                                    <label for="fixed_salary" class="form-label">Fixed Salary *</label>
+                                    <input type="number" class="form-control" id="fixed_salary" name="fixed_salary"
+                                        placeholder="enter the employee's fixed salary"
+                                        value="{{ old('fixed_salary') }}">
+                                    @error('fixed_salary')
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>

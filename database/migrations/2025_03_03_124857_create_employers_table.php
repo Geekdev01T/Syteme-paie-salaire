@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('email', 255);
             $table->string('contact', 255);
             $table->enum('status', ['permanent', 'intermittent'])->default('intermittent');
-            $table->integer('daily_amount')->nullable();
+            $table->integer('honorary')->nullable();
+            $table->integer('fixed_salary')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('employers');
+        Schema::enableForeignKeyConstraints();
     }
 };

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\StateController;
@@ -53,7 +54,7 @@ Route::middleware('auth')->group(function(){
     });
 
     //Groupes de routes pour les "etat" de presence
-    Route::prefix('state')->group(function () {
+    Route::prefix('states')->group(function () {
         Route::get('/', [StateController::class, 'index'])->name('state.index');
         Route::get('/create/{employe}', [StateController::class, 'create'])->name('state.create');
         Route::post('/store', [StateController::class, 'store'])->name('state.store');
@@ -63,7 +64,7 @@ Route::middleware('auth')->group(function(){
     });
 
     //Groupes de routes pour les "etat" de retard
-    Route::prefix('state-delay')->group(function () {
+    Route::prefix('states-delay')->group(function () {
         Route::get('/', [StateDelayController::class, 'index'])->name('state_delay.index');
         Route::get('/create/{employe}', [StateDelayController::class, 'create'])->name('state_delay.create');
         Route::post('/store', [StateDelayController::class, 'store'])->name('state_delay.store');
@@ -73,9 +74,19 @@ Route::middleware('auth')->group(function(){
     });
 
     //Groupes de routes pour les fiches d'état
-    Route::prefix('state-sheet')->group(function(){
+    Route::prefix('states-sheet')->group(function(){
         Route::get('/', [StateSheetController::class, 'index'])->name('state_sheet.index');
         Route::get('/show/{employe}', [StateSheetController::class, 'show'])->name('state_sheet.show');
+    });
+
+    //Groupes de routes pour les configurations de l'application
+    Route::prefix('settings')->group(function () {
+        Route::get('/', [ConfigurationController::class, 'index'])->name('settings.index');
+        Route::get('/initialize', [ConfigurationController::class, 'initialize'])->name('settings.initialize');
+        Route::get('/reset', [ConfigurationController::class, 'reset'])->name('settings.reset');
+        Route::put('/update_enterprise', [ConfigurationController::class, 'update_enterprise'])->name('settings.update_enterprise');
+        Route::put('/update_config', [ConfigurationController::class, 'update_config'])->name('settings.update_config');
+        Route::put('/update_app', [ConfigurationController::class, 'update_app'])->name('settings.update_app');
     });
 });
 

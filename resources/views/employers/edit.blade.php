@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Status *</label>
-                                    <select class="form-control" name="status" id="status">
+                                    <select class="form-control" name="status" id="status" onchange="toggleSalaryFields()">
                                         <option value="intermittent"
                                             {{ $employer->status == 'intermittent' ? 'selected' : '' }}>Intermittent
                                         </option>
@@ -90,15 +90,24 @@
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                <div class="mb-3">
+
+                                <div class="mb-3" id="honorary-field" style="display: none;">
                                     <label for="honorary" class="form-label">Honorary *</label>
-                                    <input type="number" class="form-control" id="honorary" name="honorary"
-                                        placeholder="enter the employee's honorary" value="{{ $employer->daily_amount }}">
+                                    <input type="text" class="form-control" id="honorary" name="honorary"
+                                        placeholder="enter the employee's honorary" value="{{ $employer->honorary }}">
                                     @error('honorary')
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
-
+                                <div class="mb-3" id="basic-salary-field" style="display: none;">
+                                    <label for="fixed_salary" class="form-label">Fixed Salary *</label>
+                                    <input type="text" class="form-control" id="fixed_salary" name="fixed_salary"
+                                        placeholder="enter the employee's fixed salary"
+                                        value="{{ $employer->fixed_salary }}">
+                                    @error('fixed_salary')
+                                        <p class="text text-danger mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
                                 <button type="submit" class="btn app-btn-primary">Update</button>
                             </form>
                         </div><!--//app-card-body-->
@@ -109,5 +118,22 @@
 
             <hr class="my-4">
         </div>
+
+        <script>
+            function toggleSalaryFields() {
+                var status = document.getElementById('status').value;
+                var honoraryField = document.getElementById('honorary-field');
+                var basicSalaryField = document.getElementById('basic-salary-field');
+                if (status === 'permanent') {
+                    basicSalaryField.style.display = 'block';
+                    honoraryField.style.display = 'none';
+                } else {
+                    honoraryField.style.display = 'block';
+                    basicSalaryField.style.display = 'none';
+                }
+            }
+            // Appel au chargement pour gérer le cas du old('status')
+            document.addEventListener('DOMContentLoaded', toggleSalaryFields);
+        </script>
     @endsection
 </body>

@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('entreprises', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255);
+            $table->string('name',255)->nullable();
             $table->text('slogan')->nullable();
-            $table->enum('type_organisation', ['ecole', 'entreprise', 'association', 'universite', 'gouvernement', 'ong'])->default('ecole');
-            $table->string('logo');
+            $table->enum('type_organisation', ['etablissement_scolaire', 'entreprise', 'association', 'universite', 'gouvernement', 'ong'])->default('etablissement_scolaire');
+            $table->string('logo')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('phone1')->default('+236 682 779 324');
+            $table->string('phone2')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

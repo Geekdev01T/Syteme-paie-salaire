@@ -24,6 +24,7 @@ class EmployerFactory extends Factory
             'contact' => $this->faker->phoneNumber(),
             'status' => $this->faker->randomElement(['intermittent', 'permanent']),
             'honorary' => $this->faker->numberBetween(500, 10000),
+            'fixed_salary' => $this->faker->numberBetween(10000, 150000),
         ];
     }
 }

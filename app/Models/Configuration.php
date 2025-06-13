@@ -5,20 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Entreprise extends Model
+class Configuration extends Model
 {
     //
     use HasFactory;
 
-    // Champs accessibles
+    //Champs accessible
     protected $fillable = [
-        'name',
-        'slogan',
-        'type_organisation',
+        'app_name',
+        'language',
         'logo',
-        'email',
-        'phone1',
-        'phone2',
-        'address'
+        'paiement_date',
+        'state_sheet_date',
+        'supervised_work_fee',
+        'monitoring_fee'
     ];
 }

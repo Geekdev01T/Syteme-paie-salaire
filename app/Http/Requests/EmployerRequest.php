@@ -28,6 +28,7 @@ class EmployerRequest extends FormRequest
             'contact' => 'required|string|max:15|unique:employers,contact',
             'status' => 'required|in:permanent,intermittent',
             'honorary' => 'nullable|numeric|min:500',
+            'fixed_salary' => 'nullable|numeric|min:10000',
             // Ajoutez d'autres règles de validation si nécessaire
         ];
     }
@@ -54,6 +55,8 @@ class EmployerRequest extends FormRequest
             'status.in' => 'The status must be either permanent or intermittent.',
             'honorary.numeric' => 'The honorary must be a number.',
             'honorary.min' => 'The honorary must be at least 500.',
+            'fixed_salary.numeric' => 'The fixed salary must be a number.',
+            'fixed_salary.min' => 'The fixed salary must be at least 10000.',
 
         ];
     }

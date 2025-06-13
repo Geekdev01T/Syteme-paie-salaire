@@ -83,10 +83,10 @@
                                         </div>
                                         <div class="col-auto">
                                             @if ($employer->status == 'permanent')
-                                                <div class="item-label"><strong>Basic Salary</strong></div>
+                                                <div class="item-label"><strong>Fixed Salary</strong></div>
                                                 <div class="item-data" style="margin-top: 0.5em">
-                                                    @if ($employer->daily_amount)
-                                                        {{ $employer->daily_amount }} FCFA
+                                                    @if ($employer->fixed_salary)
+                                                        {{ $employer->fixed_salary }} FCFA
                                                     @else
                                                         <span class="badge bg-secondary">Not set</span>
                                                     @endif
@@ -94,8 +94,8 @@
                                             @else
                                                 <div class="item-label"><strong>Honorary</strong></div>
                                                 <div class="item-data" style="margin-top: 0.5em">
-                                                    @if ($employer->daily_amount)
-                                                        {{ $employer->daily_amount }} FCFA
+                                                    @if ($employer->honorary)
+                                                        {{ $employer->honorary }} FCFA
                                                     @else
                                                         <span class="badge bg-secondary">Not set</span>
                                                     @endif
