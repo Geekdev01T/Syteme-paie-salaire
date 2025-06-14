@@ -25,8 +25,8 @@ class ConfigRequest extends FormRequest
             // 'app_name' => 'required|string|max:255',
             // 'language' => 'required|in:english,french',
             // 'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5000', // 5MB max
-            'paiement_date' => 'required|integer|min:1|max:31',
-            'state_sheet_date' => 'required|integer|min:1|max:31',
+            'paiement_date' => 'required|integer',
+            'state_sheet_date' => 'required|integer|min:25|max:31',
             'supervised_work_fee' => 'required|integer|min:500',
             'monitoring_fee' => 'required|integer|min:1000',
         ];
@@ -50,11 +50,9 @@ class ConfigRequest extends FormRequest
             // 'logo.max' => 'The logo size may not exceed 5 MB.',
             'paiement_date.required' => 'The payment date is required.',
             'paiement_date.integer' => 'The payment date must be an integer.',
-            'paiement_date.min' => 'The payment date must be at least 1.',
-            'paiement_date.max' => 'The payment date may not exceed 31.',
             'state_sheet_date.required' => 'The state sheet date is required.',
             'state_sheet_date.integer' => 'The state sheet date must be an integer.',
-            'state_sheet_date.min' => 'The state sheet date must be at least 1.',
+            'state_sheet_date.min' => 'The state sheet date must be at least 25.',
             'state_sheet_date.max' => 'The state sheet date may not exceed 31.',
             'supervised_work_fee.required' => 'The supervised work fee is required.',
             'supervised_work_fee.integer' => 'The supervised work fee must be an integer.',
@@ -63,5 +61,19 @@ class ConfigRequest extends FormRequest
             'monitoring_fee.integer' => 'The monitoring fee must be an integer.',
             'monitoring_fee.min' => 'The monitoring fee must be at least 1000.'
         ];
+    }
+
+    //Validation personnaliser
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $value = $this->paiement_date;
+            if (!(
+                ($value >= 1 && $value <= 10) ||
+                ($value >= 25 && $value <= 31)
+            )) {
+                $validator->errors()->add('paiement_date', 'The payment date must be between 1-10 or 25-31.');
+            }
+        });
     }
 }

@@ -118,8 +118,38 @@
                                             value="{{ old('logo') }}" accept="image/*">
                                         <div class="mt-2">
                                             <img src="{{ $enterprise->logo ? asset('storage/' . $enterprise->logo) : asset('images/login-bg.jpg') }}"
-                                                alt="Company Logo"
-                                                style="max-width: 150px; max-height: 150px; object-fit: cover;">
+                                                alt="Company Logo" class="img-preview" id="logo-enterprise"
+                                                style="max-width: 150px; max-height: 150px; object-fit: cover;cursor:pointer;">
+                                            <div id="logo-enterprise-modal"
+                                                style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); align-items:center; justify-content:center;">
+                                                <div
+                                                    style="position:relative; background:#fff; padding:20px; border-radius:6px; width:50vw; height:60vh;">
+                                                    <button id="close-logo-enterprise-modal"
+                                                        style="position:absolute; top:10px; right:10px;display:flex; align-items:center; justify-content:center ; background:#f44336; color:#fff; border:none; border-radius:50%; width:32px; height:32px; cursor:pointer;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            width="16" height="16" viewBox="0 0 24 24"
+                                                            stroke-width="2" stroke="currentColor" class="bi size-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M6 18 18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+                                                    <div style="margin-bottom:10px;">
+                                                        <label>
+                                                            <input type="radio" name="fit" class="contain-radio"
+                                                                checked>
+                                                            Contain
+                                                        </label>
+                                                        <label style="margin-left:15px;">
+                                                            <input type="radio" name="fit" class="cover-radio">
+                                                            Cover
+                                                        </label>
+                                                    </div>
+                                                    <img id="modal-logo-enterprise-img"
+                                                        src="{{ $enterprise->logo ? asset('storage/' . $enterprise->logo) : asset('images/login-bg.jpg') }}"
+                                                        alt="Company Logo"
+                                                        style="width:40vh; height:50vh; display:block; margin:auto; object-fit:contain;">
+                                                </div>
+                                            </div>
                                         </div>
                                         @error('logo')
                                             <div class="text text-danger mt-2">{{ $message }}</div>
@@ -180,8 +210,9 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-3">
-                                        <label for="paiement_date" class="form-label">Paiement Date *</label>
-                                        <input type="number" class="form-control" id="paiement_date"
+                                        <label for="paiement_date" class="form-label">Payment Date *</label>
+                                        <input type="number" class="form-control" id="paiement_date" min="1"
+                                            max="31"
                                             value="{{ old('paiement_date') ?? $configuration->paiement_date }}"
                                             name="paiement_date">
                                         <div class="text text-warning mb-1">
@@ -197,7 +228,7 @@
                                     <div class="mb-3">
                                         <label for="state_sheet_date" class="form-label">State Sheet Date</label>
                                         <input type="number" class="form-control" id="state_sheet_date"
-                                            name="state_sheet_date"
+                                            name="state_sheet_date" min="25" max="31"
                                             value="{{ old('state_sheet_date') ?? $configuration->state_sheet_date }}">
                                         <div class="text text-warning mb-1">
                                             <small>
@@ -212,7 +243,7 @@
                                     <div class="mb-3">
                                         <label for="supervised_work_fee" class="form-label">Supervised Work Fee</label>
                                         <input type="number" class="form-control" id="supervised_work_fee"
-                                            name="supervised_work_fee"
+                                            name="supervised_work_fee" min="500"
                                             value="{{ old('supervised_work_fee') ?? $configuration->supervised_work_fee }}">
                                         <div class="text text-warning mb-1">
                                             <small>
@@ -228,7 +259,7 @@
                                     <div class="mb-3">
                                         <label for="monitoring_fee" class="form-label">Monitoring</label>
                                         <input type="number" class="form-control" id="monitoring_fee"
-                                            name="monitoring_fee"
+                                            name="monitoring_fee" min="1000"
                                             value="{{ old('monitoring_fee') ?? $configuration->monitoring_fee }}">
                                         <div class="text text-warning mb-1">
                                             <small>
@@ -258,7 +289,8 @@
                         <div class="app-card app-card-settings shadow-sm p-4">
 
                             <div class="app-card-body">
-                                <form class="settings-form" action="{{route('settings.update_app')}}" method="POST" enctype="multipart/form-data">
+                                <form class="settings-form" action="{{ route('settings.update_app') }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-3">
@@ -279,8 +311,7 @@
                                                 </svg></span>
                                         </label>
                                         <input type="text" class="form-control" id="app_name"
-                                            value="{{ old('app_name') ?? $configuration->app_name }}"
-                                            name="app_name">
+                                            value="{{ old('app_name') ?? $configuration->app_name }}" name="app_name">
                                         @error('app_name')
                                             <div class="text text-danger mt-2">{{ $message }}</div>
                                         @enderror
@@ -307,8 +338,40 @@
                                             value="{{ old('logo_app') }}" accept="image/*">
                                         <div class="mt-2">
                                             <img src="{{ $configuration->logo ? asset('storage/' . $configuration->logo) : asset('images/logo.PNG') }}"
-                                                alt="App Logo"
-                                                style="max-width: 150px; max-height: 150px; object-fit: cover;">
+                                                alt="App Logo" class="img-preview" id="logo-app"
+                                                style="max-width: 150px; max-height: 150px; object-fit: cover;cursor:pointer;">
+                                            <div id="logo-app-modal"
+                                                style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); align-items:center; justify-content:center;">
+                                                <div
+                                                    style="position:relative; background:#fff; padding:20px; border-radius:6px; width:50vw; height:60vh;">
+                                                    <button id="close-logo-app-modal"
+                                                        style="position:absolute; top:10px; right:10px;display:flex; align-items:center; justify-content:center ; background:#f44336; color:#fff; border:none; border-radius:50%; width:32px; height:32px; cursor:pointer;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            width="16" height="16" viewBox="0 0 24 24"
+                                                            stroke-width="2" stroke="currentColor" class="bi size-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M6 18 18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+                                                    <div style="margin-bottom:10px;">
+                                                        <label>
+                                                            <input type="radio" name="fit" class="contain-radio"
+                                                                checked>
+                                                            Contain
+                                                        </label>
+                                                        <label style="margin-left:15px;">
+                                                            <input type="radio" name="fit" class="cover-radio">
+                                                            Cover
+                                                        </label>
+                                                    </div>
+                                                    <img id="modal-logo-app-img"
+                                                        src="{{ $configuration->logo ? asset('storage/' . $configuration->logo) : asset('images/logo.PNG') }}"
+                                                        alt="Logo"
+                                                        style="width:40vh; height:50vh; display:block; margin:auto; object-fit:contain;">
+                                                </div>
+                                            </div>
+
+
                                         </div>
                                         @error('logo_app')
                                             <div class="text text-danger mt-2">{{ $message }}</div>
@@ -325,5 +388,57 @@
 
             </div>
         </div>
+
+        <script>
+            document.getElementById('logo-app').onclick = function() {
+                document.getElementById('logo-app-modal').style.display = 'flex';
+            };
+            document.getElementById('close-logo-app-modal').onclick = function(e) {
+                e.preventDefault();
+                document.getElementById('logo-app-modal').style.display = 'none';
+            };
+            // Fermer la modal si on clique en dehors de l'image
+            document.getElementById('logo-app-modal').onclick = function() {
+
+                if (e.target === this) this.style.display = 'none';
+            };
+
+            document.getElementById('logo-enterprise').onclick = function() {
+                document.getElementById('logo-enterprise-modal').style.display = 'flex';
+            };
+            document.getElementById('close-logo-enterprise-modal').onclick = function(e) {
+                document.getElementById('logo-enterprise-modal').style.display = 'none';
+                e.preventDefault();
+            };
+            // Fermer la modal si on clique en dehors de l'image
+            document.getElementById('logo-enterprise-modal').onclick = function(e) {
+
+                if (e.target === this) this.style.display = 'none';
+            };
+
+            // Gestion des radios
+            const containRadio = document.querySelectorAll('.contain-radio');
+            const coverRadio = document.querySelectorAll('.cover-radio');
+            const modalLogoAppImg = document.getElementById('modal-logo-app-img');
+            const modalLogoEnterpriseImg = document.getElementById('modal-logo-enterprise-img');
+
+            containRadio.forEach(radio => {
+                radio.onchange = function() {
+                    if (radio.checked) {
+                        modalLogoAppImg.style.objectFit = 'contain';
+                        modalLogoEnterpriseImg.style.objectFit = 'contain';
+                    }
+                };
+            });
+
+            coverRadio.forEach(radio => {
+                radio.onchange = function() {
+                    if (radio.checked) {
+                        modalLogoAppImg.style.objectFit = 'cover';
+                        modalLogoEnterpriseImg.style.objectFit = 'cover';
+                    }
+                };
+            });
+        </script>
     @endsection
 </body>

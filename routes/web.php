@@ -6,6 +6,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotifController;
 use App\Http\Controllers\StateDelayController;
 use App\Http\Controllers\StateSheetController;
 use Illuminate\Support\Facades\Route;
@@ -88,5 +89,8 @@ Route::middleware('auth')->group(function(){
         Route::put('/update_config', [ConfigurationController::class, 'update_config'])->name('settings.update_config');
         Route::put('/update_app', [ConfigurationController::class, 'update_app'])->name('settings.update_app');
     });
+
+    //Route pour les notifications
+    Route::get('/notifications', [NotifController::class, 'index'])->name('notifications.index');
 });
 

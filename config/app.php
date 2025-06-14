@@ -1,5 +1,8 @@
 <?php
 
+use App\Helpers\ConfigHelper;
+use Illuminate\Support\Facades\Facade;
+
 return [
 
     /*
@@ -122,5 +125,21 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define the configuration for your application. This is a
+    | convenient place to store application-wide settings that can be easily
+    | accessed throughout your application. You can add any custom config
+    | values you need for your application here.
+    |--------------------------------------------------------------------------
+    */
+    'aliases'=>Facade::defaultAliases()->merge([
+        'AppData' => ConfigHelper::class,
+        'PaymentAndSheetNotifications' => ConfigHelper::class,
+    ])->toArray(),
 
 ];

@@ -11,6 +11,19 @@
     @section('content')
         <h1 class="app-page-title">Dashboard</h1>
 
+        @if (PaymentAndSheetNotifications::getPaymentAndSheetNotifications()['paymentNotification'])
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Attention!</strong> {{ PaymentAndSheetNotifications::getPaymentAndSheetNotifications()['paymentNotification']['message'] }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (PaymentAndSheetNotifications::getPaymentAndSheetNotifications()['SendSheetNotification'])
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Attention!</strong> {{ PaymentAndSheetNotifications::getPaymentAndSheetNotifications()['SendSheetNotification']['message'] }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
 
         <div class="row g-4 mb-4">
             <div class="col-6 col-lg-3">

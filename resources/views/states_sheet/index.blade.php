@@ -8,6 +8,13 @@
 <body>
     @section('content')
         <div class="container-xl">
+            @if (PaymentAndSheetNotifications::getPaymentAndSheetNotifications()['SendSheetNotification'])
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Attention!</strong>
+                    {{ PaymentAndSheetNotifications::getPaymentAndSheetNotifications()['SendSheetNotification']['message'] }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
