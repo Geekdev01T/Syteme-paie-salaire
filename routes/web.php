@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LoginEmployeController;
 use App\Http\Controllers\NotifController;
 use App\Http\Controllers\StateDelayController;
 use App\Http\Controllers\StateSheetController;
@@ -22,6 +26,9 @@ Route::middleware('guest')->group(
     function () {
         Route::get('/', [LoginController::class, 'login'])->name('login');
         Route::post('/', [LoginController::class, 'handlelogin'])->name('login');
+
+        Route::get('/login-employe', [LoginEmployeController::class, 'loginEmp'])->name('login.employe');
+        Route::get('/initialize-employe', [LoginEmployeController::class, 'initEmp'])->name('init.employe');
     }
 );
 
@@ -52,6 +59,28 @@ Route::middleware('auth')->group(function(){
         Route::get('/show/{department}', [DepartmentController::class, 'show'])->name('department.show');
         Route::get('/edit/{department}', [DepartmentController::class, 'edit'])->name('department.edit');
         Route::put('/update/{department}', [DepartmentController::class, 'update'])->name('department.update');
+    });
+
+    //Groupes de routes pour les cours
+    Route::prefix('courses')->group(function () {
+        Route::get('/', [CourseController::class, 'index'])->name('course.index');
+        Route::get('/create', [CourseController::class, 'create'])->name('course.create');
+        Route::post('/create', [CourseController::class, 'store'])->name('course.store');
+        Route::delete('/{course}', [CourseController::class, 'delete'])->name('course.delete');
+        Route::get('/show/{course}', [CourseController::class, 'show'])->name('course.show');
+        Route::get('/edit/{course}', [CourseController::class, 'edit'])->name('course.edit');
+        Route::put('/update/{course}', [CourseController::class, 'update'])->name('course.update');
+    });
+
+    //Groupes de routes pour les classes
+    Route::prefix('classes')->group(function () {
+        Route::get('/', [ClassController::class, 'index'])->name('class.index');
+        Route::get('/create', [ClassController::class, 'create'])->name('class.create');
+        Route::post('/create', [ClassController::class, 'store'])->name('class.store');
+        Route::delete('/{class}', [ClassController::class, 'delete'])->name('class.delete');
+        Route::get('/show/{class}', [ClassController::class, 'show'])->name('class.show');
+        Route::get('/edit/{class}', [ClassController::class, 'edit'])->name('class.edit');
+        Route::put('/update/{class}', [ClassController::class, 'update'])->name('class.update');
     });
 
     //Groupes de routes pour les "etat" de presence
@@ -92,5 +121,16 @@ Route::middleware('auth')->group(function(){
 
     //Route pour les notifications
     Route::get('/notifications', [NotifController::class, 'index'])->name('notifications.index');
+
+    //Groupes de routes pour les admins
+    Route::prefix('admins')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
+        Route::post('/create', [AdminController::class, 'store'])->name('admin.store');
+        Route::delete('/{employer}', [AdminController::class, 'delete'])->name('admin.delete');
+        Route::get('/show/{employer}', [AdminController::class, 'show'])->name('admin.show');
+        Route::get('/edit/{employer}', [AdminController::class, 'edit'])->name('admin.edit');
+        Route::put('/update/{employer}', [AdminController::class, 'update'])->name('admin.update');
+    });
 });
 

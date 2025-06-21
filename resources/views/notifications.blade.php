@@ -23,7 +23,7 @@
                     <div class="app-card-header px-4 py-3">
                         <div class="row g-3 align-items-center">
                             <div class="col-12 col-lg-auto text-center text-lg-start">
-                                <img class="profile-image" src="https://ui-avatars.com/api/?name=System+Notification" style="border-radius: 50%"
+                                <img class="profile-image" src="{{asset('images/systeme.png')}}" style="border-radius: 50%"
                                                     alt="System Notification">
                             </div><!--//col-->
                             <div class="col-12 col-lg-auto text-center text-lg-start">
@@ -53,7 +53,7 @@
                     <div class="app-card-header px-4 py-3">
                         <div class="row g-3 align-items-center">
                             <div class="col-12 col-lg-auto text-center text-lg-start">
-                                <img class="profile-image" src="https://ui-avatars.com/api/?name=System+Notification" style="border-radius: 50%"
+                                <img class="profile-image" src="{{asset('images/systeme.png')}}" style="border-radius: 50%"
                                                     alt="System Notification">
                             </div><!--//col-->
                             <div class="col-12 col-lg-auto text-center text-lg-start">

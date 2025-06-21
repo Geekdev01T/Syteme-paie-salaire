@@ -25,7 +25,8 @@
                     <div class="app-card app-card-settings shadow-sm p-4">
 
                         <div class="app-card-body">
-                            <form class="settings-form" action="{{ route('employer.update', $employer->id) }}" method="POST">
+                            <form class="settings-form" action="{{ route('employer.update', $employer->id) }}"
+                                method="POST" enctype="multipart/form-data">
                                 @method('PUT')
                                 @csrf
 
@@ -79,7 +80,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Status *</label>
-                                    <select class="form-control" name="status" id="status" onchange="toggleSalaryFields()">
+                                    <select class="form-control" name="status" id="status"
+                                        onchange="toggleSalaryFields()">
                                         <option value="intermittent"
                                             {{ $employer->status == 'intermittent' ? 'selected' : '' }}>Intermittent
                                         </option>
@@ -105,6 +107,29 @@
                                         placeholder="enter the employee's fixed salary"
                                         value="{{ $employer->fixed_salary }}">
                                     @error('fixed_salary')
+                                        <p class="text text-danger mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="profile" class="form-label">Profile</label>
+                                    <input type="file" class="form-control" id="profile" name="profile"
+                                        value="{{ old('profile') ?? $employer->profile }}" accept="image/*"
+                                        onchange="previewImage(event)">
+                                    <img id="image-preview" src="#" alt="Image Preview" class="mt-2"
+                                        style="display: none; max-width: 200px; max-height: 200px;">
+                                    <script>
+                                        function previewImage(event) {
+                                            var imagePreview = document.getElementById('image-preview');
+                                            imagePreview.src = URL.createObjectURL(event.target.files[0]);
+                                            imagePreview.style.display = 'block';
+                                        }
+                                    </script>
+                                    @if (empty(old('profile')))
+                                        <img src="{{ $employer->profile ? asset('storage/' . $employer->profile) : asset('images/user.png') }}"
+                                            alt="user-profile" class="mt-2"
+                                            style="max-width: 200px; max-height: 200px;">
+                                    @endif
+                                    @error('profile')
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>

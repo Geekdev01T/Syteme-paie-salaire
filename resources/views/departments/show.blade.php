@@ -51,6 +51,16 @@
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-auto">
+                                            <div class="item-label"><strong>Courses</strong></div>
+                                            <div class="item-data">
+                                                {{ str_pad($courseCount, 2, '0', STR_PAD_LEFT) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
                                             <div class="item-label"><strong>workforce</strong></div>
                                             <div class="item-data">
                                                 {{ str_pad($count, 2, '0', STR_PAD_LEFT) }}
@@ -77,6 +87,50 @@
                             <div class="app-card-header p-3 border-bottom-0">
                                 <div class="row align-items-center gx-3">
                                     <div class="col-auto">
+                                        <h4 class="app-card-title">Courses</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="app-card-body px-4 w-100">
+
+                                @forelse ($courses as $course)
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Name</strong></div>
+                                                <div class="item-data">
+                                                    <a href="{{route('course.show', $course->id)}}">
+                                                        {{ $course->name }}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Code</strong></div>
+                                                <div class="item-data">
+                                                    {{ $course->code }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                @empty
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>No Course found</strong></div>
+                                                <div class="item-data">This department has no course yet.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                            <div class="app-card-header p-3 border-bottom-0">
+                                <div class="row align-items-center gx-3">
+                                    <div class="col-auto">
                                         <h4 class="app-card-title">Members</h4>
                                     </div>
                                 </div>
@@ -87,7 +141,7 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Employer</strong></div>
+                                                <div class="item-label"><strong>Employe</strong></div>
                                                 <div class="item-data">
                                                     <a href="{{route('employer.show', $employe->id)}}">
                                                         {{ $employe->name }}

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name',255);
             $table->string('first_name', 255);
             $table->string('email', 255);
+            $table->string('password', 255)->nullable();
+            $table->string('profile')->nullable();
             $table->string('contact', 255);
             $table->enum('status', ['permanent', 'intermittent'])->default('intermittent');
             $table->integer('honorary')->nullable();

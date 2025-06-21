@@ -25,7 +25,8 @@
                     <div class="app-card app-card-settings shadow-sm p-4">
 
                         <div class="app-card-body">
-                            <form class="settings-form" action="{{ route('employer.store') }}" method="POST">
+                            <form class="settings-form" action="{{ route('employer.store') }}" method="POST" enctype="multipart/form-data">
+                                {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
                                 @csrf
                                 {{-- <div class="mb-3">
                                     <label for="departement_id" class="form-label">Department *</label>
@@ -122,6 +123,23 @@
                                         value="{{ old('fixed_salary') }}">
                                     @error('fixed_salary')
                                         <p class="text text-danger mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="profile" class="form-label">Profile</label>
+                                    <input type="file" class="form-control" id="profile" name="profile"
+                                        value="{{ old('profile') }}" accept="image/*"  onchange="previewImage(event)">
+                                    <img id="image-preview" src="#" alt="Image Preview" class="mt-2"
+                                        style="display: none; max-width: 200px; max-height: 200px;">
+                                    <script>
+                                        function previewImage(event) {
+                                            var imagePreview = document.getElementById('image-preview');
+                                            imagePreview.src = URL.createObjectURL(event.target.files[0]);
+                                            imagePreview.style.display = 'block';
+                                        }
+                                    </script>
+                                    @error('profile')
+                                        <div class="text text-danger mt-2">{{ $message }}</div>
                                     @enderror
                                 </div>
 

@@ -2,26 +2,31 @@
 @extends('layout.template')
 
 @section('title-content')
-    <title> Edit - Department | StaffPay</title>
+    <title> Create - Course | StaffPay</title>
 @endsection
 
 <body>
     @section('content')
         <div class="container-xl">
-            <h1 class="app-page-title">Departments</h1>
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            <h1 class="app-page-title">Courses</h1>
 
             <hr class="mb-4">
             <div class="row g-4 settings-section">
                 <div class="col-12 col-md-2">
-                    <h3 class="section-title">Edit</h3>
-                    <div class="section-intro">edit department here</div>
+                    <h3 class="section-title">Add</h3>
+                    <div class="section-intro">add a new course here</div>
                 </div>
                 <div class="col-12 col-md-10">
                     <div class="app-card app-card-settings shadow-sm p-4">
 
                         <div class="app-card-body">
-                            <form class="settings-form" action="{{ route('department.update', $department->id) }}" method="POST">
-                                @method('put')
+                            <form class="settings-form" action="{{ route('course.store') }}" method="POST">
                                 @csrf
 
                                 <div class="mb-3">
@@ -40,7 +45,7 @@
                                                 <circle cx="8" cy="4.5" r="1"></circle>
                                             </svg></span></label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="enter the department name" value="{{ old('name') ?? $department->name }}">
+                                        placeholder="enter the course name" value="{{ old('name') }}">
                                     @error('name')
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
@@ -49,33 +54,28 @@
                                 <div class="mb-3">
                                     <label for="code" class="form-label">Code *</label>
                                     <input type="text" class="form-control" id="code" name="code"
-                                        placeholder="enter the department code" value="{{ old('code') ?? $department->code }}">
+                                        placeholder="enter the course code" value="{{ old('code') }}">
                                     @error('code')
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="description" class="form-label">Description *</label>
-                                    <textarea class="form-control textarea" id="description" name="description"
-                                        placeholder="enter the department descritpion">{{ old('description') ?? $department->description }}</textarea>
-                                    @error('description')
-                                        <p class="text text-danger mt-2">{{ $message }}</p>
-                                    @enderror
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="section" class="form-label">Section *</label>
-                                    <select style="padding: .5em" class="form-control" name="section" id="section">
-                                        <option value="french" {{old('section') ? (old('section') == "french" ? 'selected' : '') : ($department->section   == "french" ? 'selected' : '')}}>French</option>
-                                        <option value="english" {{old('section') ? (old('section') == "english" ? 'selected' : '') : ($department->section   == "english" ? 'selected' : '')}}>English</option>
+                                    <label for="department_name" class="form-label">Department *</label>
+                                    <select style="padding:0 .5em;" class="form-control" name="departement_id"
+                                        id="department_name">
+                                        @forelse ($departments as $department)
+                                            <option value="{{ $department->id }}" {{$department->id == old('departement_id') ? 'selected' : ''}} >{{ $department->name }}</option>
+                                        @empty
+                                            <option value="">No courses available</option>
+                                        @endforelse
                                     </select>
-                                    @error('section')
-                                        <p class="text text-danger mt-2">{{ $message }}</p>
+                                    @error('departement_id')
+                                        <p class="text text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
 
-                                <button type="submit" class="btn app-btn-primary">update</button>
+                                <button type="submit" class="btn app-btn-primary">Save</button>
                             </form>
                         </div><!--//app-card-body-->
 

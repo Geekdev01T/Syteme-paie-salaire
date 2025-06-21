@@ -28,7 +28,59 @@
                             <div class="app-card-header p-3 border-bottom-0">
                                 <div class="row align-items-center gx-3">
                                     <div class="col-auto">
-                                        <h4 class="app-card-title">Details</h4>
+                                        <img class="profile-image img-preview"
+                                            src="{{ $employer->profile ? asset('storage/' . $employer->profile) : asset('images/user2.png') }}"
+                                            alt="Profile Image" class="" id="profile"
+                                            style="width: 100px; height: 100px; object-fit: cover;cursor:pointer;">
+                                        <div id="profile-modal"
+                                            style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); align-items:center; justify-content:center;">
+                                            <style>
+                                                @media(max-width:768px){
+                                                    .profile-content{
+                                                        width:80% !important;
+                                                        height:70vh;
+                                                    }
+                                                }
+
+                                                @media(max-width:480px){
+                                                    #modal-profile-img{
+                                                        width:75% !important;
+                                                    }
+                                                }
+                                            </style>
+                                            <div class="profile-content"
+                                                style="position:relative; background:#fff; padding:20px; border-radius:6px; width:50vw; height:60vh;">
+                                                <button id="close-profile-modal"
+                                                    style="position:absolute; top:10px; right:10px;display:flex; align-items:center; justify-content:center ; background:#f44336; color:#fff; border:none; border-radius:50%; width:32px; height:32px; cursor:pointer;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16"
+                                                        height="16" viewBox="0 0 24 24" stroke-width="2"
+                                                        stroke="currentColor" class="bi size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M6 18 18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                                <div style="margin-bottom:10px;">
+                                                    <label>
+                                                        <input type="radio" name="fit" class="contain-radio" checked>
+                                                        Contain
+                                                    </label>
+                                                    <label style="margin-left:15px;">
+                                                        <input type="radio" name="fit" class="cover-radio">
+                                                        Cover
+                                                    </label>
+                                                </div>
+                                                <img id="modal-profile-img"
+                                                    src="{{ $employer->profile ? asset('storage/' . $employer->profile) : asset('images/user2.png') }}"
+                                                    alt="Profile Image"
+                                                    style="width:50vh; height:50vh; display:block; margin:auto; object-fit:contain;">
+
+                                            </div>
+                                        </div>
+
+                                        {{-- <img class="profile-image" src="{{ $employer->profile ? asset('storage/'.$employer->profile) : asset('images/user2.png')}}" alt="Profile Image" style="width: 100px; height: 100px; object-fit: cover;"> --}}
+                                    </div>
+                                    <div class="col-auto">
+                                        <h4 class="app-card-title">Profile</h4>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +160,8 @@
                                 </div>
                             </div>
                             <div class="app-card-footer p-4 mt-auto">
-                                <a class="btn app-btn-secondary" href="{{ route('employer.edit', $employer->id) }}">Edit</a>
+                                <a class="btn app-btn-secondary"
+                                    href="{{ route('employer.edit', $employer->id) }}">Edit</a>
                                 <form action="{{ route('employer.delete', $employer->id) }}" method="POST"
                                     class="d-inline">
                                     @csrf
@@ -200,7 +253,171 @@
                     </div>
                 </div>
 
+                <div class="row gy-4">
+                    <div class="col-12 col-lg-6">
+                        <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                            <div class="app-card-header p-3 border-bottom-0">
+                                <div class="row align-items-center gx-3">
+                                    <div class="col-auto">
+                                        <h4 class="app-card-title">Classes</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="app-card-body px-4 w-100">
+                                <div class="item border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            <div class="item-label"><strong>Name</strong></div>
+                                            <div class="item-data">
+                                                <a href="#">
+                                                    {{-- {{ $departement_lie->name }} --}}Test
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <form action="#" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="hidden" name="departement_id" value="#">
+                                                <button class="btn-sm app-btn-secondary"
+                                                    onclick="return confirm('do you really want to delete')">delete</button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form class="col-auto" style="margin-top: 1em;"
+                                    action="{{ route('employer.storedep', $employer->id) }}" method="post">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="section" class="form-label">Class</label>
+                                        <select style="padding: .5em" class="form-control" name="section"
+                                            id="section">
+                                            <option value="french" {{ old('section') == 'french' ? 'selected' : '' }}>
+                                                French</option>
+                                            <option value="english" {{ old('section') == 'english' ? 'selected' : '' }}>
+                                                English</option>
+                                        </select>
+                                        @error('section')
+                                            <p class="text text-danger mt-2">{{ $message }}</p>
+                                        @enderror
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <button type="submit" style="margin-top: .5em"
+                                            class="btn app-btn-primary">Save</button>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                            <div class="app-card-header p-3 border-bottom-0">
+                                <div class="row align-items-center gx-3">
+                                    <div class="col-auto">
+                                        <h4 class="app-card-title">Courses</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="app-card-body px-4 w-100">
+
+                                <div class="item border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            <div class="item-label"><strong>Name</strong></div>
+                                            <div class="item-data">
+                                                <a href="#">
+                                                    {{-- {{ $departement_lie->name }} --}}Test
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="item-label"><strong>Code</strong></div>
+                                            <div class="item-data">
+                                                <a href="#">
+                                                    {{-- {{ $departement_lie->name }} --}}Test
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <form action="#" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="hidden" name="departement_id" value="#">
+                                                <button class="btn-sm app-btn-secondary"
+                                                    onclick="return confirm('do you really want to delete')">delete</button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form class="col-auto" style="margin-top: 1em;"
+                                    action="{{ route('employer.storedep', $employer->id) }}" method="post">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="section" class="form-label">Course</label>
+                                        <select style="padding: .5em" class="form-control" name="section"
+                                            id="section">
+                                            <option value="french" {{ old('section') == 'french' ? 'selected' : '' }}>
+                                                French</option>
+                                            <option value="english" {{ old('section') == 'english' ? 'selected' : '' }}>
+                                                English</option>
+                                        </select>
+                                        @error('section')
+                                            <p class="text text-danger mt-2">{{ $message }}</p>
+                                        @enderror
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <button type="submit" style="margin-top: .5em"
+                                            class="btn app-btn-primary">Save</button>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+
+        <script>
+            document.getElementById('profile').onclick = function() {
+                document.getElementById('profile-modal').style.display = 'flex';
+            };
+            document.getElementById('close-profile-modal').onclick = function(e) {
+                document.getElementById('profile-modal').style.display = 'none';
+                e.preventDefault();
+            };
+            // Fermer la modal si on clique en dehors de l'image
+            document.getElementById('profile-modal').onclick = function(e) {
+
+                if (e.target === this) this.style.display = 'none';
+            };
+
+            // Gestion des radios
+            const containRadio = document.querySelector('.contain-radio');
+            const coverRadio = document.querySelector('.cover-radio');
+            const modalProfileImg = document.getElementById('modal-profile-img');
+
+            containRadio.onchange = function(){
+                if (this.checked) {
+                    modalProfileImg.style.objectFit = 'contain';
+                }
+            };
+
+            coverRadio.onchange = function() {
+                if (this.checked) {
+                    modalProfileImg.style.objectFit = 'cover';
+                }
+            };
+        </script>
     @endsection
 </body>

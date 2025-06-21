@@ -71,9 +71,9 @@
 
                                 <div class="mb-3">
                                     <label for="section" class="form-label">Section *</label>
-                                    <select class="form-control" name="section" id="section">
-                                        <option value="french">French</option>
-                                        <option value="english">English</option>
+                                    <select style="padding: .5em" class="form-control" name="section" id="section">
+                                        <option value="french" {{old('section') == "french" ? "selected" : ""}}>French</option>
+                                        <option value="english" {{old('section') == "english" ? "selected" : ""}}>English</option>
                                     </select>
                                     @error('section')
                                         <p class="text text-danger mt-2">{{ $message }}</p>

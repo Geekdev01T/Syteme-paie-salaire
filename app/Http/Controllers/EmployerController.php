@@ -21,7 +21,7 @@ class EmployerController extends Controller
 
         // Récupérer les employés depuis la base de données
         // Utilisation de la pagination pour limiter le nombre d'enregistrements affichés par page (10 par exemple)
-        $employes = Employer::paginate(10);
+        $employes = Employer::orderBy('id', 'desc')->paginate(10);
 
 
         return view('employers.index', compact('title', 'employes', 'empint', 'empper'));
@@ -45,7 +45,21 @@ class EmployerController extends Controller
     public function store(EmployerRequest $request)
     {
 
-        // dd($request);
+
+        $profile = null;
+        //Si le champ logo est vide, le mettre à null
+        if (empty($request->file('profile'))) {
+            $profile = null;
+        }
+        //Sinon, stocker le logo
+        else {
+            // $path = $request->file('logo')->store('logos', 'public');
+            // $enterprise->logo = $path;
+            $file = $request->file('profile');
+            $filename = 'profile_' . date('Ymd_His') . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('profiles', $filename, 'public');
+            $profile = $path;
+        }
 
         // Création de l'employé
         Employer::create([
@@ -56,7 +70,10 @@ class EmployerController extends Controller
             'status' => $request->status,
             'honorary' => $request->honorary,
             'fixed_salary' => $request->fixed_salary,
+            'profile' => $profile,
         ]);
+
+        // dd($profile);
 
         // Rediriger vers la liste avec un message de succès
         return redirect()->route('employer.index')->with('success', 'Employer successfully created.');
@@ -107,7 +124,10 @@ class EmployerController extends Controller
         // Récupérer les départements depuis la base de données
         // Utilisation de la pagination pour limiter le nombre d'enregistrements affichés par page (10 par exemple)
         // Remarque : la méthode orderBy doit être appelée avant paginate
-        $departments = Departement::orderBy('id', 'asc')->paginate(10);
+        $departments = Departement::all()->sortBy('name');
+
+        //Recuperation des cours de l'employer
+
 
         // Récupère tous les départements liés à cet employé
         $departements_lies = $employer->departements;
@@ -139,6 +159,7 @@ class EmployerController extends Controller
             'status' => 'required',
             'honorary' => 'nullable|integer|min:500',
             'fixed_salary' => 'nullable|integer|min:10000',
+            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5000', // 5MB max
         ]);
 
         //Mise a jour de employer
@@ -149,6 +170,27 @@ class EmployerController extends Controller
         $employer->status = $request->status;
         $employer->honorary = $request->honorary;
         $employer->fixed_salary = $request->fixed_salary;
+
+        //Traitement du fichier de profil
+        $profile = null;
+        //Si le champ logo est vide, le mettre à null
+        if (empty($request->file('profile'))) {
+            $profile = null;
+        }
+        //Sinon, stocker le logo
+        else {
+            // $path = $request->file('logo')->store('logos', 'public');
+            // $enterprise->logo = $path;
+            $file = $request->file('profile');
+            $filename = 'profile_' . date('Ymd_His') . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('profiles', $filename, 'public');
+            $profile = $path;
+        }
+
+        // Si un nouveau profil est fourni, le mettre à jour
+        if ($profile) {
+            $employer->profile = $profile;
+        }
 
         // Enregistrer les modifications
         $employer->save();

@@ -13,6 +13,9 @@ class ConfigHelper
     public static  function getAppData()
     {
         //Les données de l'application
+
+        $defaultDataQuery = null;
+        
         $defaultDataQuery = Configuration::first();
 
         return $defaultDataQuery;

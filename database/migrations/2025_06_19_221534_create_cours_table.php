@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('etat_retards', function (Blueprint $table) {
+        Schema::create('cours', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->integer('hour');
-            $table->text('comment')->nullable();
-            $table->enum('status',['0','1'])->default('0');
-            $table->foreignId('employer_id')->constrained('employers')->onDelete('cascade');
+            $table->string('name', 255);
+            $table->string('code', 255);
+            $table->enum('section', ['french', 'english']);
+            $table->foreignId('departement_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('etat_retards');
+        Schema::dropIfExists('cours');
     }
 };

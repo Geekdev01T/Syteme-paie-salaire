@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Departement extends Model
 {
@@ -18,6 +19,14 @@ class Departement extends Model
     public function employes(): BelongsToMany
     {
         return $this->BelongsToMany(Employer::class);
+    }
+
+    /**
+     * Les cours qui appartiennent au departement.
+     */
+    public function cours(): HasMany
+    {
+        return $this->hasMany(Cours::class);
     }
 
     //champs acceptés pour la création et la mise à jour

@@ -6,3 +6,20 @@
     margin: 0;
     padding: 0;
 }
+
+@layer components{
+    .input{
+        @apply h-[2.5rem] py-[0.6rem] px-2 outline-none border border-[#e7e9ed] text-[#5d6778] font-normal text-[16px] rounded-[5px] focus:border-[#86b7fe] duration-300;
+    }
+    .error-input{
+        @apply text-[14px] text-red-600 font-semibold my-0.5;
+    }
+    .link{
+        @apply font-normal hover:text-[#30bd7d] duration-300;
+    }
+
+    .btn{
+        @apply mt-8 font-semibold px-4 py-2 text-white rounded bg-[#18ba70] hover:bg-[#30bd7d] duration-300;
+    }
+    
+}

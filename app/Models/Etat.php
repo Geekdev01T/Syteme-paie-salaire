@@ -17,6 +17,7 @@ class Etat extends Model
         'date',
         'hour',
         'state',
+        'status',
         'employer_id',
     ];
     /**

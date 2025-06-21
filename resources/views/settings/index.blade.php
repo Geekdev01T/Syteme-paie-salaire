@@ -117,12 +117,26 @@
                                         <input type="file" class="form-control" id="logo" name="logo"
                                             value="{{ old('logo') }}" accept="image/*">
                                         <div class="mt-2">
-                                            <img src="{{ $enterprise->logo ? asset('storage/' . $enterprise->logo) : asset('images/login-bg.jpg') }}"
+                                            <img src="{{ $enterprise->logo ? asset('storage/' . $enterprise->logo) : asset('images/logoipsum-344.png') }}"
                                                 alt="Company Logo" class="img-preview" id="logo-enterprise"
                                                 style="max-width: 150px; max-height: 150px; object-fit: cover;cursor:pointer;">
                                             <div id="logo-enterprise-modal"
                                                 style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); align-items:center; justify-content:center;">
-                                                <div
+                                                <style>
+                                                    @media(max-width:768px){
+                                                        .preview-content{
+                                                            width:80% !important;
+                                                            height:70vh;
+                                                        }
+                                                    }
+
+                                                    @media(max-width:480px){
+                                                        #modal-logo-enterprise-img{
+                                                            width:75% !important;
+                                                        }
+                                                    }
+                                                </style>
+                                                <div class="preview-content"
                                                     style="position:relative; background:#fff; padding:20px; border-radius:6px; width:50vw; height:60vh;">
                                                     <button id="close-logo-enterprise-modal"
                                                         style="position:absolute; top:10px; right:10px;display:flex; align-items:center; justify-content:center ; background:#f44336; color:#fff; border:none; border-radius:50%; width:32px; height:32px; cursor:pointer;">
@@ -145,9 +159,9 @@
                                                         </label>
                                                     </div>
                                                     <img id="modal-logo-enterprise-img"
-                                                        src="{{ $enterprise->logo ? asset('storage/' . $enterprise->logo) : asset('images/login-bg.jpg') }}"
+                                                        src="{{ $enterprise->logo ? asset('storage/' . $enterprise->logo) : asset('images/logoipsum-344.png') }}"
                                                         alt="Company Logo"
-                                                        style="width:40vh; height:50vh; display:block; margin:auto; object-fit:contain;">
+                                                        style="width:50vh; height:50vh; display:block; margin:auto; object-fit:contain;">
                                                 </div>
                                             </div>
                                         </div>
@@ -342,7 +356,21 @@
                                                 style="max-width: 150px; max-height: 150px; object-fit: cover;cursor:pointer;">
                                             <div id="logo-app-modal"
                                                 style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); align-items:center; justify-content:center;">
-                                                <div
+                                                <style>
+                                                    @media(max-width:768px){
+                                                        .preview-content{
+                                                            width:80% !important;
+                                                            height:70vh;
+                                                        }
+                                                    }
+
+                                                    @media(max-width:480px){
+                                                        #odal-logo-app-img{
+                                                            width:75% !important;
+                                                        }
+                                                    }
+                                                </style>
+                                                <div class="preview-content"
                                                     style="position:relative; background:#fff; padding:20px; border-radius:6px; width:50vw; height:60vh;">
                                                     <button id="close-logo-app-modal"
                                                         style="position:absolute; top:10px; right:10px;display:flex; align-items:center; justify-content:center ; background:#f44336; color:#fff; border:none; border-radius:50%; width:32px; height:32px; cursor:pointer;">

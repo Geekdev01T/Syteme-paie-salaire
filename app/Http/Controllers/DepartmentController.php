@@ -66,8 +66,11 @@ class DepartmentController extends Controller
         $employes = $department->employes()->orderBy('name', 'asc')->get();
         $count = $department->employes()->count();
 
+        //Recuperer les cours du departement
+        $courses = $department->cours()->orderBy('name', 'asc')->get();
+        $courseCount = $department->cours()->count();
 
-        return view('departments.show', compact('title', 'department', 'count', 'employes'));
+        return view('departments.show', compact('title', 'department', 'count', 'employes', 'courses', 'courseCount'));
     }
 
     // Fonction pour afficher le formulaire de modification d'un département

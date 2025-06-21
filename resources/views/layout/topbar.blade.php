@@ -17,13 +17,13 @@
                 <div class="search-mobile-trigger d-sm-none col">
                     <i class="search-mobile-trigger-icon fas fa-search"></i>
                 </div><!--//col-->
-                <div class="app-search-box col">
+                {{-- <div class="app-search-box col">
                     <form class="app-search-form">
                         <input type="text" placeholder="Search..." name="search" class="form-control search-input">
                         <button type="submit" class="btn search-btn btn-primary" value="Search"><i
                                 class="fas fa-search"></i></button>
                     </form>
-                </div><!--//app-search-box-->
+                </div><!--//app-search-box--> --}}
 
                 <div class="app-utilities col-auto">
                     <div class="app-utility-item app-notifications-dropdown dropdown">
@@ -49,7 +49,7 @@
                                     <div class="item p-3">
                                         <div class="row gx-2 justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <img class="profile-image" src="https://ui-avatars.com/api/?name=System+Notification" style="border-radius: 50%"
+                                                <img class="profile-image" src="{{asset('images/systeme.png')}}" style="border-radius: 50%"
                                                     alt="System Notification">
                                             </div><!--//col-->
                                             <div class="col">
@@ -66,7 +66,7 @@
                                     <div class="item p-3">
                                         <div class="row gx-2 justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <img class="profile-image" src="https://ui-avatars.com/api/?name=System+Notification" style="border-radius: 50%"
+                                                <img class="profile-image" src="{{asset('images/systeme.png')}}" style="border-radius: 50%"
                                                     alt="System Notification">
                                             </div><!--//col-->
                                             <div class="col">

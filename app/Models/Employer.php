@@ -42,8 +42,11 @@ class Employer extends Model
         'name',
         'first_name',
         'email',
+        'password',
+        'profile',
         'contact',
         'status',
-        'daily_amount',
+        'honorary',
+        'fixed_salary',
     ];
 }
