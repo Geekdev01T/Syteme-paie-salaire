@@ -26,14 +26,17 @@ Route::middleware('guest')->group(
     function () {
         Route::get('/', [LoginController::class, 'login'])->name('login');
         Route::post('/', [LoginController::class, 'handlelogin'])->name('login');
-
-        Route::get('/login-employe', [LoginEmployeController::class, 'loginEmp'])->name('login.employe');
-        Route::get('/initialize-employe', [LoginEmployeController::class, 'initEmp'])->name('init.employe');
+        //Route pour valider le compte admin
+        //Cette route est accessible uniquement aux admins
+        Route::get('/validate-account/{email}', [AdminController::class, 'defineAccess'])->name('validate-account');
+        Route::post('/validate-account', [AdminController::class, 'submitDefineAccess'])->name('validate-account');
+        Route::get('/reset-password/{email}', [AdminController::class, 'resetPassword'])->name('reset-password');
+        Route::post('/reset-password', [AdminController::class, 'submitresetPassword'])->name('reset-password.submit');
     }
 );
 
 //seulement lorsque l'utilisateur est connecter
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [AppController::class, 'dashboard'])->name('dashboard');
 
@@ -104,7 +107,7 @@ Route::middleware('auth')->group(function(){
     });
 
     //Groupes de routes pour les fiches d'état
-    Route::prefix('states-sheet')->group(function(){
+    Route::prefix('states-sheet')->group(function () {
         Route::get('/', [StateSheetController::class, 'index'])->name('state_sheet.index');
         Route::get('/show/{employe}', [StateSheetController::class, 'show'])->name('state_sheet.show');
     });
@@ -127,10 +130,25 @@ Route::middleware('auth')->group(function(){
         Route::get('/', [AdminController::class, 'index'])->name('admin.index');
         Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
         Route::post('/create', [AdminController::class, 'store'])->name('admin.store');
-        Route::delete('/{employer}', [AdminController::class, 'delete'])->name('admin.delete');
-        Route::get('/show/{employer}', [AdminController::class, 'show'])->name('admin.show');
-        Route::get('/edit/{employer}', [AdminController::class, 'edit'])->name('admin.edit');
-        Route::put('/update/{employer}', [AdminController::class, 'update'])->name('admin.update');
+        Route::delete('/{user}', [AdminController::class, 'delete'])->name('admin.delete');
+        Route::get('/show/{user}', [AdminController::class, 'show'])->name('admin.show');
+        Route::get('/edit/{user}', [AdminController::class, 'edit'])->name('admin.edit');
+        Route::put('/update/{user}', [AdminController::class, 'update'])->name('admin.update');
     });
 });
+
+
+//Routes pour les pointages des employes
+
+Route::get('/verify-employe', [LoginEmployeController::class, 'verifyEmp'])->name('verify.employe');
+Route::post('/verify-employe', [LoginEmployeController::class, 'handleVerifyEmp'])->name('verify.employe');
+Route::get('/logout-employe', [LoginEmployeController::class, 'logoutEmp'])->name('logout.employe');
+
+//Routes pour la connexion des employes
+Route::get('/login-employe', [LoginEmployeController::class, 'loginEmp'])->name('login.employe');
+Route::post('/login-employe', [LoginEmployeController::class, 'handlelogin'])->name('login.employe');
+Route::get('/initialize-employe', [LoginEmployeController::class, 'initEmp'])->name('init.employe');
+Route::post('/initialize-employe', [LoginEmployeController::class, 'handleInitEmp'])->name('init.employe');
+
+
 

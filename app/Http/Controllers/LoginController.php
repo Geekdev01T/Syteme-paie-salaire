@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     public function login(){
-        return view('login');
+        return view('auth.login');
     }
 
     public function handlelogin(Request $request)
@@ -18,11 +20,21 @@ class LoginController extends Controller
             'password' => ['required', 'min:4'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        $userAsVerified = User::where('email', $request->email)->first();
 
-            return redirect()->intended('dashboard');
+        if ($userAsVerified->email_verified_at) {
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+
+                return redirect()->intended('dashboard');
+            }
+        } else {
+            return back()->withErrors([
+                'error' => 'The user was not verified.',
+            ])->onlyInput('email');
         }
+
+
 
         return back()->withErrors([
             'error' => 'The provided credentials do not match our records.',

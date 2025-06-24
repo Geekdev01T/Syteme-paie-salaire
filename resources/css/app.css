@@ -19,7 +19,7 @@
     }
 
     .btn{
-        @apply mt-8 font-semibold px-4 py-2 text-white rounded bg-[#18ba70] hover:bg-[#30bd7d] duration-300;
+        @apply mt-2 font-semibold px-4 py-2 text-white rounded bg-[#18ba70] hover:bg-[#30bd7d] duration-300;
     }
-    
+
 }

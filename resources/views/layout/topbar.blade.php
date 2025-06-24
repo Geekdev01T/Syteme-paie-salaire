@@ -108,3 +108,17 @@
         </div><!--//app-header-content-->
     </div><!--//container-fluid-->
 </div><!--//app-header-inner-->
+
+<script>
+
+function isConnectedToInternet() {
+    return window.navigator.onLine;
+}
+
+if (isConnectedToInternet()) {
+    console.log("Connecté à Internet");
+} else {
+    console.log("Pas de connexion Internet");
+}
+
+</script>

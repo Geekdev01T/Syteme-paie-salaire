@@ -1,7 +1,7 @@
 @extends('layout/app')
 
 @section('title-content')
-    <title> Employe - Login | StaffPay</title>
+    <title> Login | StaffPay</title>
 @endsection
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -16,39 +16,45 @@
             </div>
             <h3 class="mt-6 text-2xl font-semibold">Login in StaffPay</h3>
 
-            <form action="{{ route('login.employe') }}" method="POST"
+            <form action="{{ route('login') }}" method="POST"
                 class="flex flex-col mt-10 w-[85%] lg:w-[60%] mx-auto gap-3">
 
                 @csrf
 
+                @if ($errors->has('error'))
+                    <div class="text-red-600 font-semibold my-0.5">
+                        {{ $errors->first('error') }}
+                    </div>
+                @endif
                 @if (session('error'))
                     <div class="text-red-600 font-semibold my-0.5">
                         {{ session('error') }}
                     </div>
                 @endif
-
                 @if (session('success'))
                     <div class="text-green-600 font-semibold my-0.5">
                         {{ session('success') }}
                     </div>
                 @endif
 
-                <input type="email" placeholder="Email" name="email" value="{{ old('email') }}" class="input">
+                <input type="email" placeholder="Email" name="email" value="{{ old('email') }}"
+                    class="h-[2.5rem] py-[0.6rem] px-2 outline-none border border-[#e7e9ed] text-[#5d6778] font-normal text-[16px] rounded-[5px] focus:border-[#86b7fe] duration-300">
                 @error('email')
-                    <p class="error-input">{{ $message }}</p>
+                    <p class="text-[14px] text-red-600 font-semibold my-0.5">{{ $message }}</p>
                 @enderror
                 <input type="password" placeholder="Password" name="password" value="{{ old('password') }}"
-                    class="input">
+                    class="h-[2.5rem] py-[0.6rem] px-2 outline-none border border-[#e7e9ed] text-[#5d6778] font-normal text-[16px] rounded-[5px] focus:border-[#86b7fe] duration-300">
                 @error('password')
-                    <p class="error-input">{{ $message }}</p>
+                    <p class="text-[14px] text-red-600 font-semibold my-0.5">{{ $message }}</p>
                 @enderror
-
-                <button type="submit" class="btn">Login</button>
-
                 <div class="flex items-center justify-between text-[14px] text-gray-500 mt-2">
-                    <a href="{{ route('init.employe') }}" class="link"> First Time Here?</a>
-                    <a href="#" class="link"> Forgot Password?</a>
+                    <div>
+                        <input type="checkbox" name="" id=""> Remember me
+                    </div>
+                    <a href="#"> Forgot Password?</a>
                 </div>
+                <button type="submit"
+                    class="mt-8 font-semibold px-4 py-2 text-white rounded bg-[#18ba70] hover:bg-[#30bd7d] duration-400">Login</button>
             </form>
         </div>
         <div class="hidden lg:block h-[100vh]">

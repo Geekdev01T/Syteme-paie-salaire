@@ -206,6 +206,6 @@ class EmployerController extends Controller
         $employer->delete();
 
         // Rediriger vers la liste avec un message de succès
-        return redirect()->route('employer.index')->with('success', 'the department has been successfully deleted.');
+        return redirect()->route('employer.index')->with('success', 'the employe has been successfully deleted.');
     }
 }
