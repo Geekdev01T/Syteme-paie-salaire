@@ -35,16 +35,16 @@
                                         <div id="profile-modal"
                                             style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); align-items:center; justify-content:center;">
                                             <style>
-                                                @media(max-width:768px){
-                                                    .profile-content{
-                                                        width:80% !important;
-                                                        height:70vh;
+                                                @media(max-width:768px) {
+                                                    .profile-content {
+                                                        width: 80% !important;
+                                                        height: 70vh;
                                                     }
                                                 }
 
-                                                @media(max-width:480px){
-                                                    #modal-profile-img{
-                                                        width:75% !important;
+                                                @media(max-width:480px) {
+                                                    #modal-profile-img {
+                                                        width: 75% !important;
                                                     }
                                                 }
                                             </style>
@@ -116,7 +116,23 @@
                                         <div class="col-auto">
                                             <div class="item-label"><strong>number departments</strong></div>
                                             <div class="item-data">
-                                                {{ str_pad($count, 2, '0', STR_PAD_LEFT) }}
+                                                {{ str_pad($count_department, 2, '0', STR_PAD_LEFT) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="item-label"><strong>number courses</strong></div>
+                                            <div class="item-data">
+                                                {{ str_pad($count_course, 2, '0', STR_PAD_LEFT) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            <div class="item-label"><strong>number of classes</strong></div>
+                                            <div class="item-data">
+                                                {{ str_pad($count_class, 2, '0', STR_PAD_LEFT) }}
                                             </div>
                                         </div>
                                     </div>
@@ -188,7 +204,7 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Department</strong></div>
+                                                <div class="item-label"><strong>Name</strong></div>
                                                 <div class="item-data">
                                                     <a href="{{ route('department.show', $departement_lie->id) }}">
                                                         {{ $departement_lie->name }}
@@ -253,6 +269,8 @@
                     </div>
                 </div>
 
+            </div>
+            <div class="container-xl" style="margin-top: 2em; width: 100%; padding-inline: 0;">
                 <div class="row gy-4">
                     <div class="col-12 col-lg-6">
                         <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -264,40 +282,57 @@
                                 </div>
                             </div>
                             <div class="app-card-body px-4 w-100">
-                                <div class="item border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Name</strong></div>
-                                            <div class="item-data">
-                                                <a href="#">
-                                                    {{-- {{ $departement_lie->name }} --}}Test
-                                                </a>
+                                @forelse ($classes_lies as $classe_lie)
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Name</strong></div>
+                                                <div class="item-data">
+                                                    <a href="{{route('class.show', $classe_lie->id )}}">
+                                                        {{ $classe_lie->name }}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Section</strong></div>
+                                                <div class="item-data"> {{ $classe_lie->section }} </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <form action="{{route('employer.deleteclass', $employer->id )}}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <input type="hidden" name="classe_id" value="{{ $classe_lie->id }}">
+                                                    <button class="btn-sm app-btn-secondary"
+                                                        onclick="return confirm('do you really want to delete')">delete</button>
+                                                </form>
+
                                             </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <form action="#" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <input type="hidden" name="departement_id" value="#">
-                                                <button class="btn-sm app-btn-secondary"
-                                                    onclick="return confirm('do you really want to delete')">delete</button>
-                                            </form>
-
+                                    </div>
+                                @empty
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>No classes found</strong></div>
+                                                <div class="item-data">This employee does not belong to any class yet.
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforelse
 
                                 <form class="col-auto" style="margin-top: 1em;"
-                                    action="{{ route('employer.storedep', $employer->id) }}" method="post">
+                                    action="{{ route('employer.storeclass', $employer->id) }}" method="post">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="section" class="form-label">Class</label>
-                                        <select style="padding: .5em" class="form-control" name="section"
-                                            id="section">
-                                            <option value="french" {{ old('section') == 'french' ? 'selected' : '' }}>
-                                                French</option>
-                                            <option value="english" {{ old('section') == 'english' ? 'selected' : '' }}>
-                                                English</option>
+                                        <label for="classe_id" class="form-label">Class</label>
+                                        <select style="padding:0 .5em;" class="form-control" name="classe_id"
+                                            id="classe_id">
+                                            @forelse ($classes as $class)
+                                                <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                            @empty
+                                                <option value="">No class available</option>
+                                            @endforelse
                                         </select>
                                         @error('section')
                                             <p class="text text-danger mt-2">{{ $message }}</p>
@@ -324,49 +359,58 @@
                                 </div>
                             </div>
                             <div class="app-card-body px-4 w-100">
-
-                                <div class="item border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Name</strong></div>
-                                            <div class="item-data">
-                                                <a href="#">
-                                                    {{-- {{ $departement_lie->name }} --}}Test
-                                                </a>
+                                @forelse ($courses_lies as $course_lie)
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Name</strong></div>
+                                                <div class="item-data">
+                                                    <a href="{{route('course.show', $course_lie->id)}}">
+                                                        {{ $course_lie->name }}
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Code</strong></div>
-                                            <div class="item-data">
-                                                <a href="#">
-                                                    {{-- {{ $departement_lie->name }} --}}Test
-                                                </a>
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>Code</strong></div>
+                                                <div class="item-data"> {{ $course_lie->code }} </div>
                                             </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <form action="#" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <input type="hidden" name="departement_id" value="#">
-                                                <button class="btn-sm app-btn-secondary"
-                                                    onclick="return confirm('do you really want to delete')">delete</button>
-                                            </form>
+                                            <div class="col-auto">
+                                                <form action="{{ route('employer.deletecourse', $employer->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <input type="hidden" name="cours_id" value="{{ $course_lie->id }}">
+                                                    <button class="btn-sm app-btn-secondary"
+                                                        onclick="return confirm('do you really want to delete')">delete</button>
+                                                </form>
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @empty
+                                    <div class="item border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-auto">
+                                                <div class="item-label"><strong>No courses found</strong></div>
+                                                <div class="item-data">This employee does not belong to any course yet.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforelse
 
                                 <form class="col-auto" style="margin-top: 1em;"
-                                    action="{{ route('employer.storedep', $employer->id) }}" method="post">
+                                    action="{{ route('employer.storecourse', $employer->id) }}" method="post">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="section" class="form-label">Course</label>
-                                        <select style="padding: .5em" class="form-control" name="section"
-                                            id="section">
-                                            <option value="french" {{ old('section') == 'french' ? 'selected' : '' }}>
-                                                French</option>
-                                            <option value="english" {{ old('section') == 'english' ? 'selected' : '' }}>
-                                                English</option>
+                                        <label for="cours_id" class="form-label">Course</label>
+                                        <select style="padding:0 .5em;" class="form-control" name="cours_id"
+                                            id="cours_id">
+                                            @forelse ($courses as $course)
+                                                <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                            @empty
+                                                <option value="">No courses available</option>
+                                            @endforelse
                                         </select>
                                         @error('section')
                                             <p class="text text-danger mt-2">{{ $message }}</p>
@@ -384,7 +428,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -407,7 +450,7 @@
             const coverRadio = document.querySelector('.cover-radio');
             const modalProfileImg = document.getElementById('modal-profile-img');
 
-            containRadio.onchange = function(){
+            containRadio.onchange = function() {
                 if (this.checked) {
                     modalProfileImg.style.objectFit = 'contain';
                 }

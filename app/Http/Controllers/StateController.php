@@ -18,7 +18,7 @@ class StateController extends Controller
 
         // Récupérer les employés depuis la base de données
         // Utilisation de la pagination pour limiter le nombre d'enregistrements affichés par page (10 par exemple)
-        $employes = Employer::paginate(10);
+        $employes = Employer::paginate(20);
 
         // Logique pour afficher les états
         return view('states.index', compact('title', 'employes', 'empint', 'empper'));

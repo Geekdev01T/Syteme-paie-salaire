@@ -10,13 +10,31 @@ use Carbon\Carbon as CarbonCarbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 
 class AdminController extends Controller
 {
+    //Verifier si l'utilisateur est un admin
+    protected function IsAdmin(){
+        if(!Auth::check() || Auth::user()->role !== 'admin'){
+            //Si l'utilisateur n'est pas un admin, rediriger vers la page d'accueil
+            return redirect()->route('dashboard')->with('error', 'You are not authorized to access this page.');
+        }
+        //Si l'utilisateur est un admin, continuer l'execution de la fonction
+        return true;
+    }
+
     //Fonction pour afficher la liste des admins
     public function index(){
+        // Vérifier si l'utilisateur est un admin
+        if ($redirect = $this->IsAdmin()) {
+            if ($redirect !== true) {
+                return $redirect;
+            }
+        }
+
         //Titre de la page
         $title = 'List Admin';
 
@@ -24,7 +42,7 @@ class AdminController extends Controller
         $NoVeriAdm = 0;
 
         //Recuperer les admins de la BD
-        $admins = User::orderBy('id','desc')->paginate(10);
+        $admins = User::orderBy('id','desc')->paginate(20);
 
         //Retourner la vue
         return view('admins.index', compact('title', 'admins', 'veriAdm', 'NoVeriAdm'));
@@ -33,6 +51,13 @@ class AdminController extends Controller
     //Fonction pour afficher l'interface de création des admins
     public function create()
     {
+        // Vérifier si l'utilisateur est un admin
+        if ($redirect = $this->IsAdmin()) {
+            if ($redirect !== true) {
+                return $redirect;
+            }
+        }
+
         //Titre de la page
         $title = 'Create Admin';
 
@@ -42,7 +67,12 @@ class AdminController extends Controller
 
     //Fonction pour enregistrer les admins dans la BD
     public function store(AdminRequest $request){
-        // dd($request);
+        // Vérifier si l'utilisateur est un admin
+        if ($redirect = $this->IsAdmin()) {
+            if ($redirect !== true) {
+                return $redirect;
+            }
+        }
 
         $user = User::create([
             "name" => $request->name,
@@ -174,6 +204,13 @@ class AdminController extends Controller
     // Fonction pour supprimer un admin
     public function delete(User $user)
     {
+        // Vérifier si l'utilisateur est un admin
+        if ($redirect = $this->IsAdmin()) {
+            if ($redirect !== true) {
+                return $redirect;
+            }
+        }
+
         // Supprimer l'admin
         $user->delete();
 

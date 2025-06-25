@@ -82,36 +82,36 @@
                             </div>
                             <div class="app-card-body px-4 w-100">
 
-                                {{-- @forelse ($employes as $employe) --}}
+                                @forelse ($employes as $employe)
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-auto">
-                                            <div class="item-label"><strong>Employer</strong></div>
+                                            <div class="item-label"><strong>Name</strong></div>
                                             <div class="item-data">
-                                                {{-- <a href="{{route('employer.show', $employe->id)}}">
+                                                <a href="{{route('employer.show', $employe->id)}}">
                                                         {{ $employe->name }}
-                                                    </a> --}}Test
+                                                    </a>
                                             </div>
                                         </div>
                                         <div class="col-auto">
                                             <div class="item-label"><strong>Contact</strong></div>
                                             <div class="item-data">
-                                                {{-- {{ $employe->contact }} --}}Test
+                                                {{ $employe->contact }}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {{-- @empty
+                                @empty
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>No members found</strong></div>
-                                                <div class="item-data">This department has no members yet.</div>
+                                                <div class="item-data">This course has no members yet.</div>
                                             </div>
                                         </div>
                                     </div>
-                                @endforelse --}}
+                                @endforelse
                             </div>
                         </div>
                     </div>

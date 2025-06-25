@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('etats', function (Blueprint $table) {
+        Schema::create('programmes', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->integer('hour')->nullable();
-            $table->enum('state', ['study', 'supervised-work', 'monitoring']);
-            $table->enum('status',['0', '1'])->default('0');
+            $table->time('horaire');
+            $table->enum('type',['cours','TD']);
+            $table->foreignId('classe_id')->constrained()->onDelete('cascade');
+            $table->foreignId('cours_id')->constrained()->onDelete('cascade');
             $table->foreignId('employer_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('etats');
+        Schema::dropIfExists('programmes');
     }
 };

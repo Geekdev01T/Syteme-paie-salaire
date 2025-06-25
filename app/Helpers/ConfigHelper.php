@@ -15,7 +15,7 @@ class ConfigHelper
         //Les données de l'application
 
         $defaultDataQuery = null;
-        
+
         $defaultDataQuery = Configuration::first();
 
         return $defaultDataQuery;
@@ -110,4 +110,5 @@ class ConfigHelper
             'SendSheetNotification' => $SendSheetNotification
         ];
     }
+
 }

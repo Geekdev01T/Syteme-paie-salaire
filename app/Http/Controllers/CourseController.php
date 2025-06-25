@@ -20,7 +20,7 @@ class CourseController extends Controller
         // Récupérer les cours depuis la base de données
         // Utilisation de la pagination pour limiter le nombre d'enregistrements affichés par page (10 par exemple)
         // Remarque : la méthode orderBy doit être appelée avant paginate
-        $courses = Cours::orderBy('id', 'asc')->paginate(10);
+        $courses = Cours::orderBy('id', 'asc')->paginate(20);
 
         return view('courses.index', compact('title', 'courses', 'coursefr', 'courseen'));
     }
@@ -67,7 +67,10 @@ class CourseController extends Controller
         //Recuperer le departement auquel appartenant a ce cours
         $department = $course->departement()->get()->first();
 
-        return view('courses.show', compact('title', 'course', 'department'));
+        //Recuperer les employers qui enseignent ce cours
+        $employes = $course->employers()->get();
+
+        return view('courses.show', compact('title', 'course', 'department', 'employes'));
     }
 
     // Fonction pour afficher le formulaire de modification d'un cours

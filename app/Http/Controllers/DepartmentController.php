@@ -23,7 +23,7 @@ class DepartmentController extends Controller
         // Récupérer les départements depuis la base de données
         // Utilisation de la pagination pour limiter le nombre d'enregistrements affichés par page (10 par exemple)
         // Remarque : la méthode orderBy doit être appelée avant paginate
-        $departments = Departement::orderBy('id', 'asc')->paginate(10);
+        $departments = Departement::orderBy('id', 'asc')->paginate(20);
 
         return view('departments.index', compact('title', 'departments', 'depfr', 'depen', 'countfr', 'counten'));
     }

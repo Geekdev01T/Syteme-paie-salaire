@@ -18,7 +18,7 @@ class StateSheetController extends Controller
 
         // Récupérer les employés depuis la base de données
         // Utilisation de la pagination pour limiter le nombre d'enregistrements affichés par page (10 par exemple)
-        $employes = Employer::paginate(10);
+        $employes = Employer::paginate(20);
 
         // Logique pour afficher les états
         return view('states_sheet.index', compact('title', 'employes', 'empint', 'empper'));
@@ -49,7 +49,7 @@ class StateSheetController extends Controller
         $totalStudyHours = $states->where('state', 'study')->sum('hour');
         $countStudy = 0;
 
-        //Total des heures pour les etats de travail supervisé  
+        //Total des heures pour les etats de travail supervisé
         $totalSupervisedWorkHours = $states->where('state', 'supervised-work')->sum('hour');
         $countSupervisedWork = 0;
 

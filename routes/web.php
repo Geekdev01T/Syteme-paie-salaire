@@ -13,6 +13,8 @@ use App\Http\Controllers\LoginEmployeController;
 use App\Http\Controllers\NotifController;
 use App\Http\Controllers\StateDelayController;
 use App\Http\Controllers\StateSheetController;
+// use App\Http\Middleware\IsAdmin;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -51,6 +53,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/show/{employer}', [EmployerController::class, 'show'])->name('employer.show');
         Route::get('/edit/{employer}', [EmployerController::class, 'edit'])->name('employer.edit');
         Route::put('/update/{employer}', [EmployerController::class, 'update'])->name('employer.update');
+        Route::post('/store-course/{employer}', [EmployerController::class, 'storecourse'])->name('employer.storecourse');
+        Route::delete('/delete-course/{employer}', [EmployerController::class, 'deletecourse'])->name('employer.deletecourse');
+        Route::post('/store-class/{employer}', [EmployerController::class, 'storeclass'])->name('employer.storeclass');
+        Route::delete('/delete-class/{employer}', [EmployerController::class, 'deleteclass'])->name('employer.deleteclass');
     });
 
     //Groupes de routes pour les departements
@@ -125,16 +131,24 @@ Route::middleware('auth')->group(function () {
     //Route pour les notifications
     Route::get('/notifications', [NotifController::class, 'index'])->name('notifications.index');
 
+    // dd(Auth::user());
+
+    // if(Auth::user()->role !== 'admin') {
     //Groupes de routes pour les admins
-    Route::prefix('admins')->group(function () {
-        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-        Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
-        Route::post('/create', [AdminController::class, 'store'])->name('admin.store');
-        Route::delete('/{user}', [AdminController::class, 'delete'])->name('admin.delete');
-        Route::get('/show/{user}', [AdminController::class, 'show'])->name('admin.show');
-        Route::get('/edit/{user}', [AdminController::class, 'edit'])->name('admin.edit');
-        Route::put('/update/{user}', [AdminController::class, 'update'])->name('admin.update');
-    });
+    // Route::middleware(IsAdmin::class)->prefix('admins')->group(function(){
+        Route::prefix('admins')->group(function () {
+            Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+            Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
+            Route::post('/create', [AdminController::class, 'store'])->name('admin.store');
+            Route::delete('/{user}', [AdminController::class, 'delete'])->name('admin.delete');
+            Route::get('/show/{user}', [AdminController::class, 'show'])->name('admin.show');
+            Route::get('/edit/{user}', [AdminController::class, 'edit'])->name('admin.edit');
+            Route::put('/update/{user}', [AdminController::class, 'update'])->name('admin.update');
+        });
+    // });
+
+    // }
+
 });
 
 

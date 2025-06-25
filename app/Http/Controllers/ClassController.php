@@ -19,7 +19,7 @@ class ClassController extends Controller
         // Récupérer les classes depuis la base de données
         // Utilisation de la pagination pour limiter le nombre d'enregistrements affichés par page (10 par exemple)
         // Remarque : la méthode orderBy doit être appelée avant paginate
-        $classes = Classe::orderBy('id', 'asc')->paginate(10);
+        $classes = Classe::orderBy('id', 'asc')->paginate(20);
 
         return view('classes.index', compact('title', 'classes', 'classesfr', 'classesen'));
     }
@@ -55,7 +55,11 @@ class ClassController extends Controller
         // Titre de la page
         $title = 'Show Class';
 
-        return view('classes.show', compact('title', 'class'));
+        //Recuperer les employes de la classe
+        $employes = $class->employers()->get();
+        $count = $employes->count();
+
+        return view('classes.show', compact('title', 'class', 'employes', 'count'));
     }
 
     // Fonction pour afficher le formulaire de modification d'une classe

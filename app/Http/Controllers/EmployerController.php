@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DepartmentRequest;
 use App\Http\Requests\EmployerRequest;
+use App\Models\Classe;
+use App\Models\Cours;
 use App\Models\Departement;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 
 class EmployerController extends Controller
 {
+
+    //Fonction pour vérifier si un paramètre requis est présent
+    protected function checkRequiredParam($param, $message = 'A required parameter is missing.')
+    {
+        if (empty($param)) {
+            return redirect()->back()->with('error', $message);
+        }
+        return null;
+    }
 
     // Fonction pour afficher la liste des employés
     public function index()
@@ -21,7 +32,7 @@ class EmployerController extends Controller
 
         // Récupérer les employés depuis la base de données
         // Utilisation de la pagination pour limiter le nombre d'enregistrements affichés par page (10 par exemple)
-        $employes = Employer::orderBy('id', 'desc')->paginate(10);
+        $employes = Employer::orderBy('id', 'desc')->paginate(20);
 
 
         return view('employers.index', compact('title', 'employes', 'empint', 'empper'));
@@ -108,10 +119,86 @@ class EmployerController extends Controller
     // Fonction pour detacher un departement a un employer
     public function deletedep(Employer $employer, Request $request)
     {
+        if ($redirect = $this->checkRequiredParam($employer)) {
+            return $redirect;
+        }
+
         // $request->departement_id doit contenir l'ID du département à détacher
         $employer->departements()->detach($request->departement_id);
 
         return redirect()->back()->with('success', 'Department successfully detached employee.');
+    }
+
+    // Fonction pour stocker un cours pour un employé
+    public function storecourse(Employer $employer, Request $request)
+    {
+        // Validation des données
+        // $request->validate([
+        //     'employer_id' => 'required|exists:employers,id|unique:cours_employers,employer_id',
+        //     'cours_id' => 'required|exists:cours,id|unique:cours_employers,cours_id',
+        // ]);
+
+        if (empty($request->cours_id)) {
+            return redirect()->back()->with('error', 'Please select a course to add. Or add department to this employee first.');
+        }
+
+
+        // Récupérer le cours
+        $course = Cours::findOrFail($request->cours_id);
+
+        // Vérifie si la relation existe déjà
+        if ($employer->cours()->where('cours_id', $request->cours_id)->exists()) {
+            return redirect()->back()->with('error', 'This employee is already linked to this course.');
+        }
+
+        // Attache le cours à l'employé (évite les doublons)
+        $employer->cours()->syncWithoutDetaching([$course->id]);
+
+        // Rediriger vers la liste avec un message de succès
+        return redirect()->back()->with('success', 'Course successfully added to employer.');
+    }
+
+    // Fonction pour detacher un cours a un employer
+    public function deletecourse(Employer $employer, Request $request)
+    {
+
+        // $request->cours_id doit contenir l'ID du cours à détacher
+        $employer->cours()->detach($request->cours_id);
+
+        return redirect()->back()->with('success', 'Course successfully detached employee.');
+    }
+
+    // Fonction pour stocker un cours pour un employé
+    public function storeclass(Employer $employer, Request $request)
+    {
+        // Validation des données
+        // $request->validate([
+        //     'employer_id' => 'required|exists:employers,id|unique:cours_employers,employer_id',
+        //     'classe_id' => 'required|exists:cours,id|unique:cours_employers,cours_id',
+        // ]);
+
+        // Récupérer le cours
+        $class = Classe::findOrFail($request->classe_id);
+
+        // Vérifie si la relation existe déjà
+        if ($employer->classes()->where('classe_id', $request->classe_id)->exists()) {
+            return redirect()->back()->with('error', 'This employee is already linked to this class.');
+        }
+
+        // Attache la classe à l'employé (évite les doublons)
+        $employer->classes()->syncWithoutDetaching([$class->id]);
+
+        // Rediriger vers la liste avec un message de succès
+        return redirect()->back()->with('success', 'Class successfully added to employer.');
+    }
+
+    // Fonction pour detacher une classe a un employer
+    public function deleteclass(Employer $employer, Request $request)
+    {
+        // $request->classe_id doit contenir l'ID de la classe à détacher
+        $employer->classes()->detach($request->classe_id);
+
+        return redirect()->back()->with('success', 'Class successfully detached employee.');
     }
 
 
@@ -122,19 +209,30 @@ class EmployerController extends Controller
         $title = 'Show Employer';
 
         // Récupérer les départements depuis la base de données
-        // Utilisation de la pagination pour limiter le nombre d'enregistrements affichés par page (10 par exemple)
-        // Remarque : la méthode orderBy doit être appelée avant paginate
         $departments = Departement::all()->sortBy('name');
-
-        //Recuperation des cours de l'employer
-
-
         // Récupère tous les départements liés à cet employé
         $departements_lies = $employer->departements;
+        //nombre de departements lies
+        $count_department = $employer->departements()->count();
 
-        $count = $employer->departements()->count();
 
-        return view('employers.show', compact('title', 'employer', 'departments', 'count', 'departements_lies'));
+        // Récupérer les cours appartenant aux départements de l'employé
+        $departementIds = $employer->departements()->pluck('departements.id');
+        $courses = Cours::whereIn('departement_id', $departementIds)->get()->sortBy('name');
+        //Recuperation des cours de l'employer
+        $courses_lies = $employer->cours;
+        //nombre de cours lies
+        $count_course = $employer->cours()->count();
+
+
+        //Recuperer tous les classes dans la BD
+        $classes = Classe::all()->sortBy('name');
+        //Recuperer les classes lies a cet employer
+        $classes_lies = $employer->classes;
+        //nombre de classes lies
+        $count_class = $employer->classes()->count();
+
+        return view('employers.show', compact('title', 'employer', 'departments', 'count_department', 'departements_lies', 'courses', 'count_course', 'courses_lies', 'classes', 'count_class', 'classes_lies'));
     }
 
 

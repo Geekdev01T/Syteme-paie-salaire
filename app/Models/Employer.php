@@ -37,6 +37,26 @@ class Employer extends Model
         return $this->hasMany(EtatRetard::class);
     }
 
+    /**
+     * Les cours qui appartiennent a l'employe.
+     *
+     * @return BelongsToMany
+     */
+    public function cours(): BelongsToMany
+    {
+        return $this->belongsToMany(Cours::class, 'cours_employers', 'employer_id', 'cours_id');
+    }
+
+    /**
+     * Les classes qui appartiennent a l'employe.
+     *
+     * @return BelongsToMany
+     */
+    public function classes(): BelongsToMany
+    {
+        return $this->belongsToMany(Classe::class, 'classe_employers', 'employer_id', 'classe_id');
+    }
+
     //champs acceptés pour la création et la mise à jour
     protected $fillable = [
         'name',

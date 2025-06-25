@@ -46,7 +46,7 @@
                 <a class="flex-sm-fill text-sm-center nav-link" id="admins-intermittent-tab" href="#admins-intermittent"
                     data-bs-toggle="tab">Verified admins</a>
                 <a class="flex-sm-fill text-sm-center nav-link" id="admins-permanent-tab" data-bs-toggle="tab"
-                    href="#admins-permanent">No verified admins</a>
+                    href="#admins-permanent">Unverified admins</a>
             </nav>
 
 
@@ -73,10 +73,6 @@
                                                 </td>
                                                 <td class="cell">{{ $admin->email }}</td>
                                                 <td class="cell">
-                                                    <a class="btn-sm app-btn-secondary"
-                                                        href="{{ route('admin.show', $admin->id) }}">Show</a>
-                                                    <a class="btn-sm app-btn-secondary"
-                                                        href="{{ route('admin.edit', $admin->id) }}">Edit</a>
                                                     <form action="{{ route('admin.delete', $admin->id) }}"
                                                         method="POST" class="d-inline">
                                                         @csrf
@@ -130,10 +126,6 @@
                                                     <td class="cell">{{ $admin->email }}</td>
 
                                                     <td class="cell">
-                                                        <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('admin.show', $admin->id) }}">Show</a>
-                                                        <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('admin.edit', $admin->id) }}">Edit</a>
                                                         <form action="{{ route('admin.delete', $admin->id) }}"
                                                             method="POST" class="d-inline">
                                                             @csrf
@@ -149,18 +141,10 @@
 
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center">No intermittent admin found.
+                                                <td colspan="6" class="text-center">No verified admin found.
                                                 </td>
                                             </tr>
                                         @endforelse
-                                        {{-- @if ($empint == 0)
-                                            <tr>
-                                                <td colspan="6" class="text-center">No intermittent admine found.
-                                                </td>
-                                            </tr>
-                                        @endif --}}
-
-
                                     </tbody>
                                 </table>
                             </div>
@@ -191,10 +175,6 @@
                                                     </td>
                                                     <td class="cell">{{ $admin->email }}</td>
                                                     <td class="cell">
-                                                        <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('admin.show', $admin->id) }}">Show</a>
-                                                        <a class="btn-sm app-btn-secondary"
-                                                            href="{{ route('admin.edit', $admin->id) }}">Edit</a>
                                                         <form action="{{ route('admin.delete', $admin->id) }}"
                                                             method="POST" class="d-inline">
                                                             @csrf
@@ -210,16 +190,9 @@
 
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center">No permanent admin found.</td>
+                                                <td colspan="6" class="text-center">No unverified admin found.</td>
                                             </tr>
                                         @endforelse
-                                        {{-- @if ($empper == 0)
-                                            <tr>
-                                                <td colspan="6" class="text-center">No permanent admine found.</td>
-                                            </tr>
-                                        @endif --}}
-
-
                                     </tbody>
                                 </table>
                             </div>

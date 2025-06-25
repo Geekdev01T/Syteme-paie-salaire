@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Classe extends Model
 {
@@ -13,4 +14,13 @@ class Classe extends Model
         'name',
         'section'
     ];
+
+
+    /**
+     *Ls employeurs qui sont associés à cette classe.
+     */
+    public function employers(): BelongsToMany
+    {
+        return $this->belongsToMany(Employer::class, 'classe_employers', 'classe_id', 'employer_id');
+    }
 }
