@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classe;
+use App\Models\Cours;
 use App\Models\Departement;
 use App\Models\Employer;
+use App\Models\Salle;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,5 +27,8 @@ class DatabaseSeeder extends Seeder
 
         Departement::factory(10)->create();
         Employer::factory(10)->create();
+        Classe::factory(10)->create();
+        Salle::factory(10)->create();
+        Cours::factory(10)->create();
     }
 }

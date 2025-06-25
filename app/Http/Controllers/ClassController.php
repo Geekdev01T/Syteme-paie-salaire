@@ -42,6 +42,7 @@ class ClassController extends Controller
 
         Classe::create([
             'name' => $request->name,
+            'code' => $request->code,
             'section' => $request->section,
         ]);
 
@@ -77,12 +78,14 @@ class ClassController extends Controller
         // Validation des données
         $request->validate([
             'name' => 'required|string|min:3',
+            'code' => 'required|string|min:3',
             'section' => 'required',
         ]);
 
 
         //Mise a jour de la classe
         $class->name = $request->name;
+        $class->code = $request->code;
         $class->section = $request->section;
 
         $class->save();

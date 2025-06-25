@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->time('horaire');
+            $table->time('debut');
+            $table->time('fin');
+            $table->integer('duree')->default(0); // Durée en minutes
             $table->enum('type',['cours','TD']);
-            $table->foreignId('classe_id')->constrained()->onDelete('cascade');
+            $table->string('intitule', 255)->nullable();
             $table->foreignId('cours_id')->constrained()->onDelete('cascade');
+            $table->foreignId('classe_id')->constrained()->onDelete('cascade');
+            $table->foreignId('salle_id')->constrained()->onDelete('cascade');
             $table->foreignId('employer_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

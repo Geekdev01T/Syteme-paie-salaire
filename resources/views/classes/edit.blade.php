@@ -45,7 +45,14 @@
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
-
+                                <div class="mb-3">
+                                    <label for="code" class="form-label">Code *</label>
+                                    <input type="text" class="form-control" id="code" name="code"
+                                        placeholder="enter the class code" value="{{old('code') ?? $class->code }}">
+                                    @error('code')
+                                        <p class="text text-danger mt-2">{{ $message }}</p>
+                                    @enderror
+                                </div>
                                 <div class="mb-3">
                                     <label for="section" class="form-label">Section *</label>
                                     <select style="padding: .5em" class="form-control" name="section" id="section">

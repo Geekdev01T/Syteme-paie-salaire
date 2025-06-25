@@ -11,6 +11,8 @@ use App\Http\Controllers\StateController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LoginEmployeController;
 use App\Http\Controllers\NotifController;
+use App\Http\Controllers\ProgrammationController;
+use App\Http\Controllers\SalleController;
 use App\Http\Controllers\StateDelayController;
 use App\Http\Controllers\StateSheetController;
 // use App\Http\Middleware\IsAdmin;
@@ -92,6 +94,16 @@ Route::middleware('auth')->group(function () {
         Route::put('/update/{class}', [ClassController::class, 'update'])->name('class.update');
     });
 
+    //Groupes de routes pour les salles
+    Route::prefix('rooms')->group(function () {
+        Route::get('/', [SalleController::class, 'index'])->name('room.index');
+        Route::get('/create', [SalleController::class, 'create'])->name('room.create');
+        Route::post('/create', [SalleController::class, 'store'])->name('room.store');
+        Route::delete('/{room}', [SalleController::class, 'delete'])->name('room.delete');
+        Route::get('/edit/{room}', [SalleController::class, 'edit'])->name('room.edit');
+        Route::put('/update/{room}', [SalleController::class, 'update'])->name('room.update');
+    });
+
     //Groupes de routes pour les "etat" de presence
     Route::prefix('states')->group(function () {
         Route::get('/', [StateController::class, 'index'])->name('state.index');
@@ -131,24 +143,29 @@ Route::middleware('auth')->group(function () {
     //Route pour les notifications
     Route::get('/notifications', [NotifController::class, 'index'])->name('notifications.index');
 
-    // dd(Auth::user());
 
-    // if(Auth::user()->role !== 'admin') {
+
     //Groupes de routes pour les admins
-    // Route::middleware(IsAdmin::class)->prefix('admins')->group(function(){
-        Route::prefix('admins')->group(function () {
-            Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-            Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
-            Route::post('/create', [AdminController::class, 'store'])->name('admin.store');
-            Route::delete('/{user}', [AdminController::class, 'delete'])->name('admin.delete');
-            Route::get('/show/{user}', [AdminController::class, 'show'])->name('admin.show');
-            Route::get('/edit/{user}', [AdminController::class, 'edit'])->name('admin.edit');
-            Route::put('/update/{user}', [AdminController::class, 'update'])->name('admin.update');
-        });
-    // });
+    Route::prefix('admins')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/create', [AdminController::class, 'create'])->name('admin.create');
+        Route::post('/create', [AdminController::class, 'store'])->name('admin.store');
+        Route::delete('/{user}', [AdminController::class, 'delete'])->name('admin.delete');
+        Route::get('/show/{user}', [AdminController::class, 'show'])->name('admin.show');
+        Route::get('/edit/{user}', [AdminController::class, 'edit'])->name('admin.edit');
+        Route::put('/update/{user}', [AdminController::class, 'update'])->name('admin.update');
+    });
 
-    // }
-
+    //Groupes de routes pour les programmes
+    Route::prefix('programs')->group(function () {
+        Route::get('/', [ProgrammationController::class, 'index'])->name('program.index');
+        Route::get('/create', [ProgrammationController::class, 'create'])->name('program.create');
+        Route::post('/create', [ProgrammationController::class, 'store'])->name('program.store');
+        Route::delete('/{program}', [ProgrammationController::class, 'delete'])->name('program.delete');
+        Route::get('/show/{program}', [ProgrammationController::class, 'show'])->name('program.show');
+        Route::get('/edit/{program}', [ProgrammationController::class, 'edit'])->name('program.edit');
+        Route::put('/update/{program}', [ProgrammationController::class, 'update'])->name('program.update');
+    });
 });
 
 
@@ -163,6 +180,3 @@ Route::get('/login-employe', [LoginEmployeController::class, 'loginEmp'])->name(
 Route::post('/login-employe', [LoginEmployeController::class, 'handlelogin'])->name('login.employe');
 Route::get('/initialize-employe', [LoginEmployeController::class, 'initEmp'])->name('init.employe');
 Route::post('/initialize-employe', [LoginEmployeController::class, 'handleInitEmp'])->name('init.employe');
-
-
-
