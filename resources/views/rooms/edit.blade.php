@@ -2,19 +2,19 @@
 @extends('layout.template')
 
 @section('title-content')
-    <title> Edit - Room | StaffPay</title>
+    <title> Edit - Classroom | StaffPay</title>
 @endsection
 
 <body>
     @section('content')
         <div class="container-xl">
-            <h1 class="app-page-title">Rooms</h1>
+            <h1 class="app-page-title">Classrooms</h1>
 
             <hr class="mb-4">
             <div class="row g-4 settings-section">
                 <div class="col-12 col-md-2">
                     <h3 class="section-title">Edit</h3>
-                    <div class="section-intro">edit room here</div>
+                    <div class="section-intro">edit classroom here</div>
                 </div>
                 <div class="col-12 col-md-10">
                     <div class="app-card app-card-settings shadow-sm p-4">
@@ -53,7 +53,7 @@
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                
+
                                 <button type="submit" class="btn app-btn-primary">update</button>
                             </form>
                         </div><!--//app-card-body-->

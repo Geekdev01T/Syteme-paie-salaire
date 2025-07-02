@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attribution;
 use App\Models\Classe;
 use App\Models\Cours;
 use App\Models\Departement;
@@ -26,8 +27,21 @@ class ProgrammationController extends Controller
         //Récupérer les salles pour le formulaire
         $rooms = Salle::orderBy('name', 'asc')->get();
 
+        //
+        $currentYear = date('Y');
+        $currentMonth = date('n');
+        if ($currentMonth < 9) {
+            $academicYear = $currentYear - 1 . '-' . $currentYear;
+        } else {
+            $academicYear = $currentYear . '-' . ($currentYear + 1);
+        }
+
+        $attributions = Attribution::where('annee_academique', $academicYear)->orderBy('id', 'asc')->get();
+
+        // dd($attributions);
+
         // dd($employers, $courses, $classes);
 
-        return view('programs.create', compact('title', 'employes', 'courses', 'classes', 'rooms'));
+        return view('programs.create', compact('title', 'attributions', 'courses', 'classes', 'rooms'));
     }
 }

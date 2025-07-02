@@ -2,7 +2,7 @@
 @extends('layout.template')
 
 @section('title-content')
-    <title> Show - Employer | StaffPay</title>
+    <title> Show - Teachers | StaffPay</title>
 @endsection
 
 <body>
@@ -21,7 +21,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                <h1 class="app-page-title">Employer name : {{ $employer->name }}</h1>
+                <h1 class="app-page-title">Teacher name : {{ $employer->name }}</h1>
                 <div class="row gy-4">
                     <div class="col-12 col-lg-6">
                         <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">

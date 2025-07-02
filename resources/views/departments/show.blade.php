@@ -141,7 +141,7 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Employe</strong></div>
+                                                <div class="item-label"><strong>Teacher</strong></div>
                                                 <div class="item-data">
                                                     <a href="{{route('employer.show', $employe->id)}}">
                                                         {{ $employe->name }}

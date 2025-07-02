@@ -2,7 +2,7 @@
 @extends('layout.template')
 
 @section('title-content')
-    <title> List - Employes | StaffPay</title>
+    <title> List - Teachers | StaffPay</title>
 @endsection
 
 <body>
@@ -17,7 +17,7 @@
                     </div>
                 @endif
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Employes List</h1>
+                    <h1 class="app-page-title mb-0">Teachers List</h1>
                 </div>
                 <div class="col-auto">
                     <div class="page-utilities">
@@ -31,7 +31,7 @@
                                             d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
                                     </svg>
 
-                                    New Employee
+                                    New Teacher
                                 </a>
                             </div>
                         </div>
@@ -45,9 +45,9 @@
                 <a class="flex-sm-fill text-sm-center nav-link" id="employes-all-tab" data-bs-toggle="tab"
                     href="#employes-all">All</a>
                 <a class="flex-sm-fill text-sm-center nav-link" id="employes-intermittent-tab" href="#employes-intermittent"
-                    data-bs-toggle="tab">Intermittent Employees</a>
+                    data-bs-toggle="tab">Intermittent Teachers</a>
                 <a class="flex-sm-fill text-sm-center nav-link" id="employes-permanent-tab" data-bs-toggle="tab"
-                    href="#employes-permanent">Permanent Employees</a>
+                    href="#employes-permanent">Permanent Teachers</a>
             </nav>
 
 

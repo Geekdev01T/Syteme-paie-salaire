@@ -2,7 +2,7 @@
 @extends('layout.template')
 
 @section('title-content')
-    <title> Create - Employer | StaffPay</title>
+    <title> Create - Teachers | StaffPay</title>
 @endsection
 
 <body>
@@ -14,12 +14,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            <h1 class="app-page-title">Employees</h1>
+            <h1 class="app-page-title">Teachers</h1>
             <hr class="mb-4">
             <div class="row g-4 settings-section">
                 <div class="col-12 col-md-2">
                     <h3 class="section-title">Add</h3>
-                    <div class="section-intro">add a new employee here</div>
+                    <div class="section-intro">add a new teacher here</div>
                 </div>
                 <div class="col-12 col-md-10">
                     <div class="app-card app-card-settings shadow-sm p-4">

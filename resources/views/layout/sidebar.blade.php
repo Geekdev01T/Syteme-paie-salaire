@@ -10,7 +10,7 @@
                         src="{{ AppData::getAppData() && AppData::getAppData()->logo ? asset('storage/' . AppData::getAppData()->logo) : asset('images/logo.PNG') }}"
                         alt="logo">
                     <span class="logo-text"
-                        translate="no">{{ AppData::getAppData() && AppData::getAppData()->app_name ? AppData::getAppData()->app_name : 'STAFFPAY' }}</span>
+                        translate="no">{{ AppData::getAppData() && AppData::getAppData()->app_name ? AppData::getAppData()->app_name : 'STAFFSAL' }}</span>
                 </a>
 
             </div>
@@ -46,7 +46,7 @@
                                 </svg>
 
                             </span>
-                            <span class="nav-link-text">Employes</span>
+                            <span class="nav-link-text">Teachers</span>
                             <span class="submenu-arrow">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -60,13 +60,13 @@
                             <ul class="submenu-list list-unstyled">
                                 <li class="submenu-item"><a
                                         class="submenu-link {{ $title == 'List Employer' ? 'active' : '' }}"
-                                        href="{{ route('employer.index') }}">List
-                                        Employees</a>
+                                        href="{{ route('employer.index') }}">Teachers List
+                                        </a>
                                 </li>
                                 <li class="submenu-item"><a
                                         class="submenu-link {{ $title == 'Create Employer' ? 'active' : '' }}"
                                         href="{{ route('employer.create') }}">Add
-                                        Employee </a>
+                                        Teacher </a>
                                 </li>
                             </ul>
                         </div>
@@ -217,12 +217,12 @@
                             <span class="nav-icon">
                                 <!--//Hero Icons: https://heroicons.com -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
-                                        viewBox="0 0 24 24" class="bi">
-                                        <path fill="currentColor"
-                                            d="M4.5 20v-1h2V4h8v1h3v14h2v1h-3V6h-2v14zm3-15v14zm4 7.77q.31 0 .54-.23t.23-.54t-.23-.54t-.54-.23t-.54.23t-.23.54t.23.54t.54.23M7.5 19h6V5h-6z" />
-                                    </svg>
+                                    viewBox="0 0 24 24" class="bi">
+                                    <path fill="currentColor"
+                                        d="M4.5 20v-1h2V4h8v1h3v14h2v1h-3V6h-2v14zm3-15v14zm4 7.77q.31 0 .54-.23t.23-.54t-.23-.54t-.54-.23t-.54.23t-.23.54t.23.54t.54.23M7.5 19h6V5h-6z" />
+                                </svg>
                             </span>
-                            <span class="nav-link-text">Rooms</span>
+                            <span class="nav-link-text">Classrooms</span>
                             <span class="submenu-arrow">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -234,14 +234,15 @@
 
                         <div id="submenu-5" class="collapse submenu submenu-2" data-bs-parent="#menu-accordion">
                             <ul class="submenu-list list-unstyled">
-                                <li class="submenu-item"><a class="submenu-link {{ $title == 'Rooms List' ? 'active' : '' }}"
-                                        href="{{ route('room.index') }}">Rooms List
+                                <li class="submenu-item"><a
+                                        class="submenu-link {{ $title == 'Rooms List' ? 'active' : '' }}"
+                                        href="{{ route('room.index') }}">Classrooms List
                                     </a>
                                 </li>
                                 <li class="submenu-item"><a
                                         class="submenu-link {{ $title == 'Create Room' ? 'active' : '' }}"
                                         href="{{ route('room.create') }}">Add
-                                        Room </a>
+                                        Classroom </a>
                                 </li>
                             </ul>
                         </div>
@@ -249,7 +250,7 @@
 
                     <li class="nav-item has-submenu">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link submenu-toggle {{ str_contains($title, 'Program') ? 'active' : '' }}"
+                        <a class="nav-link submenu-toggle {{ str_contains($title, 'Program') || str_contains($title, 'Attribution') ? 'active' : '' }}"
                             href="#" data-bs-toggle="collapse" data-bs-target="#submenu-6" aria-expanded="false"
                             aria-controls="submenu-6">
                             <span class="nav-icon">
@@ -272,12 +273,20 @@
                         <div id="submenu-6" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
                             <ul class="submenu-list list-unstyled">
                                 <li class="submenu-item"><a
+                                        class="submenu-link {{ $title == 'Attribution' ? 'active' : '' }}"
+                                        href="{{ route('attribution.index') }}">Attributions List</a>
+                                </li>
+                                <li class="submenu-item"><a
                                         class="submenu-link {{ $title == 'Program' ? 'active' : '' }}"
-                                        href="{{ route('program.index') }}">Programgs List</a>
+                                        href="{{ route('program.index') }}">Programmings List</a>
+                                </li>
+                                <li class="submenu-item"><a
+                                        class="submenu-link {{ $title == 'Create Attribution' ? 'active' : '' }}"
+                                        href="{{ route('attribution.create') }}">Add Attribution</a>
                                 </li>
                                 <li class="submenu-item"><a
                                         class="submenu-link {{ $title == 'Create Program' ? 'active' : '' }}"
-                                        href="{{ route('program.create') }}">Add Program</a>
+                                        href="{{ route('program.create') }}">Add Programming</a>
                                 </li>
                             </ul>
                         </div>

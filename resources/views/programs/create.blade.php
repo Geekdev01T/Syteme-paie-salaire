@@ -30,53 +30,41 @@
                                 @csrf
 
                                 <div class="mb-3">
-                                    <label for="employer_id" class="form-label">employe *</label>
-                                    <select name="employer_id" id="employer_id" style="padding:0 .5em;" class="form-control">
-                                        @forelse ($employes as $employe)
-                                            <option value="{{ $employe->id }}"
-                                                {{ $employe->id == old('employer_id') ? 'selected' : '' }}>
-                                                {{ $employe->name }}
-                                            </option>
-                                        @empty
-                                            <option value="">No employes available</option>
-                                        @endforelse
-                                    </select>
-                                    @error('employer_id')
+                                    <label for="annee_academique" class="form-label">Academic Year *</label>
+                                    @php
+                                        $currentYear = date('Y');
+                                        $currentMonth = date('n');
+                                        if ($currentMonth < 9) {
+                                            $academicYear = $currentYear - 1 . '-' . $currentYear;
+                                        } else {
+                                            $academicYear = $currentYear . '-' . ($currentYear + 1);
+                                        }
+                                    @endphp
+                                    <input type="text" name="annee_academique" id="annee_academique" class="form-control"
+                                        value="{{ old('annee_academique', $academicYear) }}" readonly>
+                                    @error('annee_academique')
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="cours_id" class="form-label">Course *</label>
-                                    <select name="cours_id" id="cours_id" style="padding:0 .5em;" class="form-control">
-                                        @forelse ($courses as $course)
-                                            <option value="{{ $course->id }}"
-                                                {{ $course->id == old('cours_id') ? 'selected' : '' }}>{{ $course->name }}
+                                    <label for="attribution_id" class="form-label">attribution *</label>
+                                    <select name="attribution_id" id="attribution_id" style="padding:0 .5em;"
+                                        class="form-control">
+                                        @forelse ($attributions as $attribution)
+                                            <option value="{{ $attribution->id }}"
+                                                {{ $attribution->id == old('attribution_id') ? 'selected' : '' }}>
+                                                {{ $attribution->employer->name }} -> {{ $attribution->classe->name }} -> {{ $attribution->cours->name }}
                                             </option>
                                         @empty
-                                            <option value="">No courses available</option>
+                                            <option value="">No attributions available</option>
                                         @endforelse
                                     </select>
-                                    @error('cours_id')
+                                    @error('attribution_id')
                                         <p class="text text-danger mt-2">{{ $message }}</p>
                                     @enderror
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="classe_id" class="form-label">Class *</label>
-                                    <select name="classe_id" id="classe_id" style="padding:0 .5em;" class="form-control">
-                                        @forelse ($classes as $class)
-                                            <option value="{{ $class->id }}"
-                                                {{ $class->id == old('classe_id') ? 'selected' : '' }}>{{ $class->name }}
-                                            </option>
-                                        @empty
-                                            <option value="">No classes available</option>
-                                        @endforelse
-                                    </select>
-                                    @error('classe_id')
-                                        <p class="text text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
                                 <div class="mb-3">
                                     <label for="type" class="form-label">Type *</label>
                                     <select name="type" id="type" style="padding:0 .5em;" class="form-control">
@@ -90,7 +78,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="start_date" class="form-label">Start Date *</label>
+                                    <label for="start_date" class="form-label">Date *</label>
                                     <input type="date" class="form-control" id="start_date" name="start_date"
                                         value="{{ old('start_date') }}">
                                     @error('start_date')
@@ -114,14 +102,14 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="salle_id" class="form-label">Room *</label>
+                                    <label for="salle_id" class="form-label">Classroom *</label>
                                     <select name="salle_id" id="salle_id" style="padding:0 .5em;" class="form-control">
                                         @forelse ($rooms as $room)
                                             <option value="{{ $room->id }}"
                                                 {{ $room->id == old('salle_id') ? 'selected' : '' }}>{{ $room->name }}
                                             </option>
                                         @empty
-                                            <option value="">No rooms available</option>
+                                            <option value="">No classrooms available</option>
                                         @endforelse
                                     </select>
                                     @error('salle_id')

@@ -11,18 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('programmes', function (Blueprint $table) {
+        Schema::create('attributions', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->time('debut');
-            $table->time('fin');
-            $table->integer('duree')->default(0); // Durée en minutes
-            $table->enum('type',['cours','TD']);
-            $table->string('intitule', 255)->nullable();
+            $table->foreignId('employer_id')->constrained()->onDelete('cascade');
             $table->foreignId('cours_id')->constrained()->onDelete('cascade');
             $table->foreignId('classe_id')->constrained()->onDelete('cascade');
-            $table->foreignId('salle_id')->constrained()->onDelete('cascade');
-            $table->foreignId('employer_id')->constrained()->onDelete('cascade');
+            $table->string('annee_academique'); // ex: "2024-2025"
             $table->timestamps();
         });
     }
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('programmes');
+        Schema::dropIfExists('attributions');
     }
 };

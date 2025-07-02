@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\AttributionController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\CourseController;
@@ -44,8 +45,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [AppController::class, 'dashboard'])->name('dashboard');
 
-    //Groupes de routes pour les employes
-    Route::prefix('employers')->group(function () {
+    //Groupes de routes pour les enseignants
+    Route::prefix('teachers')->group(function () {
         Route::get('/', [EmployerController::class, 'index'])->name('employer.index');
         Route::get('/create', [EmployerController::class, 'create'])->name('employer.create');
         Route::post('/create', [EmployerController::class, 'store'])->name('employer.store');
@@ -95,7 +96,7 @@ Route::middleware('auth')->group(function () {
     });
 
     //Groupes de routes pour les salles
-    Route::prefix('rooms')->group(function () {
+    Route::prefix('classrooms')->group(function () {
         Route::get('/', [SalleController::class, 'index'])->name('room.index');
         Route::get('/create', [SalleController::class, 'create'])->name('room.create');
         Route::post('/create', [SalleController::class, 'store'])->name('room.store');
@@ -156,6 +157,18 @@ Route::middleware('auth')->group(function () {
         Route::put('/update/{user}', [AdminController::class, 'update'])->name('admin.update');
     });
 
+    //Groupes de routes pour les attributions de cours et classes
+    Route::prefix('attributions')->group(function () {
+        Route::get('/', [AttributionController::class, 'index'])->name('attribution.index');
+        Route::get('/create', [AttributionController::class, 'create'])->name('attribution.create');
+        Route::post('/create', [AttributionController::class, 'store'])->name('attribution.store');
+        Route::delete('/{attribution}', [AttributionController::class, 'delete'])->name('attribution.delete');
+        Route::get('/edit/{attribution}', [AttributionController::class, 'edit'])->name('attribution.edit');
+        Route::put('/update/{attribution}', [AttributionController::class, 'update'])->name('attribution.update');
+    });
+    Route::get('/teacher/{id}/cours', [AttributionController::class, 'getCours']);
+    Route::get('/teacher/{id}/classes', [AttributionController::class, 'getClasses']);
+
     //Groupes de routes pour les programmes
     Route::prefix('programs')->group(function () {
         Route::get('/', [ProgrammationController::class, 'index'])->name('program.index');
@@ -171,12 +184,12 @@ Route::middleware('auth')->group(function () {
 
 //Routes pour les pointages des employes
 
-Route::get('/verify-employe', [LoginEmployeController::class, 'verifyEmp'])->name('verify.employe');
-Route::post('/verify-employe', [LoginEmployeController::class, 'handleVerifyEmp'])->name('verify.employe');
-Route::get('/logout-employe', [LoginEmployeController::class, 'logoutEmp'])->name('logout.employe');
+Route::get('/verify-teacher', [LoginEmployeController::class, 'verifyEmp'])->name('verify.employe');
+Route::post('/verify-teacher', [LoginEmployeController::class, 'handleVerifyEmp'])->name('verify.employe');
+Route::get('/logout-teacher', [LoginEmployeController::class, 'logoutEmp'])->name('logout.employe');
 
 //Routes pour la connexion des employes
-Route::get('/login-employe', [LoginEmployeController::class, 'loginEmp'])->name('login.employe');
-Route::post('/login-employe', [LoginEmployeController::class, 'handlelogin'])->name('login.employe');
-Route::get('/initialize-employe', [LoginEmployeController::class, 'initEmp'])->name('init.employe');
-Route::post('/initialize-employe', [LoginEmployeController::class, 'handleInitEmp'])->name('init.employe');
+Route::get('/login-teacher', [LoginEmployeController::class, 'loginEmp'])->name('login.employe');
+Route::post('/login-teacher', [LoginEmployeController::class, 'handlelogin'])->name('login.employe');
+Route::get('/initialize-teacher', [LoginEmployeController::class, 'initEmp'])->name('init.employe');
+Route::post('/initialize-teacher', [LoginEmployeController::class, 'handleInitEmp'])->name('init.employe');
